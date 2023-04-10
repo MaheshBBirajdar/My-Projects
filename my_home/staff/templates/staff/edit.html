@@ -1,0 +1,21 @@
+{% extends 'app1/base.html' %}
+
+{% block content %}
+
+
+<style>
+  h2 {text-align: center;}
+</style>
+
+  <h2>Edit Data </h2>
+<div class="form-group">
+<form action="" method="POST" >
+	{% csrf_token %}
+	
+	{{ form.as_p }}
+
+<input type="submit" value='Update' >
+</form>
+</div>
+
+{% endblock %}

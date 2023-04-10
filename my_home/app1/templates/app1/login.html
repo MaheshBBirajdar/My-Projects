@@ -1,0 +1,20 @@
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+<h2> Login Here </h2>
+
+<form action="" method='POST'>
+
+	{% csrf_token%}
+	{{ form.as_p }}
+
+<input type='submit' value='Login'> 
+<h5> <a href="{% url 'home_page' %}">Back To Home</a> </h5>
+
+</form>
+
+
+{% endblock %}
+
+

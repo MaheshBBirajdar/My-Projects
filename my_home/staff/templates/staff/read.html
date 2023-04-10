@@ -1,0 +1,53 @@
+{% extends 'app1/base.html' %}
+{% block content %}
+
+<div class="container">
+
+<style>
+  h2 {text-align: center;}
+</style>
+
+  <h2>Employee List </h2>
+             
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>Sr.No</th>
+        <th>Firstname</th>
+        <th>Lastname</th>
+        <th>Email</th>
+        <th>Department</th>
+        <th>Role</th>
+        <th>Salary</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+
+  {% for each in data %}
+
+      <tr>
+        <td>{{forloop.counter}}</td>
+        <td>{{each.Ename}}</td>
+        <td>{{each.Elastname}}</td>
+        <td>{{each.Email}}</td>
+        <td>{{each.Edepart}}</td>
+        <td>{{each.Edesg}}</td>
+        <td>{{each.Epay}}</td>
+        <td>
+              <a href="{% url 'update' each.id  %}" class="btn btn-warning">Edit</a>
+
+              <form action="{% url 'delete' each.id %}" method='POST' class='d-inline'>{% csrf_token %}
+              <input type="submit" class="btn btn-danger" value="Delete">
+              </form>     
+        </td>
+
+  {% endfor %}
+
+      </tr> 
+    </tbody>
+  </table>
+  <a href="{% url 'create' %}"> Add Employee </a> 
+</div>
+
+{% endblock %}

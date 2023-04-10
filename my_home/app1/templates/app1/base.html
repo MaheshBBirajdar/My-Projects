@@ -1,0 +1,60 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Project</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="stylesheet" href="{% static 'bootstrap.min.css' %}">
+  <script src="{% static 'jquery.slim.min.js' %}"></script>
+  <script src="{% static 'popper.min.js' %}"></script>
+  <script src="{% static 'bootstrap.bundle.min.js' %}"></script>
+  
+</head>
+<body>
+
+<div class="container mt-5">
+  <h3 class="text-center alert alert-info">Welcome To Office</h3>
+ <nav class="navbar navbar-expand-sm bg-dark">
+  <ul class="navbar-nav">
+
+  {% if user.is_authenticated %}
+
+      <li> <a class="nav-link" href="{% url 'home_page' %}"> {{user.username}}</a></li>
+
+      <li> <a class="nav-link" href="{% url 'sign_out' %}"> SIGN OUT</a></li>
+
+      <li> <a class="nav-link" href="{% url 'create' %}"> CREATE DATA</a></li>
+
+      <li> <a class="nav-link" href="{% url 'view_all' %}"> READ DATA</a></li>
+
+  {% else %}
+
+      <li> <a class="nav-link" href="{% url 'sign_up' %}"> SIGN UP</a></li>
+
+      <li> <a class="nav-link" href="{% url 'sign_in' %}"> SIGN IN</a></li>
+
+  {% endif %}
+
+  </ul>
+  </nav>
+
+  {% block content %}
+  {% endblock %}
+
+{% if messages %}
+  {% for message in messages %}
+
+  <div class="alert alert-{{message.tags}}">
+     <strong> {{ message }} </strong> 
+  </div>
+
+  {% endfor %}
+  {% endif %}
+
+
+</div>
+
+</body>
+</html>
