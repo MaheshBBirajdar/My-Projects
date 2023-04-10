@@ -1,0 +1,15 @@
+{% extends 'base/first.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+<div class="container">
+  <h2>{{ user.username }}</h2>
+           
+  <img src="{{ user.profile.image.url }}" class="rounded-circle" alt="{{ user.username}}" width="304" height="236"> 
+   <p>Age : {{ user.profile.age }}</p>  
+    <p>Email : {{ user.email }}</p>  
+    <p> IP : {{ ip}} </p>
+</div>
+
+{% endblock %}

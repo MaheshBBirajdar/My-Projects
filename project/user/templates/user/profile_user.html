@@ -1,0 +1,10 @@
+{% extends 'base/first.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+<h2> Hello {{ user.username}} you are exploering the profile of {{ user1.username }} </h2>
+
+<h4> Email : {{ user1.email }} </h4>
+
+{% endblock %}

@@ -1,0 +1,40 @@
+{% extends 'base/first.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+<div class = 'container'>
+
+<h2> Upload your Photos </h2>
+
+<form action="" method= "POST" enctype='multipart/form-data' >
+	{% csrf_token %}
+
+{% for form in form %}
+
+{{ form.tag_levels }}  {{ form }} {{ form.errors }}
+
+{% endfor %}
+
+<input type="submit" value="submit" >
+
+</form>
+</div>
+
+
+<div class = 'container'>
+<div class = 'row'>
+
+{% for img in galpic %}
+
+<div class='col-md-4 col-sm-6'>
+<div class='thumbnail border border-secondary'>
+ <img src="{{ img.multipleimg.url }}" height='200'>
+ </div>
+ </div>
+ {% endfor %}
+ </div>
+ </div>
+
+
+{% endblock %}
