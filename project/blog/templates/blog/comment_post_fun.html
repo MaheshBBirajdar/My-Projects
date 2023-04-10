@@ -1,0 +1,76 @@
+{% extends 'base/first.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+
+<div class="container mt-3">
+ 
+  <div class="media border p-3">
+    <img src="{{ post.author.profile.image.url }}" alt="blogpost" class="mr-3 mt-3 rounded-circle" style="width:60px;">
+
+    <div class="media-body">
+      <h4>{{ post.author.username }}<small><i>{{ post.date1 }}</i></small>
+
+    {% if post.author == user %}
+
+      <a  type="button" class="btn btn-outline-primary" href="{% url 'cls-post-update' post.id %}"> Update </a>
+
+      <a  type="button" class="btn btn-outline-primary" href="{% url 'cls-post-delete' post.id %}"> Delete </a>
+
+      {% endif %}   
+       </h4>
+
+      <h4> {{ post.title }} </h4>
+      <p>{{ post.content }}</p>  
+      <a href="{% url 'cls-other-user-view' post.author.id %}">See the post of this user </a>
+
+
+{% for c1 in comments %}
+
+  {% if user == post.author or c1.approved_comment %}
+
+    <div class="media p-3">
+            <img src="{{ c1.author.profile.image.url }}" alt="" class="mr-3 mt-3 rounded-circle" style="width:45px;">
+
+            <div class="media-body">
+              <h4>{{ c1.author.username }}<small><i>{{ c1.create_date }}</i></small></h4>
+
+              <p>{{ c1.content }}</p>
+            
+            </div>
+           
+        {% if not c1.approved_comment %}
+
+        <a class="btn btn-primary"  href="{% url 'fun-post-approve' c1.id %}"> Approve </a>
+
+         {% endif %}
+
+    </div>
+
+  {% endif %}
+
+{% endfor %}
+
+   </div>
+  </div>
+</div>
+
+
+<div class="container mt-3">
+
+      <h3> Write Your Comment </h3>
+
+      <form action="" method= "POST" >
+        {% csrf_token %}
+
+        {{ form|crispy }} 
+
+      <input type="submit" value="submit" >
+
+      </form>
+
+</div>
+
+
+{% endblock %}

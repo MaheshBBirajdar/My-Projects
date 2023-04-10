@@ -1,0 +1,22 @@
+{% extends 'base/first.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+<div class = 'container'>
+
+<h2> Do u want to delete this Post </h2>
+
+<form action="" method= "POST" >
+	{% csrf_token %}
+
+	{{ form|crispy }}	
+
+<button type="submit" class="btn btn-danger"  > Yes, Delete </button> 
+
+</form>
+
+</div>
+
+
+{% endblock %}

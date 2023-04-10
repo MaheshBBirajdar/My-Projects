@@ -1,0 +1,32 @@
+{% extends 'base/first.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+
+<div class="container mt-3">
+ 
+  <div class="media border p-3">
+    <img src="{{ post.author.profile.image.url }}" alt="blogpost" class="mr-3 mt-3 rounded-circle" style="width:60px;">
+
+    <div class="media-body">
+      <h4>{{ post.author.username }}<small><i>{{ post.date1 }}</i></small>
+
+    {% if post.author == user %}
+
+      <a  type="button" class="btn btn-outline-primary" href="{% url 'cls-post-update' post.id %}"> Update </a>
+
+      <a  type="button" class="btn btn-outline-primary" href="{% url 'cls-post-delete' post.id %}"> Delete </a>
+
+      {% endif %}   
+       </h4>
+
+      <h4> {{ post.title }} </h4>
+      <p>{{ post.content }}</p>  
+      
+
+    </div>
+  </div>
+</div>
+
+{% endblock %}
