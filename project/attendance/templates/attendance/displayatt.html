@@ -1,0 +1,37 @@
+{% extends 'base/first.html' %}
+
+{% block content %}
+	
+
+ <table class="table table-dark">
+    <thead>
+
+    <tr>
+      <th> SR.NO.</th>
+      <th> UID</th>
+      <th> NAME </th>
+        <th>SUBJECT</th>  
+        <th>DATE</th>
+    </tr>
+
+    </thead>
+
+    <tbody>
+
+    {% for each in data %}
+
+    <tr>
+      <td>{{ forloop.counter }} </td> 
+        <td>{{ each.uid}}</td>
+        <td>{{ each.uid.stuname }}</td>
+        <td>{{ each.subject_name }}</td>
+        <td>{{ each.date1 }}</td> 
+        
+       {% endfor %}     
+    </tr>
+
+    </tbody>
+  </table>
+</div>
+
+ {% endblock %}

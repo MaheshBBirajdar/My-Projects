@@ -1,0 +1,17 @@
+{% extends 'base/first.html' %}
+
+{% block content %}
+
+{% for post in datas %}
+
+<div class="alert alert-info">
+<p> Subject : {{ post.Subject }} </p>
+<h1> {{ post.Title }} </h1>
+<h4> Author : {{ post.Author }} </h4>
+
+</div> 
+
+
+
+{% endfor %}
+{% endblock %}

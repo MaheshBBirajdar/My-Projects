@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+
+<html>
+
+	<head>
+		<title>
+		{% if title %}
+			{{ title }}
+
+		{% else %}
+			project1
+
+		{% endif %}
+
+
+		 </title>
+	</head>
+
+<body>
+
+	<h1> Hello {{ name | truncatechars:3 }} </h1>
+
+</body>
+
+</html>

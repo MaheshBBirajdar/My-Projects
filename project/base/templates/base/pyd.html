@@ -1,0 +1,40 @@
+{% extends 'base/first.html' %}
+
+{% block content %}
+
+
+<html>
+
+<head>
+
+	<title> 
+			{% if title %}
+			{{ title }}
+
+			{% else %}
+			 PD 
+
+			{% endif %}
+
+	 </title>
+
+</head>
+
+	<body>
+		<div class = 'container' >
+		<h2> {{legend}} </h2>
+
+		<form action = "" method="POST" >
+			 {% csrf_token %} 
+			 {{ forms.as_p }}
+
+		<input type="Submit" value='Submit'> 
+		</form>
+		</div>
+
+	</body>
+
+</html>
+
+
+{% endblock %}
