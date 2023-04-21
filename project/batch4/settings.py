@@ -110,6 +110,7 @@ pymysql.install_as_MySQLdb()
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
 
 '''
+
 # Memcache 
 CACHES = {
     'default': {
@@ -140,6 +141,17 @@ CACHES = {
         'BACKEND': 'django.core.cache.backends.filebased.FileBasedCache',
         'LOCATION': '/path/to/django_cache', 
                    # for windows users: 'c:/path/to/django_cache'
+    }
+}
+
+# Redis Cached
+CACHES = {
+    'default': {
+        'BACKEND': 'django_redis.cache.RedisCache',
+        'LOCATION': 'redis://127.0.0.1:6379/1',
+        'OPTIONS': {
+            'CLIENT_CLASS': 'django_redis.client.DefaultClient',
+        }
     }
 }
 
