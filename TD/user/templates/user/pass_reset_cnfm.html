@@ -1,0 +1,19 @@
+{% extends "user/base.html" %}
+
+{% block content %}
+
+<div class = 'container'>
+
+    <h3>Confirm Your Password </h3>
+    
+    <form action="" method= "POST" >
+        {% csrf_token %}
+    
+        {{ form|crispy }}	
+    
+    <input type="submit" value="submit" >
+    
+    </form>
+    
+    </div>
+    {% endblock %}
