@@ -1,0 +1,31 @@
+{% extends "user/base.html" %}
+
+{% block content %}
+
+<h5 class = 'alert alert-success'>ISSUE SHOT TO ARTIST !</h5>
+
+<p> 
+    <div class="signup-form">
+        <form  method="post" class="form-horizontal">
+
+            {% csrf_token %}
+            {% for field in form %}
+                <div class="form-group">
+                    <label class="control-label col-xs-4">{{ field.label_tag }}</label>
+                        <div class="col-xs-8">
+                            {{ field }}
+                        </div>
+                </div>
+            {% endfor %}
+
+                <div class="form-group">
+                    <div class="col-xs-8 col-xs-offset-4">
+                        <button type="submit" class="btn btn-info ">ISSUE</button>
+                        <a href = "{% url 'all_shot1' %}" type="submit" class="btn btn-secondary">Go Back </a> 
+                    </div>
+                </div>
+        </form>
+    </div>
+</p>
+
+{% endblock %}

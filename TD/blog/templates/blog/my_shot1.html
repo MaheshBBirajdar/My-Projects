@@ -1,0 +1,93 @@
+{% extends "user/base.html" %}
+
+{% block content %}
+
+<style>
+    h3 {
+      text-align: center;
+      color: green;
+      
+    }
+</style>
+
+<div style="width: 1000px; left: 0;">
+<h3>My Task</h3>
+</div>
+
+<div style="width: 1300px; left: 0;">
+          
+    <table class="table" id="table">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">Sr.No</th>
+                <th scope="col">Artist </th>
+                <th scope="col">Project_Name </th>
+                <th scope="col">Shot_Number </th>
+                <th scope="col">Task_Assign </th>
+                <th scope="col">Work_Discription </th>
+                <th scope="col">Date_Started</th>
+                <th scope="col">Work_Status</th>
+                <th scope="col">Date_Completed</th>
+                <th scope="col">Action</th>
+            </tr>
+        </thead>
+    
+      <tbody>
+        {% for shot in myshots %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ shot.supervisor }}</td>
+                <td>{{ shot.project_name }}</td>
+                <td>{{ shot.shot_number }}</td>
+                <td>{{ shot.task_assign }}</td>
+                <td>{{ shot.work_description }}</td>
+                <td>{{ shot.date_started  }}</td>
+                <td>{{ shot.work_status }}</td>
+                <td>{{ shot.date_completed  }}</td>
+                <td class="text-right row">
+
+                    <div class="col-md-6 custom"> 
+                        <a href="{% url 'edit_shot1' shot.id %}"><button type="button" class="btn btn-outline-success btn-sm">Edit</button></a>
+                    </div>
+
+                    <div class="col-md-6 custom"> 
+                        <a href="{% url 'delete_shot1' shot.id %}"><button type="button" class="btn btn-outline-danger btn-sm">Delete</button></a>  
+                    </div>
+                     
+                </td>
+            </tr> 
+        {% endfor %}
+      </tbody>
+    </table>
+    </div>
+
+<h4><a class="btn btn-success btn-sm" href="{% url 'add_shot1' %}">Add Shot</a>
+<a href="{% url 'all_shot1' %}"><button type="button" class="btn btn-secondary btn-sm">Go Back</button></a></h4>
+
+    
+    <script>
+            function changeColor()
+        {
+            var table = document.getElementById("table"); // Get the table element by its ID
+            var cells = table.getElementsByTagName("td"); // Get all the cells in the table
+            
+            for (var i = 0; i < cells.length; i++) { // Loop through each cell
+            var cell = cells[i];
+            var text = cell.innerText.toLowerCase(); // Get the text of the cell, converted to lowercase for easier comparison
+            
+            if (text.includes("not started")) { // If the text includes the word "red"
+                cell.style.backgroundColor = "red"; // Change the background color to red
+            } else if (text.includes("in process")) { // If the text includes the word "blue"
+                cell.style.backgroundColor = "orange"; // Change the background color to blue
+            } else if (text.includes("completed")) { // If the text includes the word "green"
+                cell.style.backgroundColor = "green"; // Change the background color to green
+            }
+            }
+        }
+        changeColor();
+
+    </script> 
+       
+
+{% endblock content %}
+

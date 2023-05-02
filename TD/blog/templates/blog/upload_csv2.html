@@ -1,0 +1,33 @@
+
+{% extends "user/base.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+    <head>
+        <meta charset="UTF-8">
+        <title>Import Excel</title>
+    </head>
+    
+    <body>
+        <div class="row">
+            <div class="col-sm-60  mx-auto">
+                <div class="card card-signin my-5">
+                    <div class="card-body">
+                        {% if message %}
+                            <p>{{ message }}</p>
+                        {% endif %}
+                        <form method="post" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <label for="excel_file">Excel file :</label>
+                            <input type="file" name="excel_file" id="excel_file">
+                            <br><br>
+                            <input class='btn btn-info' type="submit" value="Import">
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+
+{% endblock %}

@@ -1,0 +1,21 @@
+{% extends "user/base.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+      <div class="row">
+        <div class="col-sm-60  mx-auto">
+          <div class="card card-signin my-5">
+            <div class="card-body">
+                <h2>Upload file</h2>
+                  <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <input type="file" name="file" accept=".xlsx">
+                    <button type="submit">Upload</button>
+                  </form>
+            </div>
+          </div>
+        </div>
+      </div>
+            
+{% endblock %}
