@@ -42,7 +42,8 @@ INSTALLED_APPS = [
     'user.apps.UserConfig',
     'crispy_forms',
     'blog.apps.BlogConfig',
-    'import_export', 
+    'import_export',
+    'sample.apps.SampleConfig',
 
     'allauth',
     'allauth.account',
