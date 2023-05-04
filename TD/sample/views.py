@@ -52,7 +52,11 @@ class PostRUDView(RetrieveUpdateDestroyAPIView):
             raise PermissionDenied("You do not have permission to update this post.")
         serializer.save()
 
-
+    def perform_destroy(self, serializer):
+        if self.request.user != serializer.owner:
+            raise PermissionDenied("You do not have permission to delete this post.")
+        serializer.delete()
+        
 ##################################################################
 
 class LikeListView(ListAPIView):
