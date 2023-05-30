@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head>
+        <style>
+
+        .department-name {
+        display: inline-block;
+        margin-right: 10px; /* Adjust the value as per your preference */
+        }
+
+        </style>
+    </head>
+
+<body> 
+    {% include "user/navbaradmin.html" %}
+
+    <div class="container">
+        <br><br><br>
+        <h3 class="p-3 mb-2 bg-primary text-white" style = 'font-size: 20px;text-align:center;'>Here you will see All Feedback</h3><br>
+
+        {% if feedbacks_by_department %}
+            {% for department, feedbacks in feedbacks_by_department.items %}
+                <div class="media border p-3">
+                        <ul> 
+                            <h4><span class="department-name">{{ department }}</span></h4>
+                            <div class="media-body">
+                                {% for i in feedbacks %}
+                                    {{forloop.counter}})
+                                    <h6><span> Date Posted : {{ i.date_posted }}</span>
+                                        <a href="{% url 'deletefeedback' i.id %}" class="delete-button">
+                                            <button type="button" class="btn btn-outline-danger btn-sm">Delete</button></a>
+                                    </h6>
+                                    <h6>Project Name : {{ i.project_name }}</h6>
+                                    <h6>Shot Name : {{ i.shot_name }}</h6>
+                                    <h6>Content : {{ i.content | truncatewords:25 }}</h6>
+                                    <h6>Artist : {{ i.sender}}</h6>
+                                    <br>
+                                {% endfor %}
+                            </div>
+                        </ul>
+                </div><br>
+            {% endfor %}
+        {% else %}
+            <h5> 0 Feedback Available</h5>
+        {%endif%}
+    </div>
+</body>
+</html>

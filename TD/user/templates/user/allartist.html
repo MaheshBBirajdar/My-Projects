@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+
+    <style media="screen">
+        table.redTable {
+        border: 2px solid #8508a4;
+        background-color: #EEE7DB;
+        width: 100%;
+        text-align: center;
+        border-collapse: collapse;
+        }
+        table.redTable td, table.redTable th {
+        border: 1px solid #AAAAAA;
+        padding: 3px 2px;
+        }
+        table.redTable tbody td {
+        font-size: 13px;
+        }
+        table.redTable tr:nth-child(even) {
+        background: #F5C8BF;
+        }
+        table.redTable thead {
+        background: #504a4a;
+        }
+        table.redTable thead th {
+        font-size: 19px;
+        font-weight: bold;
+        color: #FFFFFF;
+        text-align: center;
+        border-left: 2px solid #b8b0b0;
+        }
+        table.redTable thead th:first-child {
+        border-left: none;
+        }
+
+        table.redTable tfoot {
+        font-size: 13px;
+        font-weight: bold;
+        color: #FFFFFF;
+        background: #6e5555;
+        }
+        table.redTable tfoot td {
+        font-size: 13px;
+        }
+        table.redTable tfoot .links {
+        text-align: right;
+        }
+        table.redTable tfoot .links a{
+        display: inline-block;
+        background: #FFFFFF;
+        color: #fabdbd;
+        padding: 2px 8px;
+        border-radius: 5px;
+        }
+        </style>
+  </head>
+  <body>
+    {% include "user/navbaradmin.html" %}
+    <br>
+    <br>
+    <h5 class="p-3 mb-2 bg-primary text-white" style = 'font-size: 20px;text-align:center;'>Artist registered in System !</h5>
+
+    <table class="redTable" id="table">
+            <thead>
+                <tr>
+                    <th>Sr. No.</th>
+                    <th>Employee ID</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Department</th>
+                    <th>Designation</th>
+                    <th>Reporting</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {% for s in artists %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ s.aid }}</td>
+                        <td>{{ s.get_name }}</td>
+                        <td>{{ s.user.email }}</td>
+                        <td>{{ s.department }}</td>
+                        <td>{{ s.designation }}</td>
+                        <td>{{ s.reporting }}</td>
+                        <td>
+                            <a href="{% url 'editartist' s.id %}"><button type="button" class="btn btn-outline-success btn-sm">Edit</button></a> 
+                            <a href="{% url 'deleteartist' s.id %}"><button type="button" class="btn btn-outline-danger btn-sm">Delete</button></a> 
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+  </body>
+</html>
