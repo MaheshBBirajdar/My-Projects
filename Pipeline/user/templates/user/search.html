@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head>
+        <style media="screen">
+        table.redTable {
+        border: 2px solid #8508a4;
+        background-color: #EEE7DB;
+        width: 100%;
+        text-align: center;
+        border-collapse: collapse;
+        }
+        table.redTable td, table.redTable th {
+        border: 1px solid #AAAAAA;
+        padding: 3px 2px;
+        }
+        table.redTable tbody td {
+        font-size: 13px;
+        }
+        table.redTable tr:nth-child(even) {
+        background: #F5C8BF;
+        }
+        table.redTable thead {
+        background: #504a4a;
+        }
+        table.redTable thead th {
+        font-size: 19px;
+        font-weight: bold;
+        color: #FFFFFF;
+        text-align: center;
+        border-left: 2px solid #b8b0b0;
+        }
+        table.redTable thead th:first-child {
+        border-left: none;
+        }
+
+        table.redTable tfoot {
+        font-size: 13px;
+        font-weight: bold;
+        color: #FFFFFF;
+        background: #6e5555;
+        }
+        table.redTable tfoot td {
+        font-size: 13px;
+        }
+        table.redTable tfoot .links {
+        text-align: right;
+        }
+        table.redTable tfoot .links a{
+        display: inline-block;
+        background: #FFFFFF;
+        color: #fabdbd;
+        padding: 2px 8px;
+        border-radius: 5px;
+        }
+        </style>
+    </head>
+
+  <body>
+    {% include "user/navbaradmin.html" %}
+    <br>
+    <br>
+    <br>
+
+        {% if shots %}
+            <table class="redTable" id="table">
+                <thead>
+                    <tr>
+                        <th>Sr.No</th>
+                        <th>Project_Name </th>
+                        <th>Shot_Name </th>
+                        <th>Work_Discription </th>
+                        <th>Date_Posted</th>
+                        <th>Deadline</th>
+                        <th>Work_Status</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                {% for shot in shots %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ shot.project_name }}</td>
+                        <td>{{ shot.shot_name }}</td>
+                        <td>{{ shot.work_description }}</td>
+                        <td>{{ shot.date_started  }}</td>
+                        <td>{{ shot.eta  }}</td>
+                        <td>{{ shot.work_status}}</td>
+                        <td>
+                            <div>
+                                <a href="{% url 'editshot' shot.id %}"><button type="button" class="btn btn-outline-success btn-sm">Edit</button></a> 
+                                <a href="{% url 'deleteshot' shot.id %}"><button type="button" class="btn btn-outline-danger btn-sm">Delete</button></a> 
+                            </div>
+                        </td>
+
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <h4> Shots Not Available </h4>
+        {% endif %}
+
+        
+            <script>
+                function changeColor()
+            {
+                var table = document.getElementById("table"); // Get the table element by its ID
+                var cells = table.getElementsByTagName("td"); // Get all the cells in the table
+                
+                for (var i = 0; i < cells.length; i++) { // Loop through each cell
+                var cell = cells[i];
+                var text = cell.innerText.toLowerCase(); // Get the text of the cell, converted to lowercase for easier comparison
+                
+                if (text.includes("yts")) { // If the text includes the word "red"
+                    cell.style.backgroundColor = "red"; // Change the background color to red
+                } else if (text.includes("wip")) { // If the text includes the word "blue"
+                    cell.style.backgroundColor = "orange"; // Change the background color to blue
+                } else if (text.includes("done")) { // If the text includes the word "green"
+                    cell.style.backgroundColor = "green"; // Change the background color to green
+                }
+                }
+            }
+            changeColor();
+            </script>     
+  </body>
+</html>
+
+
+            
+
+            

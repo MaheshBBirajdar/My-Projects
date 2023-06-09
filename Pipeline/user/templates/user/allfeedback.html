@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head>
+        <style>
+
+        .department-name {
+        display: inline-block;
+        margin-right: 10px; /* Adjust the value as per your preference */
+        }
+
+        </style>
+    </head>
+
+<body> 
+    {% include "user/navbaradmin.html" %}
+
+   
+        <br><br>
+        <h3 class="p-3 mb-2 bg-primary text-white" style = 'font-size: 20px;text-align:center;'>Here you will see All Work Status</h3>
+  
+        {% if feedbacks_by_department %}
+            {% for department, feedbacks in feedbacks_by_department.items %}
+                <div class="media border p-3">
+                        <ul> 
+                            <h4><span class="department-name"><b><ins>{{ department | upper }}</ins></b></span></h4>
+                            <div class="media-body">
+                                {% for i in feedbacks %}
+                                    <b>{{forloop.counter}}) {{ i.sender1 }}</b>
+
+                                    <h6><span> Date Posted : <b> {{ i.date_posted }}</b></span>
+                                        <a href="{% url 'deletefeedback' i.id %}" class="delete-button">
+                                        <button type="button" class="btn btn-outline-danger btn-sm">Delete</button></a>
+                                    </h6>
+
+                                    <h6>Project Name : <b>{{ i.project_name }}</b></h6>
+                                    <h6>Shot Name : <b>{{ i.shot_name }}</b></h6>
+                                    <h6>Status:
+                                        <b>
+                                            {% if i.work_status == "WIP" %}
+                                                <span style="color: orange;">{{ i.work_status }}</span>
+                                            {% elif i.work_status == "YTS" %}
+                                                <span style="color: red;">{{ i.work_status }}</span>
+                                            {% elif i.work_status == "DONE" %}
+                                                <span style="color: green;">{{ i.work_status }}</span>
+                                            {% else %}
+                                                {{ i.work_status }}
+                                            {% endif %}
+                                        </b>
+                                    </h6>
+                                    <h6>Content : <b>{{ i.content | truncatewords:25 }}</b></h6>
+                                    <br>
+                                {% endfor %}
+                            </div>
+                        </ul>
+                </div>
+            {% endfor %}
+        {% else %}
+            <h4>  Work Status Not Available</h4>
+        {%endif%}
+    </div>
+</body>
+</html>
