@@ -1,0 +1,39 @@
+{% extends "user/base.html" %}
+
+{% block content %}
+
+    <h3>Lists of Artist</h3>
+    
+    <table class="table">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">Sr.No</th>
+                <th scope="col">Artist </th>
+                <th scope="col">Email </th>
+                <th scope="col">ID </th>
+                <th scope="col">Department </th>
+                <th scope="col">Designation </th>
+                <th scope="col">Reporting_Person</th>
+            </tr>
+        </thead>
+    
+      <tbody>
+        {% for i in users  %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ i.username }}</td>
+                <td>{{ i.email }}</td>  
+                <td>{{ i.uid }}</td>
+                <td>{{ i.department }}</td>
+                <td>{{ i.designation }}</td>
+                <td>{{ i.reporting }}</td>   
+            </tr> 
+        {% endfor %}
+      </tbody>
+    </table>
+
+    <a class="btn btn-secondary" href="{% url 'all_shot1' %}">Go to Back</a></h4>
+    <a class="btn btn-info" href="#">Add Artist</a></h4>
+
+{% endblock content %}
+
