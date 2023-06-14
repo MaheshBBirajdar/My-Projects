@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head>
+        <style media="screen">
+        table.redTable {
+        border: 2px solid #8508a4;
+        background-color: #EEE7DB;
+        width: 100%;
+        text-align: center;
+        border-collapse: collapse;
+        }
+        table.redTable td, table.redTable th {
+        border: 1px solid #AAAAAA;
+        padding: 3px 2px;
+        }
+        table.redTable tbody td {
+        font-size: 15px;
+        }
+        table.redTable tr:nth-child(even) {
+        background: #F5C8BF;
+        }
+        table.redTable thead {
+        background: #504a4a;
+        }
+        table.redTable thead th {
+        font-size: 19px;
+        font-weight: bold;
+        color: #FFFFFF;
+        text-align: center;
+        border-left: 2px solid #b8b0b0;
+        }
+        table.redTable thead th:first-child {
+        border-left: none;
+        }
+
+        table.redTable tfoot {
+        font-size: 13px;
+        font-weight: bold;
+        color: #FFFFFF;
+        background: #6e5555;
+        }
+        table.redTable tfoot td {
+        font-size: 13px;
+        }
+        table.redTable tfoot .links {
+        text-align: right;
+        }
+        table.redTable tfoot .links a{
+        display: inline-block;
+        background: #FFFFFF;
+        color: #fabdbd;
+        padding: 2px 8px;
+        border-radius: 5px;
+        }
+     
+        .search-container {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        }   
+
+        .search-container form {
+        display: flex;
+        align-items: center;
+        }
+
+        .search-container input,
+        .search-container button {
+        margin-left: 10px;
+        }
+
+        .description-cell {
+        max-width: 300px; 
+        word-wrap: break-word;
+        }
+
+        .import-data {
+        margin-right: auto;
+        }
+
+        </style>
+    </head>
+
+  <body>
+    {% include "user/navbaradmin.html" %}
+    <br>
+    <br>
+    <h3 class="p-3 mb-2 bg-primary text-white" style = 'font-size: 20px;text-align:center;'>All Shot</h3>
+                
+        {% if shots%}
+                
+
+            <table class="redTable" id="table">
+                <thead>
+                    <tr>
+                        <th>Sr.No</th>
+                        <th>Project Name </th>
+                        <th>Shot Name </th>
+                        <th>Scope of Work </th>
+                        <th>Date Posted</th>
+                        <th>TGT Date</th>
+                        <th>Shot Status</th>
+                        <th>Assign to</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                {% for shot in shots %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ shot.project_name }}</td>
+                        <td>{{ shot.shot_name }}</td>
+                        <td class="description-cell">{{ shot.work_description }}</td>
+                        <td>{{ shot.date_started | date:"d/m/Y"  }}</td>
+                        <td>{{ shot.eta | date:"d/m/Y"  }}</td>
+                        <td class="{% if shot.work_status == 'WIP' %}orange{% elif shot.work_status == 'YTS' %}red{% elif shot.work_status == 'DONE' %}green{% endif %}">
+                            {{ shot.work_status }}
+                          </td>
+                        <td>
+                            <div>                       
+                                <!-- <a href="{% url 'editshot' shot.id %}"><button type="button" class="btn btn-outline-success btn-sm">Edit</button></a>  -->
+                                <a href="{% url 'deleteshot' shot.id %}"><button type="button" class="btn btn-outline-danger btn-sm">Remove</button></a> 
+                                <a href="{% url 'issueshot' %}"><button type="button" class="btn btn-outline-primary btn-sm">Assign to artist</button></a>
+                                <!-- <button class="btn btn-outline-success btn-sm" onclick="edit()">Edit</button>  -->
+                            </div>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <h4> Shots Not Available </h4>
+        {%endif%}
+
+   
+  </body>
+</html><br>

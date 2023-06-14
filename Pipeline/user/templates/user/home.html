@@ -1,0 +1,52 @@
+{% extends "user/base.html" %}
+
+{% block content %}
+
+
+<style>
+    h4 {
+      text-align: center;
+      color: rgb(255, 192, 241);
+      
+    }
+
+    h5 {
+      text-align: center;
+      color: rgb(191, 98, 235);
+      
+    }
+    </style> 
+
+
+    <div class="row">
+      <div class="col-sm-60  mx-auto">
+        <div class="card card-signin my-5">
+          <div class="card-body">
+            <h5 class="text-center">Welcome {{user.username}} !</h5>
+                <!-- <p>  
+                  <form action="" method="POST" enctype="multipart/form-data"> 
+                        {% csrf_token %}
+                       
+                        <div class="form-group">
+                            <label for="name" class="col-md-3 col-sm-3 col-xs-12 control-label">File: </label>
+                            <div class="col-md-10">
+                                <input type="file" name="csv_file" id="csv_file" required="True" class="form-control">
+                            </div>                    
+                        </div>
+                        
+                        <div class="form-group">                    
+                            <div class="col-md-3 col-sm-3 col-xs-12 col-md-offset-3" style="margin-bottom:10px;">
+                                <button class="btn btn-primary"> <span class="glyphicon glyphicon-upload" style="margin-right:5px;"></span>Upload </button>
+                            </div> 
+                        </div>
+                  </form>
+              </p> -->
+          </div>
+        </div>
+      </div>
+    </div>
+      
+
+{% endblock content %}
+
+

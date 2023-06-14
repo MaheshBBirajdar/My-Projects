@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head>
+        <style>
+            .project-name {
+            margin-right: 10px; /* Adjust the value as per your preference */
+            }
+        </style>
+    </head>
+
+    <body> 
+        {% include "user/navbarstudent.html" %}
+
+            <br><br>
+            <h3 class="p-3 mb-2 bg-primary text-white" style = 'font-size: 20px;text-align:center;'>My Work Status</h3><br>
+
+                {% if messages %}
+                    <div> 
+                        {% for message in messages %}
+                            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+
+            {% if feedbacks %}
+                {% for i in feedbacks %}
+                    <div class="media border p-3">
+                        <h6>{{forloop.counter}})</h6>
+                        <ul> 
+                            <h6 class="d-flex justify-content-between">
+                                <span class='project-name'><h5> <b><ins>{{ i.project_name }}</ins></b></h5></span> 
+                            </h6>
+                            <h6>Date Posted : <b>{{ i.date_posted }}</b></h6>
+                            <h6>Shot Name : <b>{{ i.shot_name }}</b></h6>
+                            <h6>Status:
+                                <b>
+                                    {% if i.work_status == "WIP" %}
+                                        <span style="color: orange;">{{ i.work_status }}</span>
+                                    {% elif i.work_status == "YTS" %}
+                                        <span style="color: red;">{{ i.work_status }}</span>
+                                    {% elif i.work_status == "DONE" %}
+                                        <span style="color: green;">{{ i.work_status }}</span>
+                                    {% else %}
+                                        {{ i.work_status }}
+                                    {% endif %}
+                                </b>
+                            </h6>
+                            <h6>Content : <b>{{ i.content | truncatewords:25 }}</b></h6>
+                        </ul>
+                    </div><br>
+                {% endfor %}
+            {% else %}
+                <h4> Status Not Available</h4>
+            {%endif%}
+    </body>
+</html>
