@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+<style media="screen">
+.btn-circle.btn-xl {
+  width: 70px;
+  height: 70px;
+  padding: 10px 16px;
+  border-radius: 35px;
+  font-size: 24px;
+  line-height: 1.33;
+}
+
+.btn-circle {
+  width: 30px;
+  height: 30px;
+  padding: 6px 0px;
+  border-radius: 15px;
+  text-align: center;
+  font-size: 12px;
+  line-height: 1.42857;
+}
+
+.jumbotron{
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+.jumbotron h1{
+  text-align: center;
+}
+
+
+</style>
+  </head>
+  <body>
+    {% include "user/navbaradmin.html" %}
+    <br>
+    <br>
+    <center><h3 style=" margin-bottom: 0px;"class = 'alert alert-success'>Welcome to Pipeline !</h3></center>
+      <div class="jumbotron"   style="margin-bottom: 0px;">
+        <h1 class="display-6">Hello {{user.first_name}} !</h1>
+        <p class="lead">As you are <ins>Admin</ins>, you can perform (Create-Read-Update-Delete) operations. </p>
+        <hr class="my-4">
+        
+
+        <div class="options" style="text-align:center">
+          <p><b> Option Available For You</b></p>
+          <!-- <a href="{% url 'importdata' %}" class="btn btn-outline-primary btn-lg" role="button" aria-pressed="true">Import Data</a> -->
+          <!-- <a href="{% url 'addshot' %}" class="btn btn-outline-primary btn-lg" role="button" aria-pressed="true">Add Shot</a> -->
+          <!-- <a href="{% url 'allshot' %}" class="btn btn-outline-primary btn-lg" role="button" aria-pressed="true">All Shot</a> -->
+          <!-- <a href="{% url 'issueshot' %}" class="btn btn-outline-primary btn-lg" role="button" aria-pressed="true"> Issue Shot to Artist</a> -->
+          <!-- <a href="{% url 'viewissuedshot' %}" class="btn btn-outline-primary btn-lg" role="button" aria-pressed="true"> Issued Shot</a> -->
+          <!-- <a href="{% url 'allfeedback' %}" class="btn btn-outline-primary btn-lg" role="button" aria-pressed="true">Work Status</a> -->
+
+          <a href="{% url 'allproject' %}" class="btn btn-outline-primary btn-lg" role="button" aria-pressed="true">Production</a>
+          <a href="{% url 'allshot' %}" class="btn btn-outline-primary btn-lg" role="button" aria-pressed="true">Task</a><br><br>
+          <a href="{% url 'viewissuedshot' %}" class="btn btn-outline-primary btn-lg" role="button" aria-pressed="true">Arist</a>
+          <a href="#" class="btn btn-outline-primary btn-lg" role="button" aria-pressed="true">Management</a>
+        </div>
+        
+      </div>
+  </body>
+</html>
