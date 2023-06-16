@@ -49,14 +49,6 @@ CHOICES4= [
     ]
 
 
-CHOICES5= [
-    ('Project1', 'Project1'),
-    ('Project2', 'Project2'),
-    ('Project3', 'Project3'),
-    ('Project4','Project4'),
-    ('Project5','Project5'),
-    ('Project6','Project6'),
-    ]
 
 ##################################################################################################################################
 
