@@ -14,6 +14,7 @@ CHOICES1= [
     ('VFX', 'VFX'),
     ('Roto', 'Roto'),
     ('Paint', 'Paint'),
+    ('CG', 'CG'),
     ('Supervisor', 'Supervisor'),
     ('Comp','Comp'),
     ('Production','Production'),
@@ -143,6 +144,7 @@ def get_expiry():
 
 
 class IssuedShot(models.Model):
+    work_status = models.CharField(max_length=100, choices=CHOICES4, verbose_name='Shot Status')
     department = models.CharField(max_length=40)
     project_name = models.CharField(max_length=100)
     shot_name = models.CharField(max_length=100)
@@ -195,14 +197,18 @@ class SendFeedback(models.Model):
         except Shot2.DoesNotExist:
             raise ValidationError("Invalid shot name.")
 
-    
+
 @receiver(post_save, sender=SendFeedback)
 def update_shot2_work_status(sender, instance, **kwargs):
-    Shot2.objects.filter(project_name=instance.project_name, shot_name=instance.shot_name).update(work_status=instance.work_status)
+    if instance.issued_shot:
+        IssuedShot.objects.filter(
+            department=instance.issued_shot.department,
+            project_name=instance.issued_shot.project_name,
+            shot_name=instance.issued_shot.shot_name
+        ).update(work_status=instance.work_status)
 
 
 #########################################################################################################################################################
-
 
 class ArtistMessage(models.Model):                                                       # send popup message to artist portal 
     shot = models.ForeignKey(Shot2, on_delete=models.CASCADE)
@@ -211,3 +217,5 @@ class ArtistMessage(models.Model):                                              
 
     def __str__(self):
         return self.message
+
+###########################################################################################################################################################
