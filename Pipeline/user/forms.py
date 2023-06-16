@@ -114,13 +114,21 @@ class EditShotForm(forms.ModelForm):
         fields = ['project_name','shot_name','work_description','date_started','eta']
                     
 ######################################################################################################################################
-
+from django.core.exceptions import ValidationError
+from django.utils import timezone
 
 class IssuedShotForm(forms.Form):
     department1 = forms.ModelChoiceField(queryset = StudentExtra.objects.all(),to_field_name='department',label='Artist & Department')
     projectname1 = forms.ModelChoiceField(queryset = Shot2.objects.values_list('project_name', flat=True).distinct(),to_field_name="project_name",label='Project Name')
     shotname1 = forms.CharField(label='Shot Name')
     eta1 = forms.DateField(label='TGT Date (YYYY-MM-DD)')
+
+    def clean_eta1(self):
+        eta_date = self.cleaned_data['eta1']
+        current_date = timezone.now().date()
+        if eta_date <= current_date:
+            raise ValidationError("TGT date must be greater than the today.")
+        return eta_date
 
 ######################################################################################################################################
 
