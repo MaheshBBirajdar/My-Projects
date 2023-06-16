@@ -121,7 +121,6 @@
                         <th>TGT Date</th>
                         <th>Shot Status</th>
                         <th>Assign to</th>
-                        <th>Overdue Days</th>
                     </tr>
                 </thead>
 
@@ -140,12 +139,10 @@
                         <td>
                             <div>                       
                                 <!-- <a href="{% url 'editshot' shot.id %}"><button type="button" class="btn btn-outline-success btn-sm">Edit</button></a>  -->
-                                <a href="{% url 'deleteshot' shot.id %}"><button type="button" class="btn btn-outline-danger btn-sm">Remove</button></a> 
-                                <a href="{% url 'issueshot' %}"><button type="button" class="btn btn-outline-primary btn-sm">Assign to artist</button></a>
-                                <!-- <button class="btn btn-outline-success btn-sm" onclick="edit()">Edit</button>  -->
+                                <a href="{% url 'issueshot'  %}"><button type="button" class="btn btn-outline-primary btn-sm">Assign to artist</button></a>
+                                <a href="{% url 'deleteshot' shot.id %}"><button type="button" class="btn btn-outline-danger btn-sm">Remove</button></a>  
                             </div>
                         </td>
-                        <td>{{ shot.overdue_days }}</td> 
                     </tr>
                 {% endfor %}
                 </tbody>
@@ -184,9 +181,11 @@
                 
                 if (text.includes("yts")) { // If the text includes the word "red"
                     cell.style.backgroundColor = "red"; // Change the background color to red
-                } else if (text.includes("wip")) { // If the text includes the word "blue"
+
+                } else if (text.includes("pending for review")) { // If the text includes the word "blue"
                     cell.style.backgroundColor = "orange"; // Change the background color to blue
-                } else if (text.includes("done")) { // If the text includes the word "green"
+
+                } else if (text.includes("ready for review")) { // If the text includes the word "green"
                     cell.style.backgroundColor = "green"; // Change the background color to green
                 }
                 }
@@ -194,10 +193,4 @@
             changeColor();
             </script>
 
-
-<script>
-    function edit() {
-    alert("Oops! You do not have access");
-    }
-  </script>
 

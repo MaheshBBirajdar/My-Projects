@@ -92,10 +92,10 @@
     <br>
     <br>
 	
-	<center><h3 style=" margin-bottom: 0px;"class = 'alert alert-success'>ADD SHOT !</h3></center>
+	<center><h3 style=" margin-bottom: 0px;"class = 'alert alert-success'>New Project !</h3></center>
     <div class="signup-form">
         <form  method="post" class="form-horizontal">
-    		<center><h2>ADD SHOT</h2></center>
+    		<center><h2>Add Project Details</h2></center>
 			
 			{% csrf_token %}
 			{{ form | crispy }}
@@ -106,7 +106,7 @@
     			</div>
     		</div>
         </form>
-    	<div class="text-center">View Available Shot In System<a href="{% url 'allshot' %}">Click here</a></div>
+    	<!-- <div class="text-center">View Available Shot In System<a href="{% url 'allshot' %}">Click here</a></div> -->
     </div>
 
   </body>

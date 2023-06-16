@@ -10,7 +10,7 @@ from django.contrib.auth.decorators import login_required, user_passes_test
 from django.core.paginator import Paginator
 import pandas as pd
 from django.db.models import F
-from django.utils import timezone
+from datetime import date
 from django.db.models import Count
 
 
@@ -184,24 +184,28 @@ def import_excel(request):
         
         if file_extension == 'xlsx':
             engine = 'openpyxl'
+
         elif file_extension == 'xls':
             engine = 'xlrd'
+
         else:
-            return render(request, 'user/importdata.html', {'message': 'Invalid file format. Only .xlsx and .xls files are supported.'})
+            return render(request, 'user/importdata.html', {'message': 'Invalid file format. Only (.xlsx) and (.xls) files are supported.'})
 
         df = pd.read_excel(excel_file, engine=engine)
+        df.fillna('N/A', inplace=True) 
         imported_rows = 0
         error_rows = 0
 
         for index, row in df.iterrows():
             project_name = row['Project Name']
-            shot_name = row['Shot Name']
+            shot_name    = row['Shot Name']
 
             existing_shot1 = Shot2.objects.filter(project_name=project_name, shot_name=shot_name).first()
             if existing_shot1:
-                existing_shot1.date_started = row['Date Posted']
+                existing_shot1.date_started     = row['Date Posted']
                 existing_shot1.work_description = row['Scope of Work']
-                existing_shot1.eta = row['TGT Date']
+                existing_shot1.eta              = row['TGT Date']
+                existing_shot1.work_status      = row['Shot Status']
                 existing_shot1.save()
 
             existing_shot = Shot2.objects.filter(project_name=project_name, shot_name=shot_name).exists()
@@ -210,12 +214,12 @@ def import_excel(request):
                 eta = row['TGT Date']
                 if date_started < eta:
                     obj = Shot2.objects.create(
-                        project_name=project_name,
-                        shot_name=shot_name,
-                        work_description=row['Scope of Work'],
-                        date_started=date_started,
-                        eta=eta,
-                        work_status=row['Shot Status']
+                        project_name     = project_name,
+                        shot_name        = shot_name,
+                        work_description = row['Scope of Work'],
+                        date_started     = date_started,
+                        eta              = eta,
+                        work_status      = row['Shot Status']
                     )
                     obj.save()
                     imported_rows += 1
@@ -226,7 +230,7 @@ def import_excel(request):
             message = f"New {imported_rows} shots added successfully."
             
         else:
-            message = "Existing data updated."
+            message = "Existing shot having new info added."
 
         if error_rows > 0:
             message += f" {error_rows} rows skipped due to invalid dates."
@@ -246,12 +250,12 @@ def addshot_view(request):
         if form.is_valid():
             user=form.save()
             messages.success(request, 'Shot added successfully!')
-            return redirect('allshot')
+            return redirect('allproject')
     context = {'form':form}
     return render(request,'user/addshot.html',context)
 
 #############################################################################################################################################
-from datetime import date
+
 @login_required(login_url='adminlogin')                                                     # Read/All Shot
 def allshot_view(request, page=1):
     shots = Shot2.objects.all().order_by('project_name')
@@ -333,40 +337,16 @@ def searchshot_view(request):
 
         if query1:
             shots = Shot2.objects.filter(project_name__istartswith=query1)
-            today = date.today()
-            for shot in shots:
-                if shot.eta and shot.work_status != 'DONE':
-                    if today > shot.eta:
-                        overdue_days = (today - shot.eta).days
-                        shot.overdue_days = overdue_days
-                    else:
-                        shot.overdue_days = 0 
             return render(request, 'user/search.html', {'shots': shots})
         
 
         elif query2:
             shots = Shot2.objects.filter(shot_name__istartswith=query2) 
-            today = date.today()
-            for shot in shots:
-                if shot.eta and shot.work_status != 'DONE':
-                    if today > shot.eta:
-                        overdue_days = (today - shot.eta).days
-                        shot.overdue_days = overdue_days
-                    else:
-                        shot.overdue_days = 0
             return render(request, 'user/search.html', {'shots': shots})
         
 
         elif query3:
             shots = Shot2.objects.filter(work_status__istartswith=query3)
-            today = date.today()
-            for shot in shots:
-                if shot.eta and shot.work_status != 'DONE':
-                    if today > shot.eta:
-                        overdue_days = (today - shot.eta).days
-                        shot.overdue_days = overdue_days
-                    else:
-                        shot.overdue_days = 0 
             return render(request, 'user/search.html', {'shots': shots})
 
         else:
@@ -389,9 +369,12 @@ def issueshot_view(request):
             obj.shot_name = request.POST.get('shotname1')
             obj.project_name = request.POST.get('projectname1')
             obj.eta = request.POST.get('eta1')
+            obj.work_status = 'YTS' 
+
             obj.save()
             messages.success(request, 'Shot assigned successfully!')
             return redirect('viewissuedshot')
+    context['form'] = form
     return render(request,'user/issueshot.html',context)
 
 ############################################################################################################################################
@@ -399,24 +382,44 @@ def issueshot_view(request):
 @login_required(login_url='adminlogin')                                                       # View Issued Shot
 @user_passes_test(is_admin)
 def viewissuedshot_view(request):
-    issuedshots = IssuedShot.objects.all().order_by("-id")
-    li=[]
-    j=0
-    for i in issuedshots:
-        issdate = i.issuedate.strftime('%d/%m/%Y')
-        artists = StudentExtra.objects.filter(department = i.department)
-        t=( artists[0].get_name, 
-            issuedshots[j].project_name, 
-            issuedshots[j].shot_name,
-            artists[0].department, 
-            artists[0].designation, 
-            issdate,
-            issuedshots[j].eta,
-            i.id )
-        j+=1
+    issuedshots = IssuedShot.objects.all().order_by("-eta")
+
+    def is_all_done(shot_name):
+        return IssuedShot.objects.filter(shot_name=shot_name).exclude(work_status='DONE').count() == 0
+
+    for issuedshot in issuedshots:
+        if not hasattr(issuedshot, 'work_status') or issuedshot.work_status is None:
+            Shot2.objects.filter(shot_name=issuedshot.shot_name).update(work_status='YTS')
+
+        elif is_all_done(issuedshot.shot_name):
+            Shot2.objects.filter(shot_name=issuedshot.shot_name).update(work_status='Ready for Review')
+
+        else:
+            Shot2.objects.filter(shot_name=issuedshot.shot_name).update(work_status='Pending for Review')
+
+    li = []
+    today = date.today()
+    for issuedshot in issuedshots:
+        eta = issuedshot.eta
+        overdue_days = (today - eta).days if issuedshot.work_status != 'DONE' and eta < today else 0
+        issdate = issuedshot.issuedate.strftime('%d/%m/%Y')
+        artists = StudentExtra.objects.filter(department=issuedshot.department)
+        t = (artists[0].get_name,
+             issuedshot.project_name,
+             issuedshot.shot_name,
+             artists[0].department,
+             artists[0].designation,
+             issdate,
+             issuedshot.eta,
+             issuedshot.work_status,
+             issuedshot.id,
+             overdue_days)
         li.append(t)
-    context = {'li':li}
-    return render(request,'user/viewissuedshot.html', context)
+
+    context = {'li': li}
+    return render(request, 'user/viewissuedshot.html', context)
+
+
 
 ############################################################################################################################################
 
@@ -462,17 +465,26 @@ def sendfeedback_view(request):
 
             project_name = form.cleaned_data['project_name']
             shot_name = form.cleaned_data['shot_name']
-            issued_shot = get_object_or_404(IssuedShot, project_name=project_name, shot_name=shot_name)
-            d1.issued_shot = issued_shot
+            issued_shots = IssuedShot.objects.filter(project_name=project_name, shot_name=shot_name)
 
-            if issued_shot and issued_shot.department == d1.department:
-                d1.work_status = form.cleaned_data['work_status']
-                d1.save()
-                messages.success(request, 'Work status sent successfully!')
-                return redirect('myfeedback')
+            if issued_shots.exists():
+                authorized_shot = None
+                for issued_shot in issued_shots:
+                    if issued_shot.department == d1.department:
+                        authorized_shot = issued_shot
+                        break
+
+                if authorized_shot:
+                    d1.work_status = form.cleaned_data['work_status']
+                    d1.issued_shot = authorized_shot
+                    d1.save()
+                    messages.success(request, 'Work status sent successfully!')
+                    return redirect('myfeedback')
+                else:
+                    form.add_error(None, 'You are not authorized to send work status for this shot.')
+                    messages.error(request, 'You are not authorized to send work status for this shot.')
             else:
-                form.add_error(None, 'You are not authorized to send work status for this shot.')
-                messages.error(request, 'You are not authorized to send work status for this shot.')
+                form.add_error('shot_name', 'IssuedShot Not found with the given project and shot names.')
     context = {'form': form}
     return render(request, 'user/addfeedback.html', context)
 

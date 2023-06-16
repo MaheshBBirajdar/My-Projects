@@ -85,13 +85,13 @@
                                         <td>{{t.3}}</td>
                                         <td>{{t.4}}</td>
                                         <td>{{t.5}}</td>
-                                        <td>{{t.6}}</td>
+                                        <td>{{t.6 | date:"d/m/Y"}}</td>
                                     </tr>
                                 {% endfor %}
                             </tbody>
                         </table>
                     {%else%}
-                        <h5> No Shot Issued to you</h5>
+                        <h5> No Shot Assigned to you</h5>
                     {%endif%}
                
     </body>
