@@ -74,12 +74,14 @@ CHOICES5= [
 ###############################################################################################################################################
 
 class Shot2(models.Model):
-    project_name = models.CharField(max_length=25, choices=CHOICES5, verbose_name='Project Name')
+    dependency = models.ManyToManyField('StudentExtra',verbose_name='Dependencies')
+    project_name = models.CharField(max_length=25, verbose_name='Project Name')
     shot_name = models.CharField(max_length=25, verbose_name='Shot Name')
     work_description = models.CharField(max_length=200, verbose_name='Scope of Work')
     date_started = models.DateTimeField(default=timezone.now, verbose_name='Date Posted')
     work_status = models.CharField(max_length=100,choices=CHOICES4, verbose_name='Shot Status')
     eta = models.DateField(null=True, blank=True,default=None, verbose_name='TGT Date (y-m-d)')                              # YYYY-MM-DD
+    
     
     def __str__(self):
         return self.project_name 
@@ -122,6 +124,11 @@ class StudentExtra(models.Model):
     def __str__(self):
         return self.user.first_name + ' ' + '[' + str(self.department) + ']'
     
+    
+    def __str__(self):
+        return str(self.department) 
+    
+    
     @property
     def get_name(self):
         return self.user.first_name + ' ' + self.user.last_name
@@ -154,11 +161,15 @@ class IssuedShot(models.Model):
     def __str__(self):
         return  self.project_name
     
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+
+'''
     def clean(self):
         existing_shots = IssuedShot.objects.filter(
             department=self.department,
             project_name=self.project_name,
-            shot_name=self.shot_name)
+            shot_name=self.shot_name).exclude(pk=self.pk) 
 
         if existing_shots.exists():
             raise ValidationError("This shot has already been issued to the same artist.")
@@ -172,7 +183,7 @@ class IssuedShot(models.Model):
     def save(self, *args, **kwargs):
         self.clean()
         super().save(*args, **kwargs)
-
+'''
 
 #########################################################################################################################################################
 

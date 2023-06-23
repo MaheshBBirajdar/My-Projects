@@ -12,7 +12,7 @@ import pandas as pd
 from django.db.models import F
 from datetime import date
 from django.db.models import Count
-
+from datetime import datetime
 
 
 ###########################################################################################################################################
@@ -193,6 +193,7 @@ def import_excel(request):
 
         df = pd.read_excel(excel_file, engine=engine)
         df.fillna('N/A', inplace=True) 
+        
         imported_rows = 0
         error_rows = 0
 
@@ -309,6 +310,7 @@ def editshot_view(request, id):
         form = EditShotForm(request.POST, instance=object)
         if form.is_valid():
             data = form.save(commit=False)
+            data.dependency.set(form.cleaned_data['dependency'])
             data.save()
             messages.success(request, 'Shot updated successfully!')
             return redirect('allshot')
@@ -329,7 +331,7 @@ def deleteshot_view(request, pk):
 
 #############################################################################################################################################
 
-def searchshot_view(request):
+def searchshot_view(request):                                                     # Search All Shot
     if request.method == 'GET':
         query1 = request.GET.get('p')
         query2 = request.GET.get('q')
@@ -352,37 +354,52 @@ def searchshot_view(request):
         else:
             print("No Information Available")
     else:
-        return render(request, 'user/search.html')    
+        return render(request, 'user/search.html')   
+
+############################################################################################################################################
+
+def searchprojectshot_view(request):                                              # Search Shot Project Wise
+    if request.method == 'GET':
+        query1 = request.GET.get('p1')
+
+        if query1:
+            shots = Shot2.objects.filter(shot_name__istartswith=query1) 
+            today = date.today()
+            for shot in shots:
+                if shot.eta and shot.work_status != 'DONE':
+                    if today > shot.eta:
+                        overdue_days = (today - shot.eta).days
+                        shot.overdue_days = overdue_days
+                    else:
+                        shot.overdue_days = 0
+            return render(request, 'user/search1.html', {'shots': shots})
         
-############################################################################################################################################
-
-@login_required(login_url='adminlogin')                                                      # Issue Shot
-@user_passes_test(is_admin)
-def issueshot_view(request):
-    form = IssuedShotForm()
-    context = {'form':form}
-    if request.method == 'POST':
-        form = IssuedShotForm(request.POST)
-        if form.is_valid():
-            obj = IssuedShot()
-            obj.department = request.POST.get('department1')
-            obj.shot_name = request.POST.get('shotname1')
-            obj.project_name = request.POST.get('projectname1')
-            obj.eta = request.POST.get('eta1')
-            obj.work_status = 'YTS' 
-
-            obj.save()
-            messages.success(request, 'Shot assigned successfully!')
-            return redirect('viewissuedshot')
-    context['form'] = form
-    return render(request,'user/issueshot.html',context)
+        else:
+            print("No Information Available")
+    else:
+        return render(request, 'user/search1.html') 
 
 ############################################################################################################################################
 
-@login_required(login_url='adminlogin')                                                       # View Issued Shot
-@user_passes_test(is_admin)
-def viewissuedshot_view(request):
+def search_issuedshots_view(request):                                           # Search Issued Shot
+    dept_name = request.GET.get('p2')
+    project_name = request.GET.get('p3')
+    shot_name = request.GET.get('p4')
+    work_status = request.GET.get('p5')
+
     issuedshots = IssuedShot.objects.all().order_by("-eta")
+
+    if dept_name:
+        issuedshots = issuedshots.filter(department=dept_name)
+
+    if project_name:
+        issuedshots = issuedshots.filter(project_name=project_name)
+
+    if shot_name:
+        issuedshots = issuedshots.filter(shot_name=shot_name)
+
+    if work_status:
+         issuedshots = issuedshots.filter(work_status=work_status)
 
     def is_all_done(shot_name):
         return IssuedShot.objects.filter(shot_name=shot_name).exclude(work_status='DONE').count() == 0
@@ -417,9 +434,93 @@ def viewissuedshot_view(request):
         li.append(t)
 
     context = {'li': li}
+    return render(request, 'user/search2.html', context)
+
+        
+############################################################################################################################################
+
+@login_required(login_url='adminlogin')                                                      # Issue Shot
+@user_passes_test(is_admin)
+def issueshot_view(request):
+    form = IssuedShotForm()
+    context = {'form':form}
+    if request.method == 'POST':
+        form = IssuedShotForm(request.POST)
+        if form.is_valid():
+            obj = IssuedShot()
+            obj.department = request.POST.get('department1')
+            obj.shot_name = request.POST.get('shotname1')
+            obj.project_name = request.POST.get('projectname1')
+            obj.eta = request.POST.get('eta1')
+            obj.work_status = 'YTS' 
+
+            obj.save()
+            messages.success(request, 'Shot assigned successfully!')
+            return redirect('viewissuedshot')
+    else:
+        shot_name = request.GET.get('shot_name')
+        project_name = request.GET.get('project_name')
+        if shot_name and project_name:
+            form.initial['shotname1'] = shot_name
+            form.initial['projectname1'] = project_name
+    context['form'] = form
+    return render(request,'user/issueshot.html',context)
+
+############################################################################################################################################
+
+@login_required(login_url='adminlogin')                                                                          # View Issued Shot
+@user_passes_test(is_admin)
+def viewissuedshot_view(request):
+    issuedshots = IssuedShot.objects.all().order_by("-eta")
+
+    def is_all_done(shot_name):
+        return IssuedShot.objects.filter(shot_name=shot_name).exclude(work_status='DONE').count() == 0
+
+    for issuedshot in issuedshots:
+        if not hasattr(issuedshot, 'work_status') or issuedshot.work_status is None:
+            Shot2.objects.filter(shot_name=issuedshot.shot_name).update(work_status='YTS')
+
+        elif is_all_done(issuedshot.shot_name):
+            Shot2.objects.filter(shot_name=issuedshot.shot_name).update(work_status='Ready for Review')
+
+        else:
+            Shot2.objects.filter(shot_name=issuedshot.shot_name).update(work_status='Pending for Review')
+
+    li = []
+    today = date.today()
+    
+    for issuedshot in issuedshots:
+        eta = issuedshot.eta
+#        overdue_days = (today - eta).days if issuedshot.work_status != 'DONE' and eta < today else 0
+
+        if issuedshot.work_status != 'DONE' and eta < today:
+            overdue_days = (today - eta).days
+
+        elif issuedshot.work_status == 'DONE' and eta < today:
+            overdue_days = f'by {eta - today} days'
+    
+        elif issuedshot.work_status == 'DONE' :
+            overdue_days = '-'
+        
+        else :
+            overdue_days = 0
+
+        issdate = issuedshot.issuedate.strftime('%d/%m/%Y')
+        artists = StudentExtra.objects.filter(department=issuedshot.department)
+        t = (artists[0].get_name,
+             issuedshot.project_name,
+             issuedshot.shot_name,
+             artists[0].department,
+             artists[0].designation,
+             issdate,
+             issuedshot.eta,
+             issuedshot.work_status,
+             overdue_days,
+             issuedshot.id,
+             )
+        li.append(t)
+    context = {'li': li}
     return render(request, 'user/viewissuedshot.html', context)
-
-
 
 ############################################################################################################################################
 
@@ -436,17 +537,18 @@ def deleteissuedshot_view(request, pk):
 @login_required(login_url='studentlogin')                                                      # Shot Issued By Artist
 def viewissuedshotbyartist_view(request):
     artist = StudentExtra.objects.filter(user_id = request.user.id)
-    issuedshot = IssuedShot.objects.filter(department = artist[0].department).order_by('-id')
+    issuedshots = IssuedShot.objects.filter(department = artist[0].department).order_by('-id')
     li1=[]
-    for i in issuedshot:
-        issdate = str(i.issuedate.day)+'-'+str(i.issuedate.month)+'-'+str(i.issuedate.year)
+    for issuedshot in issuedshots:
+#        issdate = str(issuedshot.issuedate.day)+'-'+str(issuedshot.issuedate.month)+'-'+str(issuedshot.issuedate.year)
+        issdate = issuedshot.issuedate.strftime('%d/%m/%Y')
         t=(request.user.first_name, 
            artist[0].department, 
            artist[0].designation, 
-           i.project_name, 
-           i.shot_name, 
+           issuedshot.project_name, 
+           issuedshot.shot_name, 
            issdate,
-           i.eta,)
+           issuedshot.eta,)
         li1.append(t)
 
     context = {'li1':li1}
@@ -454,8 +556,8 @@ def viewissuedshotbyartist_view(request):
 
 ##############################################################################################################################################
 
-@login_required(login_url='studentlogin')                                                       # Send  Work Status     
-def sendfeedback_view(request): 
+@login_required(login_url='studentlogin')                                                       # Send  Shot Status     
+def sendfeedback_view(request):
     form = SendFeedbackForm()
     if request.method == 'POST':
         form = SendFeedbackForm(request.POST)
@@ -475,22 +577,27 @@ def sendfeedback_view(request):
                         break
 
                 if authorized_shot:
-                    d1.work_status = form.cleaned_data['work_status']
-                    d1.issued_shot = authorized_shot
-                    d1.save()
-                    messages.success(request, 'Work status sent successfully!')
-                    return redirect('myfeedback')
+                    if authorized_shot.work_status == 'DONE':
+                        messages.error(request, 'Work status has already been sent to DONE for this shot.')
+                    else:
+                        d1.work_status = form.cleaned_data['work_status']
+                        authorized_shot.work_status = d1.work_status
+                        authorized_shot.save()
+                        d1.issued_shot = authorized_shot
+                        d1.save()
+                        messages.success(request, 'Shot status sent successfully!')
                 else:
-                    form.add_error(None, 'You are not authorized to send work status for this shot.')
-                    messages.error(request, 'You are not authorized to send work status for this shot.')
+                    form.add_error(None, 'You are not authorized to send shot status for this shot.')
+                    messages.error(request, 'You are not authorized to send shot status for this shot.')
             else:
                 form.add_error('shot_name', 'IssuedShot Not found with the given project and shot names.')
     context = {'form': form}
     return render(request, 'user/addfeedback.html', context)
 
+
 #################################################################################################################################################
 
-@login_required(login_url='adminlogin')                                                         # Read Work Status
+@login_required(login_url='adminlogin')                                                         # Read Shot Status
 @user_passes_test(is_admin)                                         
 def allfeedback_view(request):
     feedbacks = SendFeedback.objects.all().order_by('department', '-date_posted')
@@ -507,7 +614,7 @@ def allfeedback_view(request):
 
 #################################################################################################################################################
 
-@login_required(login_url='studentlogin')                                                       # My Work Status
+@login_required(login_url='studentlogin')                                                       # My Shot Status
 def myfeedback_view(request):
     current_user = request.user
     feedback = SendFeedback.objects.filter(sender1=current_user).order_by('-date_posted')
@@ -516,11 +623,11 @@ def myfeedback_view(request):
 
 ####################################################################################################################################################
 
-@login_required(login_url='adminlogin')                                                         # Delete Work Status
+@login_required(login_url='adminlogin')                                                         # Delete Shot Status
 def deletefeedback_view(request, pk):
     shot_obj = get_object_or_404(SendFeedback, pk=pk)
     shot_obj.delete()
-    messages.success(request, 'Work status removed successfully!')
+    messages.success(request, 'Shot status removed successfully!')
     return redirect('allfeedback')
 
 #################################################################################################################################################

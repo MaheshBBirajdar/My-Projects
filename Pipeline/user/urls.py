@@ -39,7 +39,11 @@ urlpatterns = [
 
     path('deleteshot/<int:pk>/', deleteshot_view ,name='deleteshot'),
             
-    path('search/', searchshot_view, name= 'search1'),
+    path('search/', searchshot_view, name= 'search'),
+
+    path('search1/', searchprojectshot_view, name= 'search1'),
+
+    path('search2/', search_issuedshots_view, name= 'search2'),
 
     path('issueshot/', issueshot_view, name='issueshot'),
 
