@@ -2,22 +2,21 @@ from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from .models import *
-
+from django.core.exceptions import ValidationError
+from django.utils import timezone
 
 
 CHOICES1= [
-    ('VFX', 'VFX'),
     ('Roto', 'Roto'),
     ('Paint', 'Paint'),
-    ('Supervisor', 'Supervisor'),
     ('Comp','Comp'),
+    ('CG','CG'),
     ('Production','Production'),
     ('Editor','Editor'),
     ('Matchmove','Matchmove'),
     ('MGFX','MGFX'),
     ('DMP','DMP'),
     ('Pipeline','Pipeline'),
-    ('IT','IT')
     ]
 
 
@@ -49,6 +48,14 @@ CHOICES4= [
     ]
 
 
+CHOICES5= [
+    ('Project1', 'Project1'),
+    ('Project2', 'Project2'),
+    ('Project3', 'Project3'),
+    ('Project4','Project4'),
+    ('Project5','Project5'),
+    ('Project6','Project6'),
+    ]
 
 ##################################################################################################################################
 
@@ -91,30 +98,51 @@ class StudentExtraForm(forms.ModelForm):
 
 ####################################################################################################################################
 
+class CustomDateInput(forms.DateInput):
+    input_type = 'date'
+    format = '%d/%m/%Y'
+
 class ShotForm(forms.ModelForm):
+    dependency = forms.ModelMultipleChoiceField(queryset=StudentExtra.objects.all(), required=False, widget=forms.CheckboxSelectMultiple, label='Dependencies')
+    eta = forms.DateField(label='TGT Date', widget=CustomDateInput)
+    
     class Meta:
         model=Shot2
-        fields = ['project_name','shot_name','work_description','date_started','eta','work_status']
+        fields = ['project_name','shot_name','work_description','date_started','eta','work_status','dependency']
 
 #####################################################################################################################################
 
-
 class EditShotForm(forms.ModelForm):
     project_name = forms.ModelChoiceField(queryset = Shot2.objects.values_list('project_name', flat=True).distinct(),to_field_name="project_name",label='Project Name')
+    dependency = forms.ModelMultipleChoiceField(queryset=StudentExtra.objects.all(), required=False, widget=forms.CheckboxSelectMultiple, label='Dependencies')
+
     class Meta:
         model = Shot2
-        fields = ['project_name','shot_name','work_description','date_started','eta']
+        fields = ['project_name','shot_name','work_description','eta','dependency']
                     
 ######################################################################################################################################
-from django.core.exceptions import ValidationError
-from django.utils import timezone
+
+class CustomDateInput(forms.DateInput):
+    input_type = 'date'
+    format = '%d/%m/%Y'
+
 
 class IssuedShotForm(forms.Form):
     department1 = forms.ModelChoiceField(queryset = StudentExtra.objects.all(),to_field_name='department',label='Artist & Department')
     projectname1 = forms.ModelChoiceField(queryset = Shot2.objects.values_list('project_name', flat=True).distinct(),to_field_name="project_name",label='Project Name')
     shotname1 = forms.CharField(label='Shot Name')
-    eta1 = forms.DateField(label='TGT Date (YYYY-MM-DD)')
+    eta1 = forms.DateField(label='TGT Date', widget=CustomDateInput)
 
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['department1'].label_from_instance = self.label_from_department_instance
+
+
+    def label_from_department_instance(self, obj):
+        return obj.user.first_name + ' [' + str(obj.department) + ']'
+    
+    
     def clean_eta1(self):
         eta_date = self.cleaned_data['eta1']
         current_date = timezone.now().date()
@@ -122,8 +150,30 @@ class IssuedShotForm(forms.Form):
             raise ValidationError("TGT date must be greater than the today.")
         return eta_date
 
-######################################################################################################################################
 
+    def clean(self):
+        cleaned_data = super().clean()
+        department = cleaned_data.get('department1')
+        project_name = cleaned_data.get('projectname1')
+        shot_name = cleaned_data.get('shotname1')
+
+        if department and project_name and shot_name:
+            existing_shots = IssuedShot.objects.filter(
+                department=department,
+                project_name=project_name,
+                shot_name=shot_name)
+            if existing_shots.exists():
+                raise ValidationError("This shot has already been issued to the same artist.")
+
+
+    def clean_shotname1(self):
+        project_name = self.cleaned_data['projectname1']
+        shot_name = self.cleaned_data['shotname1']
+        if not Shot2.objects.filter(project_name=project_name, shot_name=shot_name).exists():
+            raise ValidationError("This shot name is not available in the selected project.")
+        return shot_name
+
+######################################################################################################################################
 
 class SendFeedbackForm(forms.ModelForm):
     project_name = forms.ModelChoiceField(queryset = Shot2.objects.values_list('project_name', flat=True).distinct(),to_field_name="project_name",label='Project Name')
