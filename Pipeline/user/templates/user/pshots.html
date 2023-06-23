@@ -78,6 +78,30 @@
         margin-right: auto;
         }
 
+        .search-container {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        }   
+
+        .search-container form {
+        display: flex;
+        align-items: center;
+        }
+
+        .search-container input,
+        .search-container button {
+        margin-left: 10px;
+        }
+
+        .description-cell {
+        max-width: 300px; 
+        word-wrap: break-word;
+        }
+
+        .import-data {
+        margin-right: auto;
+        }
         </style>
     </head>
 
@@ -85,9 +109,15 @@
     {% include "user/navbaradmin.html" %}
     <br>
     <br>
-    <h3 class="p-3 mb-2 bg-primary text-white" style = 'font-size: 20px;text-align:center;'>Project : {{ project_name }}</h3>
+    <h3 class="p-3 mb-2 bg-primary text-white" style = 'font-size: 20px;text-align:center;'>Project : {{ project_name | upper }}</h3>
      
         {% if shots%}
+                <div class="search-container">
+                    <form class="form-inline " method="get" action="{% url 'search1' %}">
+                        <input class="form-control mr-sm-2" type="text" name= "p1" placeholder="Enter Shot Name" aria-label="Search">
+                        <button class="btn btn-outline-success" type="submit">Search</button>
+                    </form>
+                </div>
 
                 <table class="redTable" id="table">
                     <thead>
@@ -97,8 +127,10 @@
                             <th>Scope of Work</th>
                             <th>Date Posted</th>
                             <th>TGT Date</th>
+                            <th>Dependencies</th> 
                             <th>Shot Status</th> 
                             <th>Overdue Days</th>
+                            <th> Assign</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -109,8 +141,16 @@
                             <td>{{ shot.work_description }}</td>
                             <td>{{ shot.date_started | date:"d/m/Y" }}</td>
                             <td>{{ shot.eta | date:"d/m/Y" }}</td>
+                            <td>
+                                {% for dependency in shot.dependency.all %}
+                                    {{ dependency}} |
+                                {% endfor %}
+                            </td>
                             <td>{{ shot.work_status }}</td>
                             <td>{{ shot.overdue_days }}</td>
+                            <td><a href="{% url 'editshot' shot.id %}"><button type="button" class="btn btn-outline-success btn-sm">Edit</button></a>
+                                <a href="{% url 'issueshot' %}?shot_name={{ shot.shot_name }}&project_name={{ shot.project_name }}"><button type="button" class="btn btn-outline-primary btn-sm">Assign to artist</button></a>
+                            </td>
                         </tr>
                         {% endfor %}
                     </tbody>
@@ -135,8 +175,10 @@
                     
                     if (text.includes("yts")) { // If the text includes the word "red"
                         cell.style.backgroundColor = "red"; // Change the background color to red
-                    } else if (text.includes("wip")) { // If the text includes the word "blue"
+
+                    } else if (text.includes("pending for review")) { // If the text includes the word "blue"
                         cell.style.backgroundColor = "orange"; // Change the background color to blue
+
                     } else if (text.includes("ready for review")) { // If the text includes the word "green"
                         cell.style.backgroundColor = "green"; // Change the background color to green
                     }

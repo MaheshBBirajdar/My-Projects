@@ -66,14 +66,14 @@
                 <thead>
                     <tr>
                         <th>Sr.No</th>
-                        <th>Project Name </th>
-                        <th>Shot Name </th>
-                        <th>Scope of Work </th>
+                        <th>Shot Name</th>
+                        <th>Scope of Work</th>
                         <th>Date Posted</th>
                         <th>TGT Date</th>
-                        <th>Dependencies</th>
-                        <th>Shot Status</th>
-                        <th>Assign to</th>
+                        <th>Dependencies</th> 
+                        <th>Shot Status</th> 
+                        <th>Overdue Days</th>
+                        <th> Assign</th>
                     </tr>
                 </thead>
 
@@ -81,28 +81,19 @@
                 {% for shot in shots %}
                 <tr>
                     <td>{{ forloop.counter }}</td>
-                    <td>{{ shot.project_name }}</td>
                     <td>{{ shot.shot_name }}</td>
-                    <td class="description-cell">{{ shot.work_description }}</td>
-                    <td>{{ shot.date_started | date:"d/m/Y"  }}</td>
-                    <td>{{ shot.eta | date:"d/m/Y"  }}</td>
+                    <td>{{ shot.work_description }}</td>
+                    <td>{{ shot.date_started | date:"d/m/Y" }}</td>
+                    <td>{{ shot.eta | date:"d/m/Y" }}</td>
                     <td>
                         {% for dependency in shot.dependency.all %}
                             {{ dependency}} |
-                            {% cycle '' ''   '<br>' %}
                         {% endfor %}
                     </td>
-                    <td class="{% if shot.work_status == 'WIP' %}orange{% elif shot.work_status == 'YTS' %}red{% elif shot.work_status == 'DONE' %}green{% endif %}">
-                        {{ shot.work_status }}
-                    </td>
-                    <td>
-                        <div>                       
-                            <a href="{% url 'editshot' shot.id %}"><button type="button" class="btn btn-outline-success btn-sm">Edit</button></a> 
-                            <!-- <a href="{% url 'issueshot'  %}"><button type="button" class="btn btn-outline-primary btn-sm">Assign to artist</button></a> -->
-                            <a href="{% url 'issueshot' %}?shot_name={{ shot.shot_name }}&project_name={{ shot.project_name }}"><button type="button" class="btn btn-outline-primary btn-sm">Assign to artist</button></a>
-
-                            <a href="{% url 'deleteshot' shot.id %}"><button type="button" class="btn btn-outline-danger btn-sm">Remove</button></a>  
-                        </div>
+                    <td>{{ shot.work_status }}</td>
+                    <td>{{ shot.overdue_days }}</td>
+                    <td><a href="{% url 'editshot' shot.id %}"><button type="button" class="btn btn-outline-success btn-sm">Edit</button></a>
+                        <a href="{% url 'issueshot' %}?shot_name={{ shot.shot_name }}&project_name={{ shot.project_name }}"><button type="button" class="btn btn-outline-primary btn-sm">Assign to artist</button></a>
                     </td>
                 </tr>
                 {% endfor %}
@@ -110,10 +101,10 @@
             </table>
         {% else %}
             <h4> Shots Not Available </h4>
-        {% endif %}  
+        {% endif %}    
   </body>
 </html>
-
+   
 <script>
     function changeColor()
 {
@@ -137,6 +128,4 @@
 }
 changeColor();
 </script>
-            
-
             

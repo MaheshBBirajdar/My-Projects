@@ -56,44 +56,45 @@
             </style>
     </head>
     <body>
-            {% include "user/navbarstudent.html" %}<br><br>
-            
-            <h3 class="p-3 mb-2 bg-primary text-white" style = 'font-size: 20px;text-align:center;'>Shot assigned To You !</h3>
-       
-                    {% if li1%}
-                        <table class="redTable">
-                            <thead>
-                                <tr>
-                                    <th>Sr. No.</th>
-                                    <th>Name</th>
-                                    <!-- <th>Department</th>
-                                    <th>Designation</th> -->
-                                    <th>Project Name</th>
-                                    <th>Shot Name</th>
-                                    <th>Issued Date</th>
-                                    <th>TGT Date</th>
-                                </tr>
-                            </thead>
-                        
-                            <tbody>
-                                {% for t in li1 %}
-                                    <tr>
-                                        <td>{{forloop.counter}}</td>
-                                        <td>{{t.0}}</td>
-                                        <!-- <td>{{t.1}}</td>
-                                        <td>{{t.2}}</td> -->
-                                        <td>{{t.3}}</td>
-                                        <td>{{t.4}}</td>
-                                        <td>{{t.5}}</td>
-                                        <td>{{t.6 | date:"d/m/Y"}}</td>
-                                    </tr>
-                                {% endfor %}
-                            </tbody>
-                        </table>
-                    {%else%}
-                        <h5> No Shot Assigned to you</h5>
-                    {%endif%}
-               
+        {% include "user/navbarstudent.html" %}<br><br>
+        
+        <h3 class="p-3 mb-2 bg-primary text-white" style = 'font-size: 20px;text-align:center;'>Shot assigned To You !</h3>
+    
+            {% if li1%}
+                <table class="redTable">
+                    <thead>
+                        <tr>
+                            <th>Sr. No.</th>
+                            <th>Name</th>
+                            <!-- <th>Department</th>
+                            <th>Designation</th> -->
+                            <th>Project Name</th>
+                            <th>Shot Name</th>
+                            <th>Issued Date</th>
+                            <th>TGT Date</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                
+                    <tbody>
+                        {% for t in li1 %}
+                            <tr>
+                                <td>{{forloop.counter}}</td>
+                                <td>{{t.0}}</td>
+                                <!-- <td>{{t.1}}</td>
+                                <td>{{t.2}}</td> -->
+                                <td>{{t.3}}</td>
+                                <td>{{t.4}}</td>
+                                <td>{{t.5}}</td>
+                                <td>{{t.6 | date:"d/m/Y"}}</td>
+                                <td><a href="{% url 'sendfeedback' %}"><button type="button" class="btn btn-outline-success btn-sm">Send</button></a> </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {%else%}
+                <h5> No Shot Assigned to you</h5>
+            {%endif%}
     </body>
 </html>
 

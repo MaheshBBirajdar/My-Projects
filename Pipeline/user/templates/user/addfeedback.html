@@ -92,13 +92,28 @@
      {% include "user/navbarstudent.html" %}
         <br>
         <br>
-        <center><h3 style=" margin-bottom: 0px;"class = 'alert alert-success'>Send Work Status</h3></center>
+        <center><h3 style=" margin-bottom: 0px;"class = 'alert alert-success'>Send Shot Status</h3></center>
         <div class="signup-form">
             <form  method="post" class="form-horizontal">
-                    <center><h2>Send Work Status</h2></center>
+                <center><h2>Send Shot Status</h2></center>
 
-                        {% csrf_token %}
-                        {{ form | crispy }}
+                
+
+                {% if messages %}
+                    <div>
+                        {% for message in messages %}
+                            {% if message.tags == 'error' %}
+                                <li style="color: red;">{{ message }}</li>
+                            {% else %}
+                                <li style="color: green;">{{ message }}</li>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                {% endif %}
+
+                {% csrf_token %}
+                {{ form | crispy }}
+                
                 <div class="form-group">
                     <div class="col-xs-8 col-xs-offset-4">
                         <button type="submit" class="btn btn-outline-primary btn-lg">SEND</button>

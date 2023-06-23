@@ -23,32 +23,29 @@
     <h3 class="p-3 mb-2 bg-primary text-white" style = 'font-size: 20px;text-align:center;'>All Projects</h3>
                 
         {% if projects %} 
-
-                <table class="redTable" id="table">
-                    
-                    <thead>
-                        <a href="{% url 'addshot' %}" class="btn btn-outline-primary btn-lg" role="button" aria-pressed="true">Create Project</a>
+            <table class="redTable" id="table">
+                <thead>
+                    <a href="{% url 'addshot' %}" class="btn btn-outline-primary btn-lg" role="button" aria-pressed="true">Create Project</a>
+                    <tr>
+                        <th>Sr.No</th>
+                        <th>Project Name</th>
+                        <th>Number of Shots</th>
+                        <!-- <th>TGT Date</th> -->
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for project in projects %}
                         <tr>
-                            <th>Sr.No</th>
-                            <th>Project Name</th>
-                            <th>Number of Shots</th>
-                            <th>TGT Date</th>
+                            <td>{{ forloop.counter }}</td>
+                            <td><a href="{% url 'pshots' project.project_name %}">{{ project.project_name }}</a></td>
+                            <td>{{ project.num_shots }}</td>
+                            <!-- <td></td> -->
                         </tr>
-                    </thead>
-                    <tbody>
-                        {% for project in projects %}
-                            <tr>
-                                <td>{{ forloop.counter }}</td>
-                                <td><a href="{% url 'pshots' project.project_name %}">{{ project.project_name }}</a></td>
-                                <td>{{ project.num_shots }}</td>
-                                <td></td>
-                            </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-        
+                    {% endfor %}
+                </tbody>
+            </table>
         {% else %}
-            <h4> Projects Not Available </h4>
+            <h4> Projects Not Available <a href="{% url 'addshot' %}" class="btn btn-outline-primary btn-lg" role="button" aria-pressed="true">Create Project</a></h4>
         {%endif%}
   
   </body>

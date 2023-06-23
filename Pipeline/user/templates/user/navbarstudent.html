@@ -44,8 +44,9 @@
                             <div class="nav-item dropdown">
                             <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown"> Shot</a>
                             <div class="dropdown-menu">
-                                <a href="{% url 'allshot' %}" class="dropdown-item">View All Shot</a>
-                                <a href="{% url 'viewissuedshotbyartist' %}" class="dropdown-item"> Shot Issued to You</a>
+                                <!-- <a href="{% url 'allshot' %}" class="dropdown-item">All Shot</a> -->
+                                <a href="{% url 'viewissuedshotbyartist' %}" class="dropdown-item">  Assigned Shot </a>
+                                <a href="{% url 'popup_message' %}" class="dropdown-item"> Messages </a>
                             </div>
                             </div>
 
@@ -53,8 +54,8 @@
                             <div class="nav-item dropdown">
                                 <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Status</a>
                                 <div class="dropdown-menu">
-                                <a href="{% url 'sendfeedback' %}" class="dropdown-item">Send Work Status</a>
-                                <a href="{% url 'myfeedback' %}" class="dropdown-item">My Work Status</a>
+                                <a href="{% url 'sendfeedback' %}" class="dropdown-item">Send Status</a>
+                                <a href="{% url 'myfeedback' %}" class="dropdown-item">My Status</a>
                                 </div>
                             </div>
                     </div>

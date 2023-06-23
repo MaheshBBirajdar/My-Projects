@@ -92,7 +92,6 @@
                 background-color: orange;
             }
 
-            
         </style>
     </head>
   <body>
@@ -109,63 +108,54 @@
                     </div>
                 {% endif %}
 
-        {% if li %}
-        
-            <div class="search-container">
-                <form class="form-inline" method="get" action="{% url 'search2' %}">
-                    <input class="form-control mr-sm-2" type="text" name="p2" placeholder="Enter Dept Name" aria-label="Search" value="{{ request.GET.p2 }}">
-                    <input class="form-control mr-sm-2" type="text" name="p3" placeholder="Enter Project Name" aria-label="Search" value="{{ request.GET.p3 }}">
-                    <input class="form-control mr-sm-2" type="text" name="p4" placeholder="Enter Shot Name" aria-label="Search" value="{{ request.GET.p4 }}">
-                    <input class="form-control mr-sm-2" type="text" name="p5" placeholder="Enter Shot Status" aria-label="Search" value="{{ request.GET.p5 }}">
-                    <button class="btn btn-outline-success" type="submit">Search</button>
-                </form>
-            </div>
-        
-            <table class="redTable">
-                <thead>
-                    <tr>
-                        <th>Sr. No.</th>
-                        <th>Artist Name</th>
-                        <th>Project Name</th>
-                        <th>Shot Name</th>
-                        <th>Department</th>
-                        <th>Designation</th>
-                        <th>Issued Date</th>
-                        <th>TGT Date</th>
-                        <th>Shot Status</th>
-                        <th>Overdue Days</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
+                {% if li %}
+                
             
-                <tbody>
-                    {% for each in li %}
+                <table class="redTable">
+                    <thead>
                         <tr>
-                            <td>{{forloop.counter}}</td>
-                            <td>{{each.0}}</td>
-                            <td>{{each.1}}</td>
-                            <td>{{each.2}}</td>
-                            <td>{{each.3}}</td>
-                            <td>{{each.4}}</td>
-                            <td>{{each.5 }}</td>
-                            <td>{{each.6 | date:"d/m/Y"}}</td>
-                            <!-- <td class="{% if each.7 == 'YTS' %}red-bg{% elif each.7 == 'DONE' %}green-bg{% elif each.7 == 'WIP' %}orange-bg{% endif %}">{{ each.7 }}</td> -->
-
-                            <td class="{% if each.7 == 'WIP' %}orange-bg{% elif each.7 == 'YTS' %}red-bg{% elif each.7 == 'DONE' %}green-bg{% endif %}">
-                                {{ each.7 }}
-                            </td> 
-                            <td> {{each.8}} </td>
-                            <td>
-                                <a href="{% url 'deleteissuedshot' each.9 %}"><button type="button" class="btn btn-outline-danger btn-sm">Remove</button></a> 
-                            </td>
-                            
+                            <th>Sr. No.</th>
+                            <th>Artist Name</th>
+                            <th>Project Name</th>
+                            <th>Shot Name</th>
+                            <th>Department</th>
+                            <th>Designation</th>
+                            <th>Issued Date</th>
+                            <th>TGT Date</th>
+                            <th>Shot Status</th>
+                            <th>Action</th>
+                            <th>Overdue Days</th>
                         </tr>
-                    {%endfor%}
-                </tbody>
-            </table>
-        {%else%}
-            <h4> Yet, No Shot Assigned</h4>
-        {%endif%}
+                    </thead>
+            
+                    <tbody>
+                        {% for each in li %}
+                            <tr>
+                                <td>{{ forloop.counter }}</td>
+                                <td>{{ each.0 }}</td>
+                                <td>{{ each.1 }}</td>
+                                <td>{{ each.2 }}</td>
+                                <td>{{ each.3 }}</td>
+                                <td>{{ each.4 }}</td>
+                                <td>{{ each.5 }}</td>
+                                <td>{{ each.6 | date:"d/m/Y" }}</td>
+                                <td class="{% if each.7 == 'WIP' %}orange-bg{% elif each.7 == 'YTS' %}red-bg{% elif each.7 == 'DONE' %}green-bg{% endif %}">
+                                    {{ each.7 }}
+                                </td>
+                                <td>
+                                    <a href="{% url 'deleteissuedshot' each.8 %}">
+                                        <button type="button" class="btn btn-outline-danger btn-sm">Remove</button>
+                                    </a>
+                                </td>
+                                <td>{{ each.9 }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                <h4>Yet, No Shot Assigned</h4>
+            {% endif %}
+            
   </body>
 </html>
 

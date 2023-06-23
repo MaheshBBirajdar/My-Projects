@@ -35,7 +35,7 @@
                                 {% for i in feedbacks %}
                                     <b>{{forloop.counter}}) {{ i.sender1 }}</b>
 
-                                    <h6><span> Date Posted : <b> {{ i.date_posted }}</b></span>
+                                    <h6><span> Date Posted : <b> {{ i.date_posted | date:'d/m/Y' }}</b></span>
                                         <a href="{% url 'deletefeedback' i.id %}" class="delete-button">
                                         <button type="button" class="btn btn-outline-danger btn-sm">Delete</button></a>
                                     </h6>
