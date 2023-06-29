@@ -52,7 +52,6 @@ def Login(request):
 				return redirect('homepage')
 			else:
 				messages.error(request, f"username & password is incorrect")
-
 	return render(request,'user/login.html', context)	
 
 ############################################################################################################################################
@@ -206,7 +205,7 @@ def import_excel(request):
                 existing_shot1.date_started     = row['Date Posted']
                 existing_shot1.work_description = row['Scope of Work']
                 existing_shot1.eta              = row['TGT Date']
-                existing_shot1.work_status      = row['Shot Status']
+#                existing_shot1.work_status      = row['Shot Status']
                 existing_shot1.save()
 
             existing_shot = Shot2.objects.filter(project_name=project_name, shot_name=shot_name).exists()
@@ -231,7 +230,7 @@ def import_excel(request):
             message = f"New {imported_rows} shots added successfully."
             
         else:
-            message = "Existing shot having new info added."
+            message = "Some changes done."
 
         if error_rows > 0:
             message += f" {error_rows} rows skipped due to invalid dates."
@@ -260,20 +259,28 @@ def addshot_view(request):
 @login_required(login_url='adminlogin')                                                     # Read/All Shot
 def allshot_view(request, page=1):
     shots = Shot2.objects.all().order_by('project_name')
-    today = date.today()
-    
-    for shot in shots:
-        if shot.eta and shot.work_status != 'DONE':
-            if today > shot.eta:
-                overdue_days = (today - shot.eta).days
-                shot.overdue_days = overdue_days
-            else:
-                shot.overdue_days = 0
-    
     p1 = Paginator(shots, 20)
     shot = p1.page(page)
     context = {'shots': shot}
     return render(request, 'user/allshot.html', context)
+
+
+@login_required(login_url='adminlogin')                                                     # Read/All Shot for management
+def allshot_view1(request, page=1):
+    shots = Shot2.objects.all().order_by('project_name')
+    p1 = Paginator(shots, 20)
+    shot = p1.page(page)
+    context = {'shots': shot}
+    return render(request, 'user/allshot1.html', context)
+
+
+@login_required(login_url='adminlogin')                                                    # Approved Shot
+def approve_shot(request, shot_id):
+    shot = Shot2.objects.get(pk=shot_id)
+    shot.work_status = 'REVIEWED'
+    shot.save()
+    messages.success(request, 'Shot Reviewed')
+    return redirect('allshot')
 
 #############################################################################################################################################
 
@@ -289,14 +296,17 @@ def allproject_view(request):
 def project_shots_view(request, project_name):
     shots = Shot2.objects.filter(project_name=project_name)
     today = date.today()
-    
+
     for shot in shots:
-        if shot.eta and shot.work_status != 'DONE':
-            if today > shot.eta:
-                overdue_days = (today - shot.eta).days
-                shot.overdue_days = overdue_days
-            else:
-                shot.overdue_days = 0
+        if shot.work_status != 'READY FOR REVIEW' and shot.eta < today :
+            shot.overdue_days = (today - shot.eta).days
+
+        elif shot.work_status == 'READY FOR REVIEW' :
+            shot.overdue_days = '-'
+
+        else:
+            shot.overdue_days = 0
+
     context = {'project_name': project_name, 'shots': shots}
     return render(request, 'user/pshots.html', context)
 
@@ -336,23 +346,25 @@ def searchshot_view(request):                                                   
         query1 = request.GET.get('p')
         query2 = request.GET.get('q')
         query3 = request.GET.get('r')
+        query4 = request.GET.get('s')
 
         if query1:
             shots = Shot2.objects.filter(project_name__istartswith=query1)
             return render(request, 'user/search.html', {'shots': shots})
-        
 
         elif query2:
             shots = Shot2.objects.filter(shot_name__istartswith=query2) 
-            return render(request, 'user/search.html', {'shots': shots})
-        
+            return render(request, 'user/search.html', {'shots': shots}) 
 
         elif query3:
             shots = Shot2.objects.filter(work_status__istartswith=query3)
             return render(request, 'user/search.html', {'shots': shots})
+        
+        elif query4:
+            date = datetime.strptime(query4, '%d/%m/%Y').date()  
+            shots = Shot2.objects.filter(eta=date)
+            return render(request, 'user/search.html', {'shots': shots})
 
-        else:
-            print("No Information Available")
     else:
         return render(request, 'user/search.html')   
 
@@ -429,8 +441,9 @@ def search_issuedshots_view(request):                                           
              issdate,
              issuedshot.eta,
              issuedshot.work_status,
-             issuedshot.id,
-             overdue_days)
+             overdue_days,
+             issuedshot.id
+             )
         li.append(t)
 
     context = {'li': li}
@@ -452,6 +465,7 @@ def issueshot_view(request):
             obj.shot_name = request.POST.get('shotname1')
             obj.project_name = request.POST.get('projectname1')
             obj.eta = request.POST.get('eta1')
+            obj.note = request.POST.get('note1')
             obj.work_status = 'YTS' 
 
             obj.save()
@@ -476,15 +490,17 @@ def viewissuedshot_view(request):
     def is_all_done(shot_name):
         return IssuedShot.objects.filter(shot_name=shot_name).exclude(work_status='DONE').count() == 0
 
+            
     for issuedshot in issuedshots:
         if not hasattr(issuedshot, 'work_status') or issuedshot.work_status is None:
             Shot2.objects.filter(shot_name=issuedshot.shot_name).update(work_status='YTS')
 
         elif is_all_done(issuedshot.shot_name):
-            Shot2.objects.filter(shot_name=issuedshot.shot_name).update(work_status='Ready for Review')
+            Shot2.objects.filter(shot_name=issuedshot.shot_name).update(work_status='READY FOR REVIEW')
+            issuedshot.delete()
 
         else:
-            Shot2.objects.filter(shot_name=issuedshot.shot_name).update(work_status='Pending for Review')
+            Shot2.objects.filter(shot_name=issuedshot.shot_name).update(work_status='PENDING FOR REVIEW')
 
     li = []
     today = date.today()
@@ -495,13 +511,10 @@ def viewissuedshot_view(request):
 
         if issuedshot.work_status != 'DONE' and eta < today:
             overdue_days = (today - eta).days
-
-        elif issuedshot.work_status == 'DONE' and eta < today:
-            overdue_days = f'by {eta - today} days'
     
         elif issuedshot.work_status == 'DONE' :
             overdue_days = '-'
-        
+            
         else :
             overdue_days = 0
 
@@ -516,7 +529,7 @@ def viewissuedshot_view(request):
              issuedshot.eta,
              issuedshot.work_status,
              overdue_days,
-             issuedshot.id,
+#             issuedshot.id,
              )
         li.append(t)
     context = {'li': li}
@@ -548,7 +561,8 @@ def viewissuedshotbyartist_view(request):
            issuedshot.project_name, 
            issuedshot.shot_name, 
            issdate,
-           issuedshot.eta,)
+           issuedshot.eta,
+           issuedshot.note,)
         li1.append(t)
 
     context = {'li1':li1}
@@ -640,3 +654,8 @@ def artist_portal(request):                                                     
 
 ###################################################################################################################################################
 
+@login_required(login_url='adminlogin') 
+def management_portal(request):                                                                 # receive popup message when shot status updated to Reviewed
+    messages = ManagementMessage.objects.order_by('-date_sent')
+    context = {'messages': messages}
+    return render(request, 'user/mang_message.html', context)

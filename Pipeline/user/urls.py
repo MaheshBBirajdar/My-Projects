@@ -31,6 +31,8 @@ urlpatterns = [
 
     path('allshot/', allshot_view, name='allshot'),
 
+    path('allshot1/', allshot_view1, name='allshot1'),
+
     path('allproject/', allproject_view, name='allproject'),                                            # All Projects
 
     path('project_shots/<str:project_name>/', project_shots_view, name='pshots'),                       # Shot by project wise
@@ -63,7 +65,9 @@ urlpatterns = [
 
     path('artist-portal/', artist_portal, name='popup_message'),                                  # popup message
 
+    path('mang-portal/', management_portal, name='popup_mang_message'),
 
+    path('approve-shot/<int:shot_id>/', approve_shot, name='approve_shot'),
     
 
 

@@ -9,24 +9,19 @@
         text-align: center;
         border-collapse: collapse;
         }
-
         table.redTable td, table.redTable th {
         border: 1px solid #AAAAAA;
         padding: 3px 2px;
         }
-
         table.redTable tbody td {
         font-size: 15px;
         }
-
         /* table.redTable tr:nth-child(even) {
         background: #F5C8BF;
         } */
-
         table.redTable thead {
         background: #504a4a;
         }
-
         table.redTable thead th {
         font-size: 19px;
         font-weight: bold;
@@ -34,11 +29,30 @@
         text-align: center;
         border-left: 2px solid #b8b0b0;
         }
-        
         table.redTable thead th:first-child {
         border-left: none;
         }
 
+        table.redTable tfoot {
+        font-size: 13px;
+        font-weight: bold;
+        color: #FFFFFF;
+        background: #6e5555;
+        }
+        table.redTable tfoot td {
+        font-size: 13px;
+        }
+        table.redTable tfoot .links {
+        text-align: right;
+        }
+        table.redTable tfoot .links a{
+        display: inline-block;
+        background: #FFFFFF;
+        color: #fabdbd;
+        padding: 2px 8px;
+        border-radius: 5px;
+        }
+     
         .search-container {
         display: flex;
         justify-content: flex-end;
@@ -101,12 +115,8 @@
                         <th>Project Name </th>
                         <th>Shot Name </th>
                         <th>Scope of Work </th>
-                        <th>Date Posted</th>
                         <th>Project TGT Date</th>
-                        <!-- <th>Dependencies</th> -->
                         <th>Shot Status</th>
-                        <th>Approve</th>
-                        <th>Assign to</th>
                     </tr>
                 </thead>
 
@@ -117,72 +127,19 @@
                             <td>{{ shot.project_name }}</td>
                             <td>{{ shot.shot_name }}</td>
                             <td class="description-cell">{{ shot.work_description }}</td>
-                            <td>{{ shot.date_started | date:"d/m/Y"  }}</td>
                             <td>{{ shot.eta | date:"d/m/Y"  }}</td>
-                            
-                            <!-- <td>
-                                {% for dependency in shot.dependency.all %}
-                                    {{ dependency }}
-                                        {% if not forloop.last %} | {% endif %}
-                                            {% cycle '' '' '<br>' %}
-                                {% endfor %}
-                            </td> -->
-
-                            <td>
+                            <td>{{ shot.work_status }}
                                 {% if shot.work_status == 'READY FOR REVIEW' %}
-                                    <span style="color: green;">{{ shot.work_status }}</span>
-                                    
-
-                                {% elif shot.work_status == 'PENDING FOR REVIEW' %}
-                                    <span style="color: orange;">{{ shot.work_status }}</span>
-
-                                {% elif shot.work_status == 'REVIEWED' %}
-                                    <span style="color: green;">{{ shot.work_status }}</span>
-
-                                {% else %}
-                                    <span style="color: red;">{{ shot.work_status }}</span>
-
+                                  <button type="button" class="btn btn-outline-success btn-sm">&#10004;</button>
+                                  <button type="button" class="btn btn-outline-danger btn-sm">&#10060;</button>
                                 {% endif %}
-                            </td>
-                            <td>
-                                {% if shot.work_status == 'READY FOR REVIEW' %}
-                                    <span style="color: green;"></span> 
-
-                                    <a href="{% url 'approve_shot' shot.id %}">
-                                        <button type="button" class="btn btn-outline-success btn-sm">&#10004;</button>
-                                    </a>
-
-                                    <a href="{% url 'issueshot' %}?shot_name={{ shot.shot_name }}&project_name={{ shot.project_name }}">
-                                        <button type="button" class="btn btn-outline-danger btn-sm">&#10060;</button>
-                                    </a>
-                                {% endif %}
-                            </td>
-
-                            <td>
-                                <div>                         
-                                    <!-- <a href="{% url 'editshot' shot.id %}">
-                                        <button type="button" class="btn btn-outline-success btn-sm">
-                                            <i class="fa fa-pencil" style="color: green;"></i> 
-                                        </button>
-                                    </a> -->
-
-                                    <a href="{% url 'deleteshot' shot.id %}">
-                                        <button type="button" class="btn btn-outline-danger btn-sm">
-                                            <i class="fa fa-trash" style="color: red;"></i> 
-                                        </button>
-                                    </a> 
-
-                                    <a href="{% url 'issueshot' %}?shot_name={{ shot.shot_name }}&project_name={{ shot.project_name }}">
-                                        <button type="button" class="btn btn-outline-primary btn-sm">Assign</button>
-                                    </a>
-                                </div>
                             </td>
                         </tr>
                     {% endfor %}
                 </tbody>
             </table>
         {% else %}
-            <h4> Shots Not Available ! <a href="{% url 'importdata' %}" class="btn btn-outline-primary" role="button" aria-pressed="true">Import Data</a></h4>
+            <h4> Shots Not Available ! </h4>
         {%endif%}    
   </body>
 </html><br>
@@ -191,7 +148,9 @@
                 {% if shots.has_previous %}
                     <a href="{% url 'pages' shots.previous_page_number %}"> Previous </a>
                 {% endif %}
+
                     Page {{ shots.number }} of {{ shots.paginator.num_pages }}
+
                 {% if shots.has_next %}
                     <a href="{% url 'pages' shots.next_page_number %}"> Next </a>
                 {% endif %}
@@ -223,4 +182,3 @@
             </script> -->
 
 
-            

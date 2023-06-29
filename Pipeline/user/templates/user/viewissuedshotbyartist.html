@@ -3,55 +3,41 @@
     <head>
         <meta charset="utf-8">
             <style media="screen">
-                    table.redTable {
-                border: 2px solid #A40808;
+                table.redTable {
+                border: 2px solid #8508a4;
                 background-color: #EEE7DB;
                 width: 100%;
                 text-align: center;
                 border-collapse: collapse;
                 }
+
                 table.redTable td, table.redTable th {
                 border: 1px solid #AAAAAA;
                 padding: 3px 2px;
                 }
+
                 table.redTable tbody td {
                 font-size: 15px;
                 }
-                table.redTable tr:nth-child(even) {
+
+                /* table.redTable tr:nth-child(even) {
                 background: #F5C8BF;
-                }
+                } */
+
                 table.redTable thead {
-                background: #110c0c;
+                background: #504a4a;
                 }
+
                 table.redTable thead th {
                 font-size: 19px;
                 font-weight: bold;
                 color: #FFFFFF;
                 text-align: center;
-                border-left: 2px solid #A40808;
+                border-left: 2px solid #b8b0b0;
                 }
+                
                 table.redTable thead th:first-child {
                 border-left: none;
-                }
-
-                table.redTable tfoot {
-                font-size: 13px;
-                font-weight: bold;
-                color: #FFFFFF;
-                background: #A40808;
-                }
-                table.redTable tfoot td {
-                font-size: 13px;
-                }
-                table.redTable tfoot .links {
-                text-align: right;
-                }
-                table.redTable tfoot .links a{
-                display: inline-block;
-                background: #FFFFFF;
-                color: #A40808;
-                padding: 2px 8px;
-                border-radius: 5px;
                 }
             </style>
     </head>
@@ -73,6 +59,7 @@
                             <th>Issued Date</th>
                             <th>TGT Date</th>
                             <th>Status</th>
+                            <th>Note</th>
                         </tr>
                     </thead>
                 
@@ -88,6 +75,7 @@
                                 <td>{{t.5}}</td>
                                 <td>{{t.6 | date:"d/m/Y"}}</td>
                                 <td><a href="{% url 'sendfeedback' %}"><button type="button" class="btn btn-outline-success btn-sm">Send</button></a> </td>
+                                <td>{{t.7}}</td>
                             </tr>
                         {% endfor %}
                     </tbody>

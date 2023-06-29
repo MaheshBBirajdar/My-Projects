@@ -5,70 +5,41 @@
         <title></title>
         <style media="screen">
             table.redTable {
-            border: 2px solid #A40808;
+            border: 2px solid #8508a4;
             background-color: #EEE7DB;
             width: 100%;
             text-align: center;
             border-collapse: collapse;
             }
-
             table.redTable td, table.redTable th {
             border: 1px solid #AAAAAA;
             padding: 3px 2px;
             }
-
             table.redTable tbody td {
             font-size: 15px;
             }
-
-            table.redTable tr:nth-child(even) {
+            /* table.redTable tr:nth-child(even) {
             background: #F5C8BF;
-            }
-
+            } */
             table.redTable thead {
-            background: #110c0c;
+            background: #504a4a;
             }
-
             table.redTable thead th {
             font-size: 19px;
             font-weight: bold;
             color: #FFFFFF;
             text-align: center;
-            border-left: 2px solid #A40808;
+            border-left: 2px solid #b8b0b0;
             }
-
             table.redTable thead th:first-child {
             border-left: none;
-            }
-
-            table.redTable tfoot {
-            font-size: 13px;
-            font-weight: bold;
-            color: #FFFFFF;
-            background: #A40808;
-            }
-
-            table.redTable tfoot td {
-            font-size: 13px;
-            }
-
-            table.redTable tfoot .links {
-            text-align: right;
-            }
-
-            table.redTable tfoot .links a{
-            display: inline-block;
-            background: #FFFFFF;
-            color: #A40808;
-            padding: 2px 8px;
-            border-radius: 5px;
             }
 
             .search-container {
             display: flex;
             justify-content: flex-end;
             align-items: center;
-            }   
+            }
 
             .search-container form {
             display: flex;
@@ -92,7 +63,7 @@
                 background-color: orange;
             }
 
-            
+
         </style>
     </head>
   <body>
@@ -102,7 +73,7 @@
         <h3 class="p-3 mb-2 bg-primary text-white" style = 'font-size: 20px;text-align:center;margin-bottom:0px;'>Shot assigned to Artist !</h3>
 
                 {% if messages %}
-                    <div> 
+                    <div>
                         {% for message in messages %}
                             <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
                         {% endfor %}
@@ -110,7 +81,7 @@
                 {% endif %}
 
         {% if li %}
-        
+
             <div class="search-container">
                 <form class="form-inline" method="get" action="{% url 'search2' %}">
                     <input class="form-control mr-sm-2" type="text" name="p2" placeholder="Enter Dept Name" aria-label="Search" value="{{ request.GET.p2 }}">
@@ -120,7 +91,7 @@
                     <button class="btn btn-outline-success" type="submit">Search</button>
                 </form>
             </div>
-        
+
             <table class="redTable">
                 <thead>
                     <tr>
@@ -134,10 +105,10 @@
                         <th>TGT Date</th>
                         <th>Shot Status</th>
                         <th>Overdue Days</th>
-                        <th>Action</th>
+                        <!-- <th>Action</th> -->
                     </tr>
                 </thead>
-            
+
                 <tbody>
                     {% for each in li %}
                         <tr>
@@ -153,12 +124,10 @@
 
                             <td class="{% if each.7 == 'WIP' %}orange-bg{% elif each.7 == 'YTS' %}red-bg{% elif each.7 == 'DONE' %}green-bg{% endif %}">
                                 {{ each.7 }}
-                            </td> 
-                            <td> {{each.8}} </td>
-                            <td>
-                                <a href="{% url 'deleteissuedshot' each.9 %}"><button type="button" class="btn btn-outline-danger btn-sm">Remove</button></a> 
                             </td>
+                            <td> {{each.8}} </td>
                             
+
                         </tr>
                     {%endfor%}
                 </tbody>
@@ -176,11 +145,11 @@
 {
     var table = document.getElementById("table"); // Get the table element by its ID
     var cells = table.getElementsByTagName("td"); // Get all the cells in the table
-    
+
     for (var i = 0; i < cells.length; i++) { // Loop through each cell
     var cell = cells[i];
     var text = cell.innerText.toLowerCase(); // Get the text of the cell, converted to lowercase for easier comparison
-    
+
     if (text.includes("yts")) { // If the text includes the word "red"
         cell.style.backgroundColor = "red"; // Change the background color to red
     } else if (text.includes("wip")) { // If the text includes the word "blue"

@@ -16,9 +16,9 @@
         table.redTable tbody td {
         font-size: 15px;
         }
-        table.redTable tr:nth-child(even) {
+        /* table.redTable tr:nth-child(even) {
         background: #F5C8BF;
-        }
+        } */
         table.redTable thead {
         background: #504a4a;
         }
@@ -31,26 +31,6 @@
         }
         table.redTable thead th:first-child {
         border-left: none;
-        }
-
-        table.redTable tfoot {
-        font-size: 13px;
-        font-weight: bold;
-        color: #FFFFFF;
-        background: #6e5555;
-        }
-        table.redTable tfoot td {
-        font-size: 13px;
-        }
-        table.redTable tfoot .links {
-        text-align: right;
-        }
-        table.redTable tfoot .links a{
-        display: inline-block;
-        background: #FFFFFF;
-        color: #fabdbd;
-        padding: 2px 8px;
-        border-radius: 5px;
         }
      
         .search-container {
@@ -143,13 +123,31 @@
                             <td>{{ shot.eta | date:"d/m/Y" }}</td>
                             <td>
                                 {% for dependency in shot.dependency.all %}
-                                    {{ dependency}} |
+                                    {{ dependency }}
+                                        {% if not forloop.last %} | {% endif %}
+                                    {% cycle '' '' '<br>' %}
                                 {% endfor %}
                             </td>
                             <td>{{ shot.work_status }}</td>
+                            <!-- <td></td> -->
                             <td>{{ shot.overdue_days }}</td>
-                            <td><a href="{% url 'editshot' shot.id %}"><button type="button" class="btn btn-outline-success btn-sm">Edit</button></a>
-                                <a href="{% url 'issueshot' %}?shot_name={{ shot.shot_name }}&project_name={{ shot.project_name }}"><button type="button" class="btn btn-outline-primary btn-sm">Assign to artist</button></a>
+                            <td>
+                                <a href="{% url 'editshot' shot.id %}">
+                                    <button type="button" class="btn btn-outline-success btn-sm">
+                                        <i class="fa fa-pencil" style="color: green;"></i> 
+                                    </button>
+                                </a>
+
+                                <a href="{% url 'deleteshot' shot.id %}">
+                                    <button type="button" class="btn btn-outline-danger btn-sm">
+                                        <i class="fa fa-trash" style="color: red;"></i> 
+                                    </button>
+                                </a>
+
+                                <a href="{% url 'issueshot' %}?shot_name={{ shot.shot_name }}&project_name={{ shot.project_name }}">
+                                    <button type="button" class="btn btn-outline-primary btn-sm">Assign</button>
+                                </a>
+                                
                             </td>
                         </tr>
                         {% endfor %}
@@ -169,19 +167,23 @@
                     var table = document.getElementById("table"); // Get the table element by its ID
                     var cells = table.getElementsByTagName("td"); // Get all the cells in the table
                     
-                    for (var i = 0; i < cells.length; i++) { // Loop through each cell
-                    var cell = cells[i];
-                    var text = cell.innerText.toLowerCase(); // Get the text of the cell, converted to lowercase for easier comparison
-                    
-                    if (text.includes("yts")) { // If the text includes the word "red"
-                        cell.style.backgroundColor = "red"; // Change the background color to red
+                    for (var i = 0; i < cells.length; i++) 
+                    { // Loop through each cell
+                        var cell = cells[i];
+                        var text = cell.innerText.toLowerCase(); // Get the text of the cell, converted to lowercase for easier comparison
+                        
+                        if (text.includes("yts")) { // If the text includes the word "red"
+                            cell.style.backgroundColor = "red"; // Change the background color to red
 
-                    } else if (text.includes("pending for review")) { // If the text includes the word "blue"
-                        cell.style.backgroundColor = "orange"; // Change the background color to blue
+                        } else if (text.includes("pending for review")) { // If the text includes the word "blue"
+                            cell.style.backgroundColor = "orange"; // Change the background color to blue
 
-                    } else if (text.includes("ready for review")) { // If the text includes the word "green"
-                        cell.style.backgroundColor = "green"; // Change the background color to green
-                    }
+                        } else if (text.includes("ready for review")) { // If the text includes the word "green"
+                            cell.style.backgroundColor = "green"; // Change the background color to green
+
+                        } else if (text.includes("reviewed")) { // If the text includes the word "green"
+                            cell.style.backgroundColor = "green"; // Change the background color to green
+                        }
                     }
                 }
                 changeColor();

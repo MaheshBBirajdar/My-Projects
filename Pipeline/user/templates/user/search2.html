@@ -123,8 +123,9 @@
                             <th>Issued Date</th>
                             <th>TGT Date</th>
                             <th>Shot Status</th>
-                            <th>Action</th>
                             <th>Overdue Days</th>
+                            <th>Action</th>
+                            
                         </tr>
                     </thead>
             
@@ -142,12 +143,13 @@
                                 <td class="{% if each.7 == 'WIP' %}orange-bg{% elif each.7 == 'YTS' %}red-bg{% elif each.7 == 'DONE' %}green-bg{% endif %}">
                                     {{ each.7 }}
                                 </td>
+                                <td>{{ each.8 }}</td>
                                 <td>
-                                    <a href="{% url 'deleteissuedshot' each.8 %}">
+                                    <a href="{% url 'deleteissuedshot' each.9 %}">
                                         <button type="button" class="btn btn-outline-danger btn-sm">Remove</button>
                                     </a>
                                 </td>
-                                <td>{{ each.9 }}</td>
+                                
                             </tr>
                         {% endfor %}
                     </tbody>
