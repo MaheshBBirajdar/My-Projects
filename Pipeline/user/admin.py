@@ -38,3 +38,13 @@ class ArtistMessageAdmin(admin.ModelAdmin):
 admin.site.register(ArtistMessage, ArtistMessageAdmin)
 
 
+
+
+class ManagementMessageAdmin(admin.ModelAdmin):
+    pass
+admin.site.register(ManagementMessage, ManagementMessageAdmin)
+
+
+###############################
+#<td><a href="{% url 'deleteissuedshot' each.9 %}"><button type="button" class="btn btn-outline-danger btn-sm">Remove</button></a></td> -->
+###################################

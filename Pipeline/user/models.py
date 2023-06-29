@@ -82,7 +82,6 @@ class Shot2(models.Model):
     work_status = models.CharField(max_length=100,choices=CHOICES4, verbose_name='Shot Status')
     eta = models.DateField(null=True, blank=True,default=None, verbose_name='TGT Date (y-m-d)')                              # YYYY-MM-DD
     
-    
     def __str__(self):
         return self.project_name 
     
@@ -109,7 +108,10 @@ class Shot2(models.Model):
             message = f"A new shot '{self.shot_name}' has been added to the project '{self.project_name}' ."
             ArtistMessage.objects.create(shot=self, message=message)
 
-    
+
+        if self.work_status == 'REVIEWED':
+            message = f"The shot '{self.shot_name}' in the project '{self.project_name}' has been reviewed."
+            ManagementMessage.objects.create(shot=self, message=message)
 
 ####################################################################################################################################################   
    
@@ -157,6 +159,7 @@ class IssuedShot(models.Model):
     shot_name = models.CharField(max_length=100)
     issuedate = models.DateField(auto_now=True)
     eta = models.DateField(null=True, blank=True, default=None)
+    note = models.CharField(max_length=200, null=True, blank=True, default=None)
 
     def __str__(self):
         return  self.project_name
@@ -230,3 +233,11 @@ class ArtistMessage(models.Model):                                              
         return self.message
 
 ###########################################################################################################################################################
+
+class ManagementMessage(models.Model):                                                       # send popup message to artist portal 
+    shot = models.ForeignKey(Shot2, on_delete=models.CASCADE)
+    message = models.CharField(max_length=200)
+    date_sent = models.DateTimeField(default=timezone.now)
+
+    def __str__(self):
+        return self.message

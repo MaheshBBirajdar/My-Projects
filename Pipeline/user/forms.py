@@ -105,7 +105,6 @@ class CustomDateInput(forms.DateInput):
 class ShotForm(forms.ModelForm):
     dependency = forms.ModelMultipleChoiceField(queryset=StudentExtra.objects.all(), required=False, widget=forms.CheckboxSelectMultiple, label='Dependencies')
     eta = forms.DateField(label='TGT Date', widget=CustomDateInput)
-    
     class Meta:
         model=Shot2
         fields = ['project_name','shot_name','work_description','date_started','eta','work_status','dependency']
@@ -132,7 +131,7 @@ class IssuedShotForm(forms.Form):
     projectname1 = forms.ModelChoiceField(queryset = Shot2.objects.values_list('project_name', flat=True).distinct(),to_field_name="project_name",label='Project Name')
     shotname1 = forms.CharField(label='Shot Name')
     eta1 = forms.DateField(label='TGT Date', widget=CustomDateInput)
-
+    note1 = forms.CharField(label='Note')
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
