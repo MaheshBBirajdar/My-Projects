@@ -257,30 +257,42 @@ def addshot_view(request):
 #############################################################################################################################################
 
 @login_required(login_url='adminlogin')                                                     # Read/All Shot
-def allshot_view(request, page=1):
+def allshot_view(request):
     shots = Shot2.objects.all().order_by('project_name')
-    p1 = Paginator(shots, 20)
-    shot = p1.page(page)
-    context = {'shots': shot}
+    paginator = Paginator(shots, 20)
+    page = request.GET.get('page')
+    shots = paginator.get_page(page)
+    context = {'shots': shots}
     return render(request, 'user/allshot.html', context)
+
 
 
 @login_required(login_url='adminlogin')                                                     # Read/All Shot for management
 def allshot_view1(request, page=1):
     shots = Shot2.objects.all().order_by('project_name')
-    p1 = Paginator(shots, 20)
-    shot = p1.page(page)
-    context = {'shots': shot}
-    return render(request, 'user/allshot1.html', context)
+    paginator = Paginator(shots, 20)
+    page = request.GET.get('page')
+    shots = paginator.get_page(page)
+    context = {'shots': shots}
+    return render(request, 'user/mang_message1.html', context)
 
 
-@login_required(login_url='adminlogin')                                                    # Approved Shot
-def approve_shot(request, shot_id):
+@login_required(login_url='adminlogin')                                                       # Reviewed Shot
+def reviewed_shot(request, shot_id):
     shot = Shot2.objects.get(pk=shot_id)
     shot.work_status = 'REVIEWED'
     shot.save()
     messages.success(request, 'Shot Reviewed')
     return redirect('allshot')
+
+
+@login_required(login_url='adminlogin')                                                       # Final Approved Shot
+def final_approved_shot(request, shot_id):
+    shot = Shot2.objects.get(pk=shot_id)
+    shot.final_status = 'APPROVED'
+    shot.save()
+    messages.success(request, 'Shot Approved')
+    return redirect('mang_message1')
 
 #############################################################################################################################################
 
@@ -341,7 +353,7 @@ def deleteshot_view(request, pk):
 
 #############################################################################################################################################
 
-def searchshot_view(request):                                                     # Search All Shot
+def searchshot_view(request):                                                                 # Search All Shot
     if request.method == 'GET':
         query1 = request.GET.get('p')
         query2 = request.GET.get('q')
@@ -449,10 +461,33 @@ def search_issuedshots_view(request):                                           
     context = {'li': li}
     return render(request, 'user/search2.html', context)
 
+##############################################################################################################################################
+
+def searchshot_mang_view(request):                                                                 # Search All Shot for Management
+    if request.method == 'GET':
+        query1 = request.GET.get('p')
+        query2 = request.GET.get('q')
+        query3 = request.GET.get('r')
+
+        if query1:
+            shots = Shot2.objects.filter(project_name__istartswith=query1)
+            return render(request, 'user/search3.html', {'shots': shots})
+
+        elif query2:
+            shots = Shot2.objects.filter(shot_name__istartswith=query2) 
+            return render(request, 'user/search3.html', {'shots': shots}) 
+
+        elif query3:
+            shots = Shot2.objects.filter(work_status__istartswith=query3)
+            return render(request, 'user/search3.html', {'shots': shots})
+        
+    else:
+        return render(request, 'user/search3.html')   
+
         
 ############################################################################################################################################
 
-@login_required(login_url='adminlogin')                                                      # Issue Shot
+@login_required(login_url='adminlogin')                                                      # Assign Shot
 @user_passes_test(is_admin)
 def issueshot_view(request):
     form = IssuedShotForm()
@@ -479,6 +514,36 @@ def issueshot_view(request):
             form.initial['projectname1'] = project_name
     context['form'] = form
     return render(request,'user/issueshot.html',context)
+
+#################################################################################################################################################
+
+@login_required(login_url='adminlogin')                                                      # Re-Assign Shot
+@user_passes_test(is_admin)
+def re_issueshot_view(request):
+    form = IssuedShotForm()
+    context = {'form':form}
+    if request.method == 'POST':
+        form = IssuedShotForm(request.POST)
+        if form.is_valid():
+            obj = IssuedShot()
+            obj.department = request.POST.get('department1')
+            obj.shot_name = request.POST.get('shotname1')
+            obj.project_name = request.POST.get('projectname1')
+            obj.eta = request.POST.get('eta1')
+            obj.note = request.POST.get('note1')
+            obj.work_status = 'YTS' 
+
+            obj.save()
+            messages.success(request, 'Shot assigned successfully!')
+            return redirect('viewissuedshot')
+    else:
+        shot_name = request.GET.get('shot_name')
+        project_name = request.GET.get('project_name')
+        if shot_name and project_name:
+            form.initial['shotname1'] = shot_name
+            form.initial['projectname1'] = project_name
+    context['form'] = form
+    return render(request,'user/reissueshot.html',context)
 
 ############################################################################################################################################
 
@@ -562,7 +627,8 @@ def viewissuedshotbyartist_view(request):
            issuedshot.shot_name, 
            issdate,
            issuedshot.eta,
-           issuedshot.note,)
+           issuedshot.note,
+           issuedshot.work_status,)
         li1.append(t)
 
     context = {'li1':li1}
@@ -656,6 +722,21 @@ def artist_portal(request):                                                     
 
 @login_required(login_url='adminlogin') 
 def management_portal(request):                                                                 # receive popup message when shot status updated to Reviewed
-    messages = ManagementMessage.objects.order_by('-date_sent')
-    context = {'messages': messages}
+    messages1 = ManagementMessage.objects.order_by('-date_sent')
+    shots = Shot2.objects.all().order_by('project_name')
+    message_count = ManagementMessage.objects.aggregate(count=Count('id'))['count']
+    context = {'messages1': messages1,'message_count':message_count, 'shots':shots}
     return render(request, 'user/mang_message.html', context)
+
+###################################################################################################################################################
+
+@login_required(login_url='adminlogin')                                                         # Delete mang_messages                                            
+@user_passes_test(is_admin)
+def delete_mang_message_view(request, pk):
+    shot_obj = get_object_or_404(ManagementMessage, pk=pk)
+    shot_obj.delete()
+    messages.success(request, 'Removed')
+    return redirect('popup_mang_message')  
+
+
+

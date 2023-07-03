@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head>
+        <style media="screen">
+        table.redTable {
+        border: 2px solid #8508a4;
+        background-color: #EEE7DB;
+        width: 100%;
+        text-align: center;
+        border-collapse: collapse;
+        }
+
+        table.redTable td, table.redTable th {
+        border: 1px solid #AAAAAA;
+        padding: 3px 2px;
+        }
+
+        table.redTable tbody td {
+        font-size: 15px;
+        }
+
+        /* table.redTable tr:nth-child(even) {
+        background: #F5C8BF;
+        } */
+
+        table.redTable thead {
+        background: #504a4a;
+        }
+
+        table.redTable thead th {
+        font-size: 19px;
+        font-weight: bold;
+        color: #FFFFFF;
+        text-align: center;
+        border-left: 2px solid #b8b0b0;
+        }
+        
+        table.redTable thead th:first-child {
+        border-left: none;
+        }
+
+        .search-container {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        }   
+
+        .search-container form {
+        display: flex;
+        align-items: center;
+        }
+
+        .search-container input,
+        .search-container button {
+        margin-left: 10px;
+        }
+
+        .description-cell {
+        max-width: 300px; 
+        word-wrap: break-word;
+        }
+
+        .import-data {
+        margin-right: auto;
+        }
+
+        </style>
+    </head>
+
+  <body>
+    {% include "user/navbaradmin.html" %}
+    <br>
+    <br>
+    <h3 class="p-3 mb-2 bg-primary text-white" style = 'font-size: 20px;text-align:center;'>All Shot</h3>
+                {% if messages %}
+                    <div> 
+                        {% for message in messages %}
+                            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+
+        {% if shots%}
+                
+            <table class="redTable" id="table">
+                <thead>
+                    <tr>
+                        <th>Sr.No</th>
+                        <th>Project Name </th>
+                        <th>Shot Name </th>
+                        <th>Scope of Work </th>
+                        <th>Project TGT Date</th>
+                        <th>Review Status</th>
+                        <th>Final Status</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {% for shot in shots %}
+                        <tr>
+                            <td>{{ forloop.counter }}</td>
+                            <td>{{ shot.project_name }}</td>
+                            <td>{{ shot.shot_name }}</td>
+                            <td class="description-cell">{{ shot.work_description }}</td>
+                            <td>{{ shot.eta | date:"d/m/Y"  }}</td>
+
+                            <td>
+                                {% if shot.work_status == 'READY FOR REVIEW' %}
+                                    <span style="color: green;">{{ shot.work_status }}</span>
+                                
+                                {% elif shot.work_status == 'PENDING FOR REVIEW' %}
+                                    <span style="color: orange;">{{ shot.work_status }}</span>
+
+                                {% elif shot.work_status == 'REVIEWED' %}
+                                    <span style="color: #4dc3ff;">{{ shot.work_status }}</span>
+
+                                {% else %}
+                                    <span style="color: red;">{{ shot.work_status }}</span>
+
+                                {% endif %}
+                            </td>
+
+                            <td>
+                                {% if shot.work_status == 'REVIEWED' %}
+                                    <a href="#"><button type="button" class="btn btn-outline-success btn-sm">Approve</button></a></td> 
+                                {% else %} 
+                                    <a href="#"><button type="button" class="btn btn-outline-success btn-sm" disabled>Approve</button></a>
+                                {% endif %} 
+                            </td> 
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            <h4> Shots Not Available !</h4>
+        {%endif%}    
+  </body>
+</html>
+
+           
+
+
+
+            

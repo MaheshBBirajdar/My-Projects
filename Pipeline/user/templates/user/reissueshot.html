@@ -95,22 +95,19 @@
         {% include "user/navbaradmin.html" %}
         <br>
         <br>
-            <center><h3 style=" margin-bottom: 0px;"class = 'alert alert-success'>Shot assign to Artist!</h3></center>
+            <center><h3 style=" margin-bottom: 0px;"class = 'alert alert-success'>Shot Re-assign to Artist!</h3></center>
         <div class="signup-form">
             <form  method="post" class="form-horizontal">
-                <center><h4>Shot assign to Artist</h4></center>
+                <center><h4>Shot Re-assign </h4></center>
                     {% csrf_token %}
                     {{ form | crispy }}
                         
                     <div class="form-group">
                         <div class="col-xs-8 col-xs-offset-4">
-                            <button type="submit" class="btn btn-outline-primary btn-lg">Assign</button>
+                            <button type="submit" class="btn btn-outline-primary btn-lg">Re-assign</button>
                         </div>
                     </div>
             </form>
-            <div class="text-center">View Issued Shot to Artist <a href="{% url 'viewissuedshot' %}">Click here</a>
-            </div>
         </div>
-        
   </body>
 </html>

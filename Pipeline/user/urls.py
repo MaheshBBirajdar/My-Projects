@@ -31,7 +31,7 @@ urlpatterns = [
 
     path('allshot/', allshot_view, name='allshot'),
 
-    path('allshot1/', allshot_view1, name='allshot1'),
+    path('allshot1/', allshot_view1, name='mang_message1'),
 
     path('allproject/', allproject_view, name='allproject'),                                            # All Projects
 
@@ -46,6 +46,8 @@ urlpatterns = [
     path('search1/', searchprojectshot_view, name= 'search1'),
 
     path('search2/', search_issuedshots_view, name= 'search2'),
+
+    path('search3/', searchshot_mang_view, name= 'search3'),
 
     path('issueshot/', issueshot_view, name='issueshot'),
 
@@ -63,13 +65,15 @@ urlpatterns = [
 
     path('myfeedback/', myfeedback_view, name='myfeedback'),
 
-    path('artist-portal/', artist_portal, name='popup_message'),                                  # popup message
+    path('artist-portal/', artist_portal, name='popup_message'),                                            # popup message
 
     path('mang-portal/', management_portal, name='popup_mang_message'),
 
-    path('approve-shot/<int:shot_id>/', approve_shot, name='approve_shot'),
+    path('reviewed-shot/<int:shot_id>/', reviewed_shot, name='reviewed_shot'),
+
+    path('reissueshot/', re_issueshot_view, name='re_issueshot'),
     
+    path('delete_mang_message_view/<int:pk>/', delete_mang_message_view, name='delete'),        
 
-
-
+    path('final_approve_shot/<int:pk>/', final_approved_shot, name='final_approved_shot'),      
 ]

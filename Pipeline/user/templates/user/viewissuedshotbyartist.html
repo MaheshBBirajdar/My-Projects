@@ -74,7 +74,21 @@
                                 <td>{{t.4}}</td>
                                 <td>{{t.5}}</td>
                                 <td>{{t.6 | date:"d/m/Y"}}</td>
-                                <td><a href="{% url 'sendfeedback' %}"><button type="button" class="btn btn-outline-success btn-sm">Send</button></a> </td>
+
+                                {% if t.8 == 'DONE' %} 
+                                    <td style="color: green;">Sent</td>
+                                    
+                                {% else %}
+                                    <td>
+                                        <form action="{% url 'sendfeedback' %}" method="POST">
+                                            {% csrf_token %}
+                                            <input type="hidden" name="project_name" value="{{ t.3 }}">
+                                            <input type="hidden" name="shot_name" value="{{ t.4 }}">
+                                            <button type="submit" class="btn btn-outline-info btn-sm">Send</button>
+                                        </form>
+                                    </td>
+                                {% endif %}
+
                                 <td>{{t.7}}</td>
                             </tr>
                         {% endfor %}

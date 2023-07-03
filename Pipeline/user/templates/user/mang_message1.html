@@ -71,8 +71,7 @@
     {% include "user/navbaradmin.html" %}
     <br>
     <br>
-    <br>
-    <!-- <h3 class="p-3 mb-2 bg-primary text-white" style = 'font-size: 20px;text-align:center;'>All Shot</h3> -->
+    <h3 class="p-3 mb-2 bg-primary text-white" style = 'font-size: 20px;text-align:center;'>All Shot</h3>
                 {% if messages %}
                     <div> 
                         {% for message in messages %}
@@ -84,13 +83,10 @@
         {% if shots%}
                 
             <div class="search-container">
-                <div class="import-data"><a href="{% url 'importdata' %}" class="btn btn-outline-primary" role="button" aria-pressed="true">Import Data</a></div>
-
-                <form class="form-inline " method="get" action="{% url 'search' %}">
+                <form class="form-inline " method="get" action="{% url 'search3' %}">
                     <input class="form-control mr-sm-2" type="text" name= "p" placeholder="Enter Project Name" aria-label="Search">
                     <input class="form-control mr-sm-2" type="text" name= "q" placeholder="Enter Shot Name" aria-label="Search">
                     <input class="form-control mr-sm-2" type="text" name= "r" placeholder="Enter Shot Status" aria-label="Search">
-                    <input class="form-control mr-sm-2" type="text" name= "s" placeholder="Enter TGT Date" aria-label="Search">
                     <button class="btn btn-outline-success" type="submit">Search</button>
                 </form>
             </div>
@@ -102,12 +98,10 @@
                         <th>Project Name </th>
                         <th>Shot Name </th>
                         <th>Scope of Work </th>
-                        <th>Date Posted</th>
                         <th>Project TGT Date</th>
-                        <!-- <th>Dependencies</th> -->
-                        <th>Internal Status</th>
-                        <th>Review</th>
-                        <th>Assign to</th>
+                        <th>Overdue</th>
+                        <th>Review Status</th>
+                        <th>Final Status</th>
                     </tr>
                 </thead>
 
@@ -118,22 +112,17 @@
                             <td>{{ shot.project_name }}</td>
                             <td>{{ shot.shot_name }}</td>
                             <td class="description-cell">{{ shot.work_description }}</td>
-                            <td>{{ shot.date_started | date:"d/m/Y"  }}</td>
                             <td>{{ shot.eta | date:"d/m/Y"  }}</td>
-                            
-                            <!-- <td>
-                                {% for dependency in shot.dependency.all %}
-                                    {{ dependency }}
-                                        {% if not forloop.last %} | {% endif %}
-                                            {% cycle '' '' '<br>' %}
-                                {% endfor %}
-                            </td> -->
-
+                            <td>{% if overdue_days %}
+                                    {{ shot.overdue_days }}
+                                {% else %}
+                                    -
+                                {% endif %}
+                            </td>
                             <td>
                                 {% if shot.work_status == 'READY FOR REVIEW' %}
                                     <span style="color: green;">{{ shot.work_status }}</span>
-                                    
-
+                                
                                 {% elif shot.work_status == 'PENDING FOR REVIEW' %}
                                     <span style="color: orange;">{{ shot.work_status }}</span>
 
@@ -145,74 +134,44 @@
 
                                 {% endif %}
                             </td>
+
                             <td>
-                                {% if shot.work_status == 'READY FOR REVIEW' %}
-                                    <span style="color: green;"></span> 
+                                <!-- <a href="{% url 'deleteshot' shot.id %}">
+                                    <button type="button" class="btn btn-outline-danger btn-sm">
+                                        <i class="fa fa-trash" style="color: red;"></i> 
+                                    </button>
+                                </a>  -->
 
-                                    <a href="{% url 'reviewed_shot' shot.id %}">
-                                        <button type="button" class="btn btn-outline-success btn-sm">&#10004;</button>
-                                    </a>
+                                
 
+                                {% if shot.work_status == 'REVIEWED' %}
+                                    <a href="#"><button type="button" class="btn btn-outline-success btn-sm">Approve</button></a>
                                     <a href="{% url 're_issueshot' %}?shot_name={{ shot.shot_name }}&project_name={{ shot.project_name }}">
                                         <button type="button" class="btn btn-outline-danger btn-sm">&#10060;</button>
                                     </a>
-                                {% elif shot.work_status == 'REVIEWED' %}
-                                    -
-                                {% else %}
-                                    waiting 
-                                {% endif %}
-                            </td>
-
-                            <td>
-                                <div>                         
-                                    <!-- <a href="{% url 'editshot' shot.id %}">
-                                        <button type="button" class="btn btn-outline-success btn-sm">
-                                            <i class="fa fa-pencil" style="color: green;"></i> 
-                                        </button>
-                                    </a> -->
-
-                                    <a href="{% url 'deleteshot' shot.id %}">
-                                        <button type="button" class="btn btn-outline-danger btn-sm">
-                                            <i class="fa fa-trash" style="color: red;"></i> 
-                                        </button>
-                                    </a> 
-
-                                    {% if shot.work_status == 'READY FOR REVIEW' %}
-                                        <button type="button" class="btn btn-outline-primary btn-sm" disabled>Assign</button>
-
-                                    {% elif shot.work_status == 'REVIEWED' %}
-                                        <button type="button" class="btn btn-outline-primary btn-sm" disabled>Assign</button>
-
-                                    {% else %}
-                                        <a href="{% url 'issueshot' %}?shot_name={{ shot.shot_name }}&project_name={{ shot.project_name }}">
-                                            <button type="button" class="btn btn-outline-primary btn-sm">Assign</button>
-                                        </a>
-                                    {% endif %}
-                                </div>
-                            </td>
+                                {% else %} 
+                                    <a href="#"><button type="button" class="btn btn-outline-success btn-sm" disabled>Approve</button></a>
+                                {% endif %}    
+                            </td> 
                         </tr>
                     {% endfor %}
                 </tbody>
             </table>
         {% else %}
-            <h4> Shots Not Available ! <a href="{% url 'importdata' %}" class="btn btn-outline-primary" role="button" aria-pressed="true">Import Data</a></h4>
+            <h4> Shots Not Available !</h4>
         {%endif%}    
   </body>
 </html><br>
 
-         
-
-            <ul class="pagination">
-                {% if shots.has_previous %}
-                    <li><a href="?page={{ shots.previous_page_number }}">Previous</a></li>
-                {% endif %}
-                <li>Page {{ shots.number }} of {{ shots.paginator.num_pages }}</li>
-                {% if shots.has_next %}
-                    <li><a href="?page={{ shots.next_page_number }}">Next</a></li>
-                {% endif %}
-            </ul>
-            
-            
+        <ul class="pagination">
+            {% if shots.has_previous %}
+                <li><a href="?page={{ shots.previous_page_number }}">Previous</a></li>
+            {% endif %}
+            <li>Page {{ shots.number }} of {{ shots.paginator.num_pages }}</li>
+            {% if shots.has_next %}
+                <li><a href="?page={{ shots.next_page_number }}">Next</a></li>
+            {% endif %}
+        </ul>
 
             
             <!-- <script>

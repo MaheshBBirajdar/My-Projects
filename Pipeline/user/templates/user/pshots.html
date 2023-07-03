@@ -108,9 +108,10 @@
                             <th>Date Posted</th>
                             <th>TGT Date</th>
                             <th>Dependencies</th> 
-                            <th>Shot Status</th> 
+                            <th>Review Status</th> 
+                            <th>Final Status</th>
                             <th>Overdue Days</th>
-                            <th> Assign</th>
+                            <th>Assign</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -129,7 +130,7 @@
                                 {% endfor %}
                             </td>
                             <td>{{ shot.work_status }}</td>
-                            <!-- <td></td> -->
+                            <td>{{ shot.final_status }}</td>
                             <td>{{ shot.overdue_days }}</td>
                             <td>
                                 <a href="{% url 'editshot' shot.id %}">
@@ -144,9 +145,17 @@
                                     </button>
                                 </a>
 
-                                <a href="{% url 'issueshot' %}?shot_name={{ shot.shot_name }}&project_name={{ shot.project_name }}">
-                                    <button type="button" class="btn btn-outline-primary btn-sm">Assign</button>
-                                </a>
+                                    {% if shot.work_status == 'READY FOR REVIEW' %}
+                                        <button type="button" class="btn btn-outline-primary btn-sm" disabled>Assign</button>
+
+                                    {% elif shot.work_status == 'REVIEWED' %}
+                                        <button type="button" class="btn btn-outline-primary btn-sm" disabled>Assign</button>
+
+                                    {% else %}
+                                        <a href="{% url 'issueshot' %}?shot_name={{ shot.shot_name }}&project_name={{ shot.project_name }}">
+                                            <button type="button" class="btn btn-outline-primary btn-sm">Assign</button>
+                                        </a>
+                                    {% endif %}
                                 
                             </td>
                         </tr>

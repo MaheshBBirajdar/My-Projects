@@ -8,20 +8,37 @@
 
     <br><br>
         <h3 class="p-3 mb-2 bg-primary text-white" style = 'font-size: 20px;text-align:center;'>REVIEWED SHOT STATUS</h3><br>
+        
+                {% if messages %}
+                    <div> 
+                        {% for message in messages %}
+                            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                        {% endfor %}
+                    </div>
+                {% endif %}
 
-        {% if messages %}
-                {% for message in messages %}
-                <div class="media border p-3">
-                    <h6>{{forloop.counter}})</h6>
-                    <ul>
-                        <h6>Message :  {{ message.message }}</h6>
-                        <h6>Date : {{ message.date_sent | date:'d/m/Y'}}</h6>
-                    </ul>
-                </div>
+        {% if messages1 %}
+            <h5> Count : <span class="message-count">{{ message_count }}</span></h5>
+                {% for m in messages1 %}
+                    <div class="media border p-3">
+                        <h6>{{forloop.counter}})</h6>
+                        <ul>
+                            <h6>Message :  {{ m.message }} 
+                                <a href="{% url 'approve_shot' m.id %}"><button type="button" class="btn btn-outline-success btn-sm">Approve</button></a>
 
-                {% endfor %}
+                                <a href="{% url 'delete' m.id %}">
+                                    <button type="button" class="btn btn-outline-danger btn-sm">
+                                        <i class="fa fa-trash" style="color: red;"></i> 
+                                    </button>
+                                </a>   
+                            </h6>
+                            <h6>Date : {{ m.date_sent | date:'d/m/Y'}}</h6>
+                        </ul>
+                    </div>
+                {% endfor %} 
         {% else %}
             <h4>No messages.</h4>
         {% endif %}
 </body>
 </html>
+
