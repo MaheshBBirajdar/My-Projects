@@ -269,5 +269,10 @@ Databases = {
     
 }
 
+# After added databases
+1) ./manage.py migrate
+2) ./manage.py migrate --database=users
+3) ./manage.py migrate --database=customers
+
 '''
 
