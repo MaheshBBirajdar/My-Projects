@@ -109,53 +109,6 @@ pymysql.install_as_MySQLdb()
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
 
-'''
-
-# Memcache 
-CACHES = {
-    'default': {
-        'BACKEND': 'django.core.cache.backends.memcached.PyMemcacheCache',
-        'LOCATION': '127.0.0.1:9000',
-    }
-}
-
-# Local Memory
-CACHES = {
-    'default': {
-        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
-        'LOCATION': 'unique-snowflake',
-    }
-}
-
-# Database cache
-CACHES = {
-    'default': {
-        'BACKEND': 'django.core.cache.backends.db.DatabaseCache',
-        'LOCATION': 'tablename',
-    }
-}
-
-# File Based
-CACHES = {
-    'default': {
-        'BACKEND': 'django.core.cache.backends.filebased.FileBasedCache',
-        'LOCATION': '/path/to/django_cache', 
-                   # for windows users: 'c:/path/to/django_cache'
-    }
-}
-
-# Redis Cached
-CACHES = {
-    'default': {
-        'BACKEND': 'django_redis.cache.RedisCache',
-        'LOCATION': 'redis://127.0.0.1:6379/1',
-        'OPTIONS': {
-            'CLIENT_CLASS': 'django_redis.client.DefaultClient',
-        }
-    }
-}
-
-'''
 
 
 AUTH_PASSWORD_VALIDATORS = [
@@ -223,3 +176,75 @@ REST_FRAMEWORK = {
         'DEFAULT_AUTHENTICATION_CLASSES' : ['rest_framework.authentication.BasicAuthentication'],
         'DEFAULT_PERMISSION_CLASSES' : ['rest_framework.permissions.IsAuthenticated']
 }
+
+
+
+'''
+
+# Memcache 
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.memcached.PyMemcacheCache',
+        'LOCATION': '127.0.0.1:9000',
+    }
+}
+
+# Local Memory
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+        'LOCATION': 'unique-snowflake',
+    }
+}
+
+# Database cache
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.db.DatabaseCache',
+        'LOCATION': 'tablename',
+    }
+}
+
+# File Based
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.filebased.FileBasedCache',
+        'LOCATION': '/path/to/django_cache', 
+                   # for windows users: 'c:/path/to/django_cache'
+    }
+}
+
+# Redis Cached
+CACHES = {
+    'default': {
+        'BACKEND': 'django_redis.cache.RedisCache',
+        'LOCATION': 'redis://127.0.0.1:6379/1',
+        'OPTIONS': {
+            'CLIENT_CLASS': 'django_redis.client.DefaultClient',
+        }
+    }
+}
+
+
+
+# Middleware (app_name.middleware.middleware_name)
+
+def simple_middleware(get_response):
+    def middleware(request):
+        resp = get_response(request)
+        return resp
+    return middleware
+
+or>
+
+
+class simple_middleware:
+    def __init__(self, get_response):
+        self.get_response = get_response
+
+    def __call__(self,request):
+        resp = self.get_response(request)
+        return resp
+
+'''
+
