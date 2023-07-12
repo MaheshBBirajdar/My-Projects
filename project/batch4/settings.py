@@ -246,5 +246,28 @@ class simple_middleware:
         resp = self.get_response(request)
         return resp
 
+
+
+# Multiple Databases
+
+Databases = {
+    'default' : {},
+    
+    'user' : {
+        'ENGINE' : 'django.db.backends.postgersql',
+        'NAME' : 'database_name',
+        'USER' : 'postgre_user',
+        'PASSWORD' : '...',
+    },
+
+    'customer' : {
+        'ENGINE' : 'django.db.backends.mysql',
+        'NAME' : 'database_name',
+        'USER' : 'mysql_user',
+        'PASSWORD' : '...',
+    }
+    
+}
+
 '''
 
