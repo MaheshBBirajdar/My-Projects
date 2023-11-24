@@ -1,0 +1,588 @@
+Group {
+ name mtEdgeMix
+ inputs 3
+ tile_color 0xffbf00ff
+ gl_color 0xffffffff
+ note_font "Verdana Bold"
+ note_font_size 12
+ addUserKnob {20 MT_EdgeMix}
+ addUserKnob {41 size l "Erode size" T FilterErode4.size}
+ addUserKnob {41 size_1 l Blur T Blur1.size}
+ addUserKnob {6 CheckEdge l "Check Edge" +STARTLINE}
+ addUserKnob {26 ""}
+ addUserKnob {26 GeneralMix l "<font color='lightblue'>General Mix:</font>" T ""}
+ addUserKnob {41 operation T Merge7.operation}
+ addUserKnob {41 mix T Merge7.mix}
+ addUserKnob {41 size_6 l BlurBG T Blur2.size}
+ addUserKnob {26 ""}
+ addUserKnob {26 LightsMix l "<font color='lightblue'>Lights Mix:</font>" t "Mix the Max light between the FG and the Object" T "   "}
+ addUserKnob {41 mix_1 l mix T Merge2.mix}
+ addUserKnob {20 extra l CClights n 1}
+ extra 0
+ addUserKnob {41 shadows.gain l Shadows T ColorCorrect1.shadows.gain}
+ addUserKnob {41 midtones.gain l Midtones T ColorCorrect1.midtones.gain}
+ addUserKnob {41 highlights.gain l Highlights T ColorCorrect1.highlights.gain}
+ addUserKnob {20 endGroup n -1}
+ addUserKnob {26 ""}
+ addUserKnob {22 Default T "nuke.thisNode()\['size'].setValue(1)\nnuke.thisNode()\['size_1'].setValue(0)\nnuke.thisNode()\['mix'].setValue(0.5)\nnuke.thisNode()\['CheckEdge'].setValue(0)\nnuke.thisNode()\['operation'].setValue('average')\n\n\nnuke.thisNode()\['disable_1'].setValue(1)\nnuke.thisNode()\['size_2'].setValue(-1)\n\nnuke.thisNode()\['mix_1'].setValue(0.5)\nnuke.thisNode()\['shadows.gain'].setValue(0.75)\nnuke.thisNode()\['midtones.gain'].setValue(1)\nnuke.thisNode()\['highlights.gain'].setValue(1)\n\nnuke.thisNode()\['disable_2'].setValue(1)\nnuke.thisNode()\['size_3'].setValue(0)\nnuke.thisNode()\['size_4'].setValue(3)\nnuke.thisNode()\['size_5'].setValue(10)\n\nnuke.thisNode()\['blackpoint'].setValue(0)\nnuke.thisNode()\['whitepoint'].setValue(1)\nnuke.thisNode()\['multiply'].setValue(1)\nnuke.thisNode()\['add'].setValue(0)\nnuke.thisNode()\['gamma'].setValue(1)\n\nnuke.thisNode()\['disable_3'].setValue(1)\nnuke.thisNode()\['size_6'].setValue(0)\n\nnuke.thisNode()\['Broken'].setValue(0)\nnuke.thisNode()\['smartsimple'].setValue(0)\nnuke.thisNode()\['Luma'].setValue(0)\nnuke.thisNode()\['multiply_1'].setValue(1)\nnuke.thisNode()\['tolerance'].setValue(0)\nnuke.thisNode()\['size_7'].setValue(0)\nnuke.thisNode()\['size_8'].setValue(0)\nnuke.thisNode()\['size_9'].setValue(10)\nnuke.thisNode()\['MaskEdge'].setValue(0)\n\n" +STARTLINE}
+ addUserKnob {26 _1 l "" +STARTLINE T "<span style=\"color:#665\"><br/><b>V5 EdgeMix</b> - <span style=\"color:#665\">Miguel Torija</a>"}
+ addUserKnob {20 advance}
+ addUserKnob {20 ExtraAlphaControls l "Alpha Grade" n 1}
+ ExtraAlphaControls 0
+ addUserKnob {41 blackpoint T Grade3.blackpoint}
+ addUserKnob {41 whitepoint T Grade3.whitepoint}
+ addUserKnob {41 multiply T Grade3.multiply}
+ addUserKnob {41 add l offset T Grade3.add}
+ addUserKnob {41 gamma T Grade3.gamma}
+ addUserKnob {20 fixoutedge l "Fix Edge" t "Sometimes can appear an edge on the outside that is not being affected by the mix. This can solve it. Caution, this could make some artifacts with the Lights Mix." n 1}
+ addUserKnob {41 disable_1 l Off t "Sometimes can appear an edge on the outside that is not being affected by the mix. This can solve it. Caution, this could make some artifacts with the Lights Mix." T FilterErode2.disable}
+ addUserKnob {41 size_2 l size t "-1 Is usually Ok. If further fixing is needed, try to increase in negative values... -2, -3...\n\nGoing positive will increase the edge size that it is not being mixed with the object." T FilterErode2.size}
+ addUserKnob {41 disable_3 l "Disable Premult" T Premult3.disable}
+ addUserKnob {20 endGroup_1 l endGroup n -1}
+ addUserKnob {20 endGroup_3 l endGroup n -1}
+ addUserKnob {20 group l "Broken Edges" t "Based on Aitor Echeveste Broken Edges Gizmo" n 1}
+ group 0
+ addUserKnob {6 Broken l "Activate Broken Edges" t "Based on Aitor Echeveste Broken Edges Gizmo" +STARTLINE}
+ addUserKnob {4 smartsimple l Method -STARTLINE M {Smart Simple ""}}
+ addUserKnob {4 Luma -STARTLINE M {Light Dark ""}}
+ addUserKnob {41 multiply_1 l multiply T Grade4.multiply}
+ addUserKnob {41 tolerance T Grade4.add}
+ addUserKnob {41 size_7 l "Pre Blur" T Blur4.size}
+ addUserKnob {41 size_8 l "Post Blur" T Blur5.size}
+ addUserKnob {7 noiseSizeKnob l "Simple Size" R 1 300}
+ noiseSizeKnob 10
+ addUserKnob {6 MaskEdge l "Mask Edge" +STARTLINE}
+ addUserKnob {20 endGroup_4 l endGroup n -1}
+ addUserKnob {20 EdgeExtend t "This is a pretty basic edge extend just to try to fix some problems. \n\nIf a more detailed edge extend is needed, try with the node incorporated in nuke12 or any specific node from nukepedia." n 1}
+ EdgeExtend 0
+ addUserKnob {41 disable_2 l "EdgeExtend OFF" t "This is a pretty basic edge extend just to try to fix some problems. \n\nIf a more detailed edge extend is needed, try with the node incorporated in nuke12 or any specific node from nukepedia." T Switch1.disable}
+ addUserKnob {41 size_3 l "Erode Alpha" T FilterErode1.size}
+ addUserKnob {41 size_4 l EdgeBlur T EdgeBlur1.size}
+ addUserKnob {41 size_5 l size T Blur3.size}
+ addUserKnob {20 endGroup_2 l endGroup n -1}
+}
+ Input {
+  inputs 0
+  name Target
+  xpos 815
+  ypos -630
+ }
+ Dot {
+  name Dot14
+  xpos 849
+  ypos -407
+ }
+set N8757a000 [stack 0]
+ Dot {
+  name Dot23
+  xpos 849
+  ypos 131
+ }
+set N875dbc00 [stack 0]
+ Dot {
+  name Dot7
+  xpos 542
+  ypos 131
+ }
+set N875db800 [stack 0]
+ Dot {
+  name Dot16
+  xpos 275
+  ypos 131
+ }
+ Shuffle {
+  alpha white
+  name Shuffle2
+  xpos 241
+  ypos 1963
+  disable {{"\[string first \".a\" \[channels \[input this 0]]]>-1"}}
+ }
+ Dot {
+  name Dot1
+  xpos 275
+  ypos 2065
+ }
+set N875dac00 [stack 0]
+ Dot {
+  name Dot15
+  xpos 275
+  ypos 2180
+ }
+set N875da800 [stack 0]
+ Dot {
+  name Dot24
+  xpos 275
+  ypos 2261
+ }
+push $N875da800
+ Input {
+  inputs 0
+  name Mask
+  xpos 1061
+  ypos 2009
+  number 2
+ }
+ Dot {
+  name Dot2
+  xpos 1095
+  ypos 2065
+ }
+ Invert {
+  channels alpha
+  name Invert1
+  xpos 973
+  ypos 2056
+ }
+push $N875dac00
+ Input {
+  inputs 0
+  name BGelement
+  xpos -22
+  ypos -633
+  number 1
+ }
+ Dot {
+  name Dot17
+  xpos 12
+  ypos 572
+ }
+set N875f3000 [stack 0]
+ Dot {
+  name Dot18
+  xpos 1172
+  ypos 572
+ }
+push $N8757a000
+ Shuffle {
+  alpha white
+  name Shuffle4
+  xpos 972
+  ypos -410
+  disable {{"\[string first \".a\" \[channels \[input this 0]]]>-1"}}
+ }
+ Shuffle {
+  alpha white
+  name Shuffle3
+  xpos 1196
+  ypos -410
+  disable {{parent.Switch1.disable?0:1}}
+ }
+ Dot {
+  name Dot20
+  xpos 1323
+  ypos -407
+ }
+set N875f2000 [stack 0]
+ Dot {
+  name Dot19
+  xpos 1323
+  ypos 72
+ }
+push $N875f2000
+ Dot {
+  name Dot21
+  xpos 1448
+  ypos -407
+ }
+ Unpremult {
+  name Unpremult1
+  xpos 1414
+  ypos -315
+ }
+ Grade {
+  channels alpha
+  blackpoint 0.975
+  name Grade2
+  xpos 1414
+  ypos -246
+ }
+ FilterErode {
+  size 0
+  name FilterErode1
+  xpos 1414
+  ypos -179
+ }
+ Premult {
+  name Premult1
+  xpos 1414
+  ypos -143
+ }
+ EdgeBlur {
+  name EdgeBlur1
+  xpos 1414
+  ypos -87
+ }
+ Blur {
+  size 10
+  maskChannelInput rgba.alpha
+  invert_mask true
+  name Blur3
+  xpos 1414
+  ypos -44
+ }
+ Unpremult {
+  name Unpremult2
+  xpos 1414
+  ypos 6
+ }
+ Copy {
+  inputs 2
+  from0 rgba.alpha
+  to0 rgba.alpha
+  name Copy2
+  xpos 1414
+  ypos 63
+ }
+ Premult {
+  name Premult2
+  xpos 1414
+  ypos 119
+ }
+ Dot {
+  name Dot22
+  xpos 1448
+  ypos 202
+ }
+push $N875dbc00
+ Switch {
+  inputs 2
+  which 1
+  name Switch1
+  xpos 815
+  ypos 199
+  disable true
+ }
+ Dot {
+  name Dot9
+  xpos 849
+  ypos 451
+ }
+set N87640800 [stack 0]
+ Shuffle {
+  alpha white
+  name Shuffle1
+  xpos 1053
+  ypos 448
+  disable {{"\[string first \".a\" \[channels \[input this 0]]]>-1"}}
+ }
+ Dot {
+  name Dot3
+  xpos 1367
+  ypos 451
+ }
+set N87640000 [stack 0]
+ FilterErode {
+  size -1
+  name FilterErode2
+  xpos 1333
+  ypos 622
+  disable true
+ }
+push $N87640000
+ Dot {
+  name Dot10
+  xpos 1578
+  ypos 451
+ }
+set N87669800 [stack 0]
+ Dot {
+  name Dot12
+  xpos 1734
+  ypos 451
+ }
+set N87669400 [stack 0]
+ FilterErode {
+  size 10
+  name FilterErode4
+  xpos 1700
+  ypos 618
+ }
+ Blur {
+  size 10
+  name Blur1
+  xpos 1700
+  ypos 748
+ }
+ Dot {
+  name Dot11
+  xpos 1734
+  ypos 923
+ }
+push $N87669800
+ FilterErode {
+  size {{FilterErode2.size}}
+  name FilterErode3
+  xpos 1544
+  ypos 622
+  disable {{FilterErode2.disable x1 0}}
+ }
+ Merge2 {
+  inputs 2
+  operation xor
+  name Merge8
+  xpos 1544
+  ypos 920
+ }
+ Dot {
+  name Dot8
+  xpos 1578
+  ypos 1145
+ }
+ Merge2 {
+  inputs 2
+  operation mask
+  name Merge1
+  xpos 1333
+  ypos 1142
+ }
+ Merge2 {
+  inputs 2
+  operation mask
+  name Merge9
+  xpos 1138
+  ypos 1142
+  disable {{"\[string first \".a\" \[channels \[input this 1]]]>-1 ? 0:1" x1 1 x23 1}}
+ }
+ Grade {
+  channels alpha
+  white_clamp true
+  name Grade3
+  xpos 1138
+  ypos 1207
+ }
+ Dot {
+  name Dot28
+  xpos 1172
+  ypos 1312
+ }
+set N87692c00 [stack 0]
+ Dot {
+  name Dot31
+  xpos 1172
+  ypos 1530
+ }
+set N87692800 [stack 0]
+push $N87640000
+ Dot {
+  name Dot30
+  xpos 1544
+  ypos 1444
+  hide_input true
+ }
+ Noise {
+  inputs 0
+  size {{noiseSizeKnob}}
+  center {1024 778}
+  name Noise1
+  selected true
+  xpos 2228
+  ypos 526
+ }
+ Grade {
+  channels all
+  name Grade4
+  xpos 2228
+  ypos 594
+ }
+ set C876bdc00 [stack 0]
+ Dot {
+  name Dot26
+  xpos 2262
+  ypos 848
+ }
+push $N87669400
+ Dot {
+  name Dot25
+  xpos 2053
+  ypos 451
+ }
+ Saturation {
+  saturation 0
+  name Saturation2
+  xpos 2019
+  ypos 556
+ }
+clone $C876bdc00 {
+  xpos 2019
+  ypos 592
+  selected false
+ }
+ Shuffle {
+  alpha red
+  name Shuffle5
+  xpos 2019
+  ypos 645
+ }
+ Remove {
+  operation keep
+  channels alpha
+  name Remove1
+  xpos 2019
+  ypos 681
+ }
+ Invert {
+  name Invert2
+  xpos 2019
+  ypos 761
+  disable {{Luma}}
+ }
+ Switch {
+  inputs 2
+  which {{smartsimple}}
+  name Switch2
+  xpos 2019
+  ypos 845
+ }
+ Clamp {
+  name Clamp1
+  xpos 2019
+  ypos 897
+ }
+ Blur {
+  name Blur4
+  xpos 2019
+  ypos 975
+ }
+ Dot {
+  name Dot27
+  xpos 2053
+  ypos 1312
+ }
+push $N87692c00
+ MergeExpression {
+  inputs 2
+  expr3 A.a<B.a?1:0
+  name MergeExpression2
+  xpos 1331
+  ypos 1309
+ }
+ Blur {
+  inputs 1+1
+  name Blur5
+  xpos 1331
+  ypos 1435
+ }
+ Merge2 {
+  inputs 2
+  operation mask
+  name Merge3
+  xpos 1331
+  ypos 1527
+  disable {{MaskEdge?0:1}}
+ }
+ Dot {
+  name Dot29
+  xpos 1365
+  ypos 1684
+ }
+push $N87692800
+ Switch {
+  inputs 2
+  which {{Broken}}
+  name Switch3
+  xpos 1138
+  ypos 1681
+ }
+ Dot {
+  name Dot5
+  xpos 1172
+  ypos 1795
+ }
+push $N875f3000
+ Blur {
+  name Blur2
+  xpos -22
+  ypos 679
+ }
+ Dot {
+  name Dot13
+  xpos 12
+  ypos 812
+ }
+set N87727000 [stack 0]
+ ColorCorrect {
+  shadows.gain 0.75
+  name ColorCorrect1
+  xpos -22
+  ypos 897
+ }
+ Dot {
+  name Dot4
+  xpos 12
+  ypos 1017
+ }
+push $N87727000
+push $N87640800
+ Merge2 {
+  inputs 2
+  operation average
+  bbox B
+  mix 0.5
+  name Merge7
+  xpos 815
+  ypos 809
+ }
+ Merge2 {
+  inputs 2
+  operation max
+  mix 0.5
+  name Merge2
+  xpos 815
+  ypos 1014
+ }
+ Grade {
+  channels {-rgba.red rgba.green -rgba.blue none}
+  white 3
+  multiply 3
+  white_clamp true
+  name Grade5
+  xpos 815
+  ypos 1233
+  disable {{"CheckEdge== 1 ? 0: 1" x1 0}}
+ }
+push $N875db800
+ Dot {
+  name Dot6
+  xpos 537
+  ypos 1795
+ }
+ Keymix {
+  inputs 3
+  bbox B
+  name Keymix2
+  xpos 810
+  ypos 1786
+ }
+ Keymix {
+  inputs 3
+  bbox B
+  name Keymix1
+  xpos 810
+  ypos 2056
+ }
+ Copy {
+  inputs 2
+  from0 rgba.alpha
+  to0 rgba.alpha
+  name Copy1
+  xpos 810
+  ypos 2171
+ }
+ CopyBBox {
+  inputs 2
+  name CopyBBox1
+  xpos 810
+  ypos 2258
+ }
+ Premult {
+  name Premult3
+  xpos 810
+  ypos 2310
+  disable true
+ }
+ Output {
+  name Output1
+  xpos 810
+  ypos 2474
+ }
+end_group

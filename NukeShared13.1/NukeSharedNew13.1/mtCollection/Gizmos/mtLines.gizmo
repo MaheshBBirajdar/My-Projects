@@ -1,0 +1,774 @@
+Group {
+ name mtLines
+ tile_color 0xffbf00ff
+ note_font "Verdana Bold"
+ note_font_size 12
+ addUserKnob {20 tab}
+ addUserKnob {20 group l "Format Lines" n 1}
+ group 0
+ addUserKnob {26 sdd l "  " T "  "}
+ addUserKnob {6 boolean l "3:4 Lines" +STARTLINE}
+ boolean true
+ addUserKnob {41 color T Constant1.color}
+ addUserKnob {7 double l width R 0 4}
+ double 2
+ addUserKnob {26 ""}
+ addUserKnob {6 boolean_1 l center +STARTLINE}
+ boolean_1 true
+ addUserKnob {41 color_1 l color T Constant2.color}
+ addUserKnob {7 double_1 l width R 0 4}
+ double_1 2
+ addUserKnob {26 ""}
+ addUserKnob {6 boolean_3 l Grid +STARTLINE}
+ boolean_3 true
+ addUserKnob {41 color_2 l color T Constant3.color}
+ addUserKnob {7 s l width R 0 4}
+ s 1.5
+ addUserKnob {7 size l "grid size" R 0 20}
+ size 8
+ addUserKnob {20 endGroup n -1}
+ addUserKnob {26 text l "   " T "    "}
+ addUserKnob {6 boolean_2 l "Hide All Format Lines" +STARTLINE}
+ addUserKnob {26 ""}
+ addUserKnob {20 group_1 l "Guide Lines" n 1}
+ addUserKnob {12 H1 l "Horizontal 1"}
+ H1 {0 -45}
+ addUserKnob {12 H2 l "Horizontal 2"}
+ H2 {45 -45}
+ addUserKnob {12 H3 l "Horizontal 3"}
+ H3 {90 -45}
+ addUserKnob {26 ""}
+ addUserKnob {12 V1 l "Vertical 1"}
+ V1 {-45 0}
+ addUserKnob {12 V2 l "Vertical 2"}
+ V2 {-45 45}
+ addUserKnob {12 V3 l "Vertical 3"}
+ V3 {-45 90}
+ addUserKnob {20 endGroup_1 l endGroup n -1}
+ addUserKnob {7 double_2 l "Guide Lines Width" R 0.1 6}
+ double_2 2
+ addUserKnob {26 ""}
+ addUserKnob {41 mix T Merge2.mix}
+ addUserKnob {6 boolean_4 l "Output Lines only" +STARTLINE}
+ addUserKnob {26 text_1 l "" +STARTLINE T "<span style=\"color:#665\"><br/><b>Lines</b> - <span style=\"color:#665\">Miguel Torija</a>"}
+}
+ BackdropNode {
+  inputs 0
+  name BackdropNode1
+  tile_color 0x8e388e00
+  label H
+  note_font_size 42
+  xpos 3537
+  ypos 880
+  bdheight 156
+ }
+ BackdropNode {
+  inputs 0
+  name BackdropNode2
+  tile_color 0xaaaaaa00
+  label V
+  note_font_size 42
+  xpos 3537
+  ypos 1138
+  bdheight 156
+ }
+ Input {
+  inputs 0
+  name Input1
+  xpos 774
+  ypos 302
+ }
+ Dot {
+  name Dot2
+  xpos 808
+  ypos 392
+ }
+set N8fc0800 [stack 0]
+ Shuffle {
+  in rgb
+  red black
+  green black
+  blue black
+  alpha black
+  name Shuffle4
+  xpos 1343
+  ypos 389
+ }
+ Dot {
+  name Dot16
+  xpos 1377
+  ypos 499
+ }
+set N8fc0000 [stack 0]
+ Dot {
+  name Dot17
+  xpos 3581
+  ypos 499
+ }
+ Rectangle {
+  area {{0 x1028 0} {H1.y+double_2} {width x1028 1920} {H1.y-double_2}}
+  name Rectangle7
+  xpos 3547
+  ypos 960
+ }
+ Rectangle {
+  area {{0 x1028 0} {H2.y+double_2} {width x1028 1920} {H2.y-double_2}}
+  name Rectangle8
+  xpos 3547
+  ypos 984
+ }
+ Rectangle {
+  area {{0 x1028 0} {H3.y+double_2} {width x1028 1920} {H3.y-double_2}}
+  name Rectangle9
+  xpos 3547
+  ypos 1008
+ }
+ Rectangle {
+  area {{V1-double_2 x1028 0} 0 {V1+double_2 x1028 1920} {height}}
+  name Rectangle10
+  xpos 3547
+  ypos 1218
+ }
+ Rectangle {
+  area {{V2-double_2 x1028 0} 0 {V2+double_2 x1028 1920} {height}}
+  name Rectangle11
+  xpos 3547
+  ypos 1242
+ }
+ Rectangle {
+  area {{V3-double_2 x1028 0} 0 {V3+double_2 x1028 1920} {height}}
+  name Rectangle12
+  xpos 3547
+  ypos 1266
+ }
+ Dot {
+  name Dot18
+  xpos 3581
+  ypos 1755
+ }
+ Camera2 {
+  inputs 0
+  name Camera1
+  xpos 2121
+  ypos 863
+ }
+ CheckerBoard2 {
+  inputs 0
+  boxsize {{size}}
+  color2 {0.1000000015 0.1000000015 0.1000000015 0}
+  color3 {0.5 0.5 0.5 0}
+  linecolor {0 0 0 0}
+  name CheckerBoard1
+  xpos 2231
+  ypos 706
+ }
+ Card2 {
+  control_points {3 3 3 6 
+
+1 {-0.5 -0.5 0} 0 {0.1666666865 0 0} 0 {0 0 0} 0 {0 0.1666666865 0} 0 {0 0 0} 0 {0 0 0} 
+1 {0 -0.5 0} 0 {0.1666666716 0 0} 0 {-0.1666666716 0 0} 0 {0 0.1666666865 0} 0 {0 0 0} 0 {0.5 0 0} 
+1 {0.5 -0.5 0} 0 {0 0 0} 0 {-0.1666666865 0 0} 0 {0 0.1666666865 0} 0 {0 0 0} 0 {1 0 0} 
+1 {-0.5 0 0} 0 {0.1666666865 0 0} 0 {0 0 0} 0 {0 0.1666666716 0} 0 {0 -0.1666666716 0} 0 {0 0.5 0} 
+1 {0 0 0} 0 {0.1666666716 0 0} 0 {-0.1666666716 0 0} 0 {0 0.1666666716 0} 0 {0 -0.1666666716 0} 0 {0.5 0.5 0} 
+1 {0.5 0 0} 0 {0 0 0} 0 {-0.1666666865 0 0} 0 {0 0.1666666716 0} 0 {0 -0.1666666716 0} 0 {1 0.5 0} 
+1 {-0.5 0.5 0} 0 {0.1666666865 0 0} 0 {0 0 0} 0 {0 0 0} 0 {0 -0.1666666865 0} 0 {0 1 0} 
+1 {0 0.5 0} 0 {0.1666666716 0 0} 0 {-0.1666666716 0 0} 0 {0 0 0} 0 {0 -0.1666666865 0} 0 {0.5 1 0} 
+1 {0.5 0.5 0} 0 {0 0 0} 0 {-0.1666666865 0 0} 0 {0 0 0} 0 {0 -0.1666666865 0} 0 {1 1 0} }
+  name Card1
+  xpos 2231
+  ypos 808
+ }
+push $N8fc0000
+ Dot {
+  name Dot26
+  xpos 2375
+  ypos 887
+  hide_input true
+ }
+ ScanlineRender {
+  inputs 3
+  conservative_shader_sampling false
+  ztest_enabled false
+  projection_mode uv
+  motion_vectors_type off
+  MB_channel none
+  name ScanlineRender1
+  xpos 2231
+  ypos 884
+ }
+ Remove {
+  operation keep
+  channels alpha
+  name Remove1
+  xpos 2231
+  ypos 908
+ }
+ Dot {
+  name Dot27
+  xpos 2265
+  ypos 946
+ }
+push $N8fc0000
+ Dot {
+  name Dot13
+  xpos 1377
+  ypos 585
+ }
+set Nc044000 [stack 0]
+ Dot {
+  name Dot14
+  xpos 2020
+  ypos 585
+ }
+set Nca2bc00 [stack 0]
+ Dot {
+  name Dot19
+  xpos 2517
+  ypos 585
+ }
+set Nca2b800 [stack 0]
+ Rectangle {
+  area {{((width/9)*up)-s} 0 {((width/9)*up)+s} {height}}
+  name smallLines1
+  xpos 2483
+  ypos 663
+  addUserKnob {20 User}
+  addUserKnob {3 up}
+  up 1
+ }
+ Rectangle {
+  area {{((width/9)*up)-s} 0 {((width/9)*up)+s} {height}}
+  name smallLines2
+  xpos 2483
+  ypos 687
+  addUserKnob {20 User}
+  addUserKnob {3 up}
+  up 2
+ }
+ Rectangle {
+  area {{((width/9)*up)-s} 0 {((width/9)*up)+s} {height}}
+  name smallLines3
+  xpos 2483
+  ypos 711
+  addUserKnob {20 User}
+  addUserKnob {3 up}
+  up 4
+ }
+ Rectangle {
+  area {{((width/9)*up)-s} 0 {((width/9)*up)+s} {height}}
+  name smallLines4
+  xpos 2483
+  ypos 735
+  addUserKnob {20 User}
+  addUserKnob {3 up}
+  up 5
+ }
+ Rectangle {
+  area {{((width/9)*up)-s} 0 {((width/9)*up)+s} {height}}
+  name smallLines5
+  xpos 2483
+  ypos 759
+  addUserKnob {20 User}
+  addUserKnob {3 up}
+  up 7
+ }
+ Rectangle {
+  area {{((width/9)*up)-s} 0 {((width/9)*up)+s} {height}}
+  name smallLines6
+  xpos 2483
+  ypos 783
+  addUserKnob {20 User}
+  addUserKnob {3 up}
+  up 8
+ }
+ Rectangle {
+  area {{((width/9)*up)-s} 0 {((width/9)*up)+s} {height}}
+  name smallLines13
+  xpos 2483
+  ypos 846
+  addUserKnob {20 User}
+  addUserKnob {3 up}
+  up 3
+ }
+ Rectangle {
+  area {{((width/9)*up)-s} 0 {((width/9)*up)+s} {height}}
+  name smallLines14
+  xpos 2483
+  ypos 870
+  addUserKnob {20 User}
+  addUserKnob {3 up}
+  up 6
+ }
+ Merge2 {
+  inputs 2
+  operation stencil
+  name Merge8
+  xpos 2483
+  ypos 943
+ }
+ Camera2 {
+  inputs 0
+  name Camera2
+  xpos 2893
+  ypos 860
+ }
+ CheckerBoard2 {
+  inputs 0
+  boxsize {{size}}
+  color0 {0.1000000015 0.1000000015 0.1000000015 0}
+  color2 {0.1000000015 0.1000000015 0.1000000015 1}
+  color3 {0.5 0.5 0.5 0}
+  linecolor {0 0 0 0}
+  name CheckerBoard2
+  xpos 3003
+  ypos 712
+ }
+ Card2 {
+  control_points {3 3 3 6 
+
+1 {-0.5 -0.5 0} 0 {0.1666666865 0 0} 0 {0 0 0} 0 {0 0.1666666865 0} 0 {0 0 0} 0 {0 0 0} 
+1 {0 -0.5 0} 0 {0.1666666716 0 0} 0 {-0.1666666716 0 0} 0 {0 0.1666666865 0} 0 {0 0 0} 0 {0.5 0 0} 
+1 {0.5 -0.5 0} 0 {0 0 0} 0 {-0.1666666865 0 0} 0 {0 0.1666666865 0} 0 {0 0 0} 0 {1 0 0} 
+1 {-0.5 0 0} 0 {0.1666666865 0 0} 0 {0 0 0} 0 {0 0.1666666716 0} 0 {0 -0.1666666716 0} 0 {0 0.5 0} 
+1 {0 0 0} 0 {0.1666666716 0 0} 0 {-0.1666666716 0 0} 0 {0 0.1666666716 0} 0 {0 -0.1666666716 0} 0 {0.5 0.5 0} 
+1 {0.5 0 0} 0 {0 0 0} 0 {-0.1666666865 0 0} 0 {0 0.1666666716 0} 0 {0 -0.1666666716 0} 0 {1 0.5 0} 
+1 {-0.5 0.5 0} 0 {0.1666666865 0 0} 0 {0 0 0} 0 {0 0 0} 0 {0 -0.1666666865 0} 0 {0 1 0} 
+1 {0 0.5 0} 0 {0.1666666716 0 0} 0 {-0.1666666716 0 0} 0 {0 0 0} 0 {0 -0.1666666865 0} 0 {0.5 1 0} 
+1 {0.5 0.5 0} 0 {0 0 0} 0 {-0.1666666865 0 0} 0 {0 0 0} 0 {0 -0.1666666865 0} 0 {1 1 0} }
+  name Card2
+  xpos 3003
+  ypos 805
+ }
+push $N8fc0000
+ Dot {
+  name Dot28
+  xpos 3147
+  ypos 884
+  hide_input true
+ }
+ ScanlineRender {
+  inputs 3
+  conservative_shader_sampling false
+  ztest_enabled false
+  projection_mode uv
+  motion_vectors_type off
+  MB_channel none
+  name ScanlineRender2
+  xpos 3003
+  ypos 881
+ }
+ Remove {
+  operation keep
+  channels alpha
+  name Remove2
+  xpos 3003
+  ypos 905
+ }
+ Dot {
+  name Dot29
+  xpos 3037
+  ypos 946
+ }
+push $Nca2b800
+ Dot {
+  name Dot21
+  xpos 2721
+  ypos 585
+ }
+ Rectangle {
+  area {0 {((height/9)*up)-s} {width} {((height/9)*up)+s}}
+  name smallLines7
+  xpos 2687
+  ypos 664
+  addUserKnob {20 User}
+  addUserKnob {3 up}
+  up 1
+ }
+ Rectangle {
+  area {0 {((height/9)*up)-s} {width} {((height/9)*up)+s}}
+  name smallLines8
+  xpos 2687
+  ypos 688
+  addUserKnob {20 User}
+  addUserKnob {3 up}
+  up 2
+ }
+ Rectangle {
+  area {0 {((height/9)*up)-s} {width} {((height/9)*up)+s}}
+  name smallLines9
+  xpos 2687
+  ypos 712
+  addUserKnob {20 User}
+  addUserKnob {3 up}
+  up 4
+ }
+ Rectangle {
+  area {0 {((height/9)*up)-s} {width} {((height/9)*up)+s}}
+  name smallLines10
+  xpos 2687
+  ypos 736
+  addUserKnob {20 User}
+  addUserKnob {3 up}
+  up 5
+ }
+ Rectangle {
+  area {0 {((height/9)*up)-s} {width} {((height/9)*up)+s}}
+  name smallLines11
+  xpos 2687
+  ypos 760
+  addUserKnob {20 User}
+  addUserKnob {3 up}
+  up 7
+ }
+ Rectangle {
+  area {0 {((height/9)*up)-s} {width} {((height/9)*up)+s}}
+  name smallLines12
+  xpos 2687
+  ypos 784
+  addUserKnob {20 User}
+  addUserKnob {3 up}
+  up 8
+ }
+ Rectangle {
+  area {0 {((height/9)*up)-s} {width} {((height/9)*up)+s}}
+  name smallLines15
+  xpos 2687
+  ypos 838
+  addUserKnob {20 User}
+  addUserKnob {3 up}
+  up 3
+ }
+ Rectangle {
+  area {0 {((height/9)*up)-s} {width} {((height/9)*up)+s}}
+  name smallLines16
+  xpos 2687
+  ypos 862
+  addUserKnob {20 User}
+  addUserKnob {3 up}
+  up 6
+ }
+ Merge2 {
+  inputs 2
+  operation stencil
+  name Merge9
+  xpos 2687
+  ypos 943
+ }
+ Dot {
+  name Dot22
+  xpos 2721
+  ypos 1055
+ }
+ Merge2 {
+  inputs 2
+  name Merge10
+  xpos 2483
+  ypos 1052
+ }
+ Constant {
+  inputs 0
+  channels rgb
+  color {0 0.25 0 0}
+  name Constant3
+  xpos 2247
+  ypos 1229
+ }
+push $N8fc0000
+ Dot {
+  name Dot25
+  xpos 2391
+  ypos 1202
+  hide_input true
+ }
+ Merge2 {
+  inputs 2
+  name Merge13
+  xpos 2357
+  ypos 1253
+ }
+ Copy {
+  inputs 2
+  from0 rgba.alpha
+  to0 rgba.alpha
+  name Copy3
+  xpos 2483
+  ypos 1247
+ }
+ Premult {
+  name Premult3
+  xpos 2483
+  ypos 1283
+ }
+ Multiply {
+  value 0
+  name Multiply4
+  xpos 2483
+  ypos 1351
+  disable {{boolean_3}}
+ }
+ Dot {
+  name Dot20
+  xpos 2517
+  ypos 1458
+ }
+push $Nca2bc00
+ Rectangle {
+  area {{width/2+12} {height/2+double_1} {width/2-12} {height/2-double_1}}
+  name Rectangle5
+  xpos 1986
+  ypos 739
+ }
+ Rectangle {
+  area {{width/2+double_1} {height/2+12} {width/2-double_1} {height/2-12}}
+  name Rectangle6
+  xpos 1986
+  ypos 763
+ }
+ Constant {
+  inputs 0
+  color {0 0.5 0 0}
+  name Constant2
+  xpos 1723
+  ypos 1038
+ }
+push $N8fc0000
+ Dot {
+  name Dot24
+  xpos 1892
+  ypos 1011
+  hide_input true
+ }
+ Merge2 {
+  inputs 2
+  name Merge12
+  xpos 1858
+  ypos 1062
+ }
+ Copy {
+  inputs 2
+  from0 rgba.alpha
+  to0 rgba.alpha
+  name Copy2
+  xpos 1986
+  ypos 1056
+ }
+ Premult {
+  name Premult2
+  xpos 1986
+  ypos 1102
+ }
+ Multiply {
+  value 0
+  name Multiply3
+  xpos 1986
+  ypos 1164
+  disable {{boolean_1}}
+ }
+ Dot {
+  name Dot15
+  xpos 2020
+  ypos 1275
+ }
+push $Nc044000
+ Dot {
+  name Dot3
+  xpos 1377
+  ypos 673
+ }
+set N14d1c400 [stack 0]
+ Dot {
+  name Dot8
+  xpos 1162
+  ypos 673
+ }
+set N14d1c000 [stack 0]
+ Dot {
+  name Dot7
+  xpos 1016
+  ypos 673
+ }
+ Rectangle {
+  area {{width} {(height/3+height/3)+double} 0 {(height/3+height/3)-double}}
+  name Rectangle4
+  xpos 982
+  ypos 735
+ }
+ Dot {
+  name Dot10
+  xpos 1016
+  ypos 818
+ }
+push $N14d1c000
+ Rectangle {
+  area {{width} {height/3-double} 0 {height/3+double}}
+  name Rectangle3
+  xpos 1128
+  ypos 734
+ }
+ Merge2 {
+  inputs 2
+  bbox B
+  name Merge4
+  selected true
+  xpos 1128
+  ypos 815
+ }
+ Dot {
+  name Dot12
+  xpos 1162
+  ypos 949
+ }
+push $N14d1c400
+ Dot {
+  name Dot5
+  xpos 1616
+  ypos 673
+ }
+set N8bb04400 [stack 0]
+ Dot {
+  name Dot4
+  xpos 1762
+  ypos 673
+ }
+ Rectangle {
+  area {{(width/3+width/3)-double} {height} {(width/3+width/3)+double} 0}
+  name Rectangle2
+  xpos 1728
+  ypos 733
+ }
+ Dot {
+  name Dot9
+  xpos 1762
+  ypos 817
+ }
+push $N8bb04400
+ Rectangle {
+  area {{width/3-double} {height} {width/3+double} 0}
+  name Rectangle1
+  xpos 1582
+  ypos 736
+ }
+ Merge2 {
+  inputs 2
+  bbox B
+  name Merge1
+  xpos 1582
+  ypos 814
+ }
+ Dot {
+  name Dot6
+  xpos 1616
+  ypos 949
+ }
+ Merge2 {
+  inputs 2
+  bbox B
+  name Merge3
+  xpos 1332
+  ypos 946
+ }
+ Constant {
+  inputs 0
+  color {0 1 0 0}
+  name Constant1
+  xpos 1049
+  ypos 1032
+ }
+push $N8fc0000
+ Dot {
+  name Dot23
+  xpos 1226
+  ypos 1013
+  hide_input true
+ }
+ Merge2 {
+  inputs 2
+  name Merge11
+  xpos 1192
+  ypos 1056
+ }
+ Copy {
+  inputs 2
+  from0 rgba.alpha
+  to0 rgba.alpha
+  name Copy1
+  xpos 1332
+  ypos 1050
+ }
+ Premult {
+  name Premult1
+  xpos 1332
+  ypos 1105
+ }
+ Multiply {
+  value 0
+  name Multiply1
+  xpos 1332
+  ypos 1165
+  disable {{boolean}}
+ }
+ Merge2 {
+  inputs 2
+  bbox B
+  name Merge5
+  xpos 1332
+  ypos 1272
+ }
+ Merge2 {
+  inputs 2
+  operation under
+  mix 0.5
+  name Merge7
+  xpos 1332
+  ypos 1455
+ }
+ Multiply {
+  value 0
+  name Multiply2
+  xpos 1332
+  ypos 1530
+  disable {{boolean_2?0:1}}
+ }
+ Merge2 {
+  inputs 2
+  name Merge6
+  xpos 1332
+  ypos 1752
+ }
+ Dot {
+  name Dot11
+  xpos 1366
+  ypos 2062
+ }
+set N9a13bc00 [stack 0]
+ Dot {
+  name Dot30
+  xpos 1366
+  ypos 2147
+ }
+push $N9a13bc00
+push $N8fc0800
+ Dot {
+  name Dot1
+  xpos 808
+  ypos 2062
+ }
+ Merge2 {
+  inputs 2
+  name Merge2
+  xpos 984
+  ypos 2059
+ }
+ Switch {
+  inputs 2
+  which {{boolean_4}}
+  name Switch1
+  xpos 984
+  ypos 2144
+ }
+ Output {
+  name Output1
+  xpos 984
+  ypos 2209
+ }
+end_group

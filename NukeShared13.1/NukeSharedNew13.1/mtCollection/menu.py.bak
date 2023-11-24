@@ -1,0 +1,68 @@
+#----------------------------------------
+# mtCollection menu.py
+# Version: 1.0.0
+# Last updated: 02-02-2021
+#----------------------------------------
+
+
+import nuke, nukescripts
+
+
+from mtCollectFiles import *
+from mtFilesToFolder import *
+from mtCollectUtilities_Others import *
+from mtShared import *
+import KeyMix_Template
+import mtSmartBackdrop
+
+
+
+ec = nuke.menu('Nodes').addMenu('mtCollection', icon="mtCollection_icon.png")
+
+ec.addCommand('Gizmos/Edges/mtEdgeFromAlpha', 'nuke.createNode("mtEdgeFromAlpha")', icon="EdgeFromAlpha_icon.png")
+ec.addCommand('Gizmos/Edges/mtEdgeMix', 'nuke.createNode("mtEdgeMix")', icon="EdgeMix_icon.png")
+ec.addCommand('Gizmos/Edges/mtEdgeGrade', 'nuke.createNode("mtEdgeGrade")', icon="EdgeGrade_icon.png")
+
+ec.addCommand('Gizmos/Tech Fix/mtTechCheck', 'nuke.createNode("mtTechCheck")', icon="TechCheck_icon.png")
+ec.addCommand('Gizmos/Tech Fix/mtHelpNode', 'nuke.createNode("mtHelpNode")', icon="HelpNode_icon.png")
+ec.addCommand('Gizmos/Tech Fix/mtPixelFixer', 'nuke.createNode("mtPixelFixer")', icon="PixelFixer_icon.png")
+ec.addCommand('Gizmos/Tech Fix/mtLines', 'nuke.createNode("mtLines")', icon="Lines_icon.png")
+
+ec.addCommand('Gizmos/Grade - Transform/mtOffsetCopies', 'nuke.createNode("mtOffsetCopies")', icon="OffsetCopies_icon.png")
+ec.addCommand('Gizmos/Grade - Transform/mtLayerGrade', 'nuke.createNode("mtLayerGrade")', icon="LayerGrade_icon.png")
+ec.addCommand('Gizmos/Grade - Transform/mtEdgeGrade', 'nuke.createNode("mtEdgeGrade")', icon="EdgeGrade_icon.png")
+
+
+
+ec.addCommand('Tools/mtCollect Utilities/Collect Files' , 'mtCollectFiles()', "ctrl+shift+alt+s")
+ec.addCommand('Tools/mtCollect Utilities/Files To Folder' , 'FilesToFolder()', "ctrl+shift+alt+c", shortcutContext=2)
+ec.addCommand('Tools/mtCollect Utilities/Reduce Project' , 'mtReduceProject()', "ctrl+shift+alt+f", shortcutContext=2)
+ec.addCommand('Tools/mtCollect Utilities/Bring Render-Folder' , 'mtBringRendersandFolders()', "e", shortcutContext=2)
+
+
+#------------------------------------------------------------------------------------------------------------
+#
+# Modify these to change the default folder. For example: 'shareNodes("S:/Pipe/Nuke/Shared/ShareNodes/")'.
+
+# Remember: 
+#
+#     -Use a shared drive that allows all the team to acces the nodes. 
+#     -If you are using Windows, change the \ to /.	
+#     -Your Default Path have to end with /. Do not point to an specific file (S:/Pipe/Nuke/Shared/ShareNodes/test.nk)
+#     -Do not forget the quotation marks "". Ex: myDefaultPath = "S:/Pipe/Nuke/Shared/ShareNodes/"
+#
+#------------------------------------------------------------------------------------------------------------
+
+myDefaultPath = ""
+
+ec.addCommand('Tools/mtCollect Utilities/Share Nodes' , 'shareNodes(myDefaultPath)', "ctrl+alt+g", shortcutContext=2)
+ec.addCommand('Tools/mtCollect Utilities/Get Nodes' , 'getNodes(myDefaultPath)', "ctrl+shift+g", shortcutContext=2)
+
+#============================================================================================================
+#============================================================================================================
+
+
+ec.addCommand('Tools/KeyMix Templates/mt KeyMix Simple', 'KeyMix_Template.dummy()', 'ctrl+alt+k', shortcutContext=2)
+ec.addCommand('Tools/KeyMix Templates/mt KeyMix FrameHolded', 'KeyMix_Template.dummy_2()', 'ctrl+shift+k', shortcutContext=2)
+ec.addCommand('Tools/KeyMix Templates/mt KeyMix Template', 'KeyMix_Template.keyMix_Template()', 'ctrl+alt+shift+k', shortcutContext=2)
+ec.addCommand('Tools/Smart Backdrop', 'mtSmartBackdrop.quickBackdrop()', 'ctrl+shift+b', shortcutContext=2)
