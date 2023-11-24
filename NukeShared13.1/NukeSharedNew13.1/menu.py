@@ -18,7 +18,7 @@ except:
 
 
 nuke.pluginAddPath('./Icons')
-gizmo_directory = '/core/SlateX/Reference/NukeGlobal/NukeSharedNew/OSTools'
+gizmo_directory = '/core/SlateX/Reference/NukeGlobal/NukeSharedNew/OSTool'
 
 toolbar = nuke.menu('Nodes')
 OSToolsToolbar = toolbar.addMenu('OSTools' , icon = 'os.png')
