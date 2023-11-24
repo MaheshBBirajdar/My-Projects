@@ -1,0 +1,53 @@
+#! /core/Software/nuke/Nuke12.1v5/libnuke-12.1.5.so -nx
+version 12.1 v5
+Gizmo {
+}
+Input {
+inputs 0
+name Input1
+xpos 319
+ypos 149
+}
+Dot {
+name Dot1
+xpos 353
+ypos 189
+}
+set N5ead8780 [stack 0]
+Dot {
+name Dot3
+xpos 229
+ypos 189
+}
+Dot {
+name Dot2
+xpos 229
+ypos 322
+}
+push $N5ead8780
+Blur {
+size 10
+name Blur1
+xpos 319
+ypos 240
+}
+Merge2 {
+inputs 2
+operation minus
+name Merge1
+xpos 319
+ypos 318
+}
+Grade {
+multiply 70
+gamma 0.79
+name Grade1
+xpos 319
+ypos 372
+}
+Output {
+name Output1
+xpos 319
+ypos 472
+}
+end_group

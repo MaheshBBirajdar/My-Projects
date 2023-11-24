@@ -1,0 +1,86 @@
+#! C:/Program Files/Nuke10.5v2/nuke-10.5.2.dll -nx
+version 10.5 v2
+Gizmo {
+ inputs 2
+ tile_color 0xffffff
+ note_font "Verdana Bold Bold Bold Bold Bold"
+ note_font_color 0x55ffffff
+ addUserKnob {20 Controls}
+ addUserKnob {26 Name l "" +STARTLINE T "<h3><font color=\"skyblue\">Snowy v1.0</font></h3>"}
+ addUserKnob {41 ammount l "Snow Amount" t "How much snow do you want." T Blur1.size}
+ addUserKnob {41 blur l "Snow Blur" t "Make snome more or less blurry" T Blur2.size}
+ addUserKnob {41 color l "Snow Color" t "Color and Opacity." T Grade1.multiply}
+}
+ Input {
+  inputs 0
+  name Mask
+  selected true
+  xpos -860
+  ypos 45
+  number 1
+ }
+ Input {
+  inputs 0
+  name Footage
+  xpos -571
+  ypos -181
+ }
+set N77322400 [stack 0]
+ ColorCorrect {
+  saturation 0
+  contrast 1.48
+  gain 1.16
+  name ColorCorrect1
+  xpos -176
+  ypos -181
+ }
+set N77322000 [stack 0]
+ Dot {
+  name Dot1
+  xpos -142
+  ypos -17
+ }
+push $N77322000
+ Blur {
+  size 15
+  name Blur1
+  xpos 53
+  ypos -187
+ }
+ Merge2 {
+  inputs 2
+  operation minus
+  name Merge1
+  xpos 53
+  ypos -21
+ }
+ Grade {
+  white 2
+  name Grade1
+  xpos 53
+  ypos 45
+ }
+ Blur {
+  name Blur2
+  xpos -348
+  ypos 39
+ }
+push $N77322400
+ Merge2 {
+  inputs 2+1
+  name Merge2
+  xpos -571
+  ypos 45
+ }
+ Output {
+  name Output1
+  xpos -571
+  ypos 293
+ }
+ Viewer {
+  frame_range 1-149
+  name Viewer1
+  xpos -571
+  ypos 384
+ }
+end_group

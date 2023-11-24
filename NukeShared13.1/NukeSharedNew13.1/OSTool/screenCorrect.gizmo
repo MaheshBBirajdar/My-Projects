@@ -1,0 +1,203 @@
+set cut_paste_input [stack 0]
+version 6.3 v6
+push $cut_paste_input
+Group {
+ name ScreenCorrect
+ tile_color 0xe1ffff
+ selected true
+ xpos 10410
+ ypos 1262
+ addUserKnob {20 User l "Screen Correct"}
+ addUserKnob {26 ""}
+ addUserKnob {41 __sc l "screen color" T controller.__sc}
+ addUserKnob {26 ""}
+ addUserKnob {26 copyright l "" +STARTLINE T "               screen correct 2.00     ©    "}
+ addUserKnob {22 contact l "Luc Julien" -STARTLINE T "import os\nimport sys\n\ntry:\n    import subprocess\n    def _run(cmd, shell, wait):\n        opener = subprocess.Popen(cmd, shell=shell)\n        if wait:\n            opener.wait()\n        return opener.pid\nexcept ImportError:\n    import popen2\n    def _run(cmd, shell, wait):\n        opener = popen2.Popen3(cmd)\n        if wait:\n            opener.wait()\n        return opener.pid\n\ndef _open(url, wait=0):\n    if sys.platform == \"darwin\":\n        cmd = \[\"open\", url]\n    elif hasattr(os, \"startfile\"):\n        return os.startfile(url)\n    elif os.environ.has_key(\"KDE_FULL_SESSION\") or os.environ.has_key(\"KDE_MULTIHEAD\") or \\\n        os.environ.has_key(\"GNOME_DESKTOP_SESSION_ID\") or os.environ.has_key(\"GNOME_KEYRING_SOCKET\"):\n        cmd = \[\"xdg-open\", url]\n    else:\n        raise OSError, \"Desktop not supported.\"\n\n    return _run(cmd, 0, wait)\n\n_open('http://www.linkedin.com/in/lucjulien')\n"}
+}
+ Input {
+  inputs 0
+  name Foreground
+  xpos -222
+  ypos -370
+ }
+set Nf260a010 [stack 0]
+ Dot {
+  name Dot2
+  xpos -188
+  ypos 84
+ }
+ Input {
+  inputs 0
+  name CleanPlate
+  xpos 204
+  ypos -394
+  number 1
+ }
+set Nf260fea0 [stack 0]
+ Dot {
+  name Dot1
+  xpos 238
+  ypos -54
+ }
+set Nf2612f50 [stack 0]
+push $Nf260a010
+ Expression {
+  channel0 none
+  channel1 {-rgba.red -rgba.green -rgba.blue}
+  expr1 g-(max(b,r))
+  expr2 b-(max(g,r))
+  channel3 none
+  name FG_process1
+  xpos 55
+  ypos -298
+ }
+push $Nf260fea0
+ Expression {
+  channel0 none
+  channel1 {-rgba.red -rgba.green -rgba.blue}
+  expr1 g-(max(b,r))
+  expr2 b-(max(g,r))
+  channel3 none
+  name CP_process1
+  xpos 156
+  ypos -298
+ }
+ Merge2 {
+  inputs 2
+  operation divide
+  Achannels {-rgba.red rgba.green rgba.blue rgba.alpha}
+  Bchannels {-rgba.red rgba.green rgba.blue rgba.alpha}
+  name Merge1
+  xpos 55
+  ypos -208
+ }
+add_layer {headmask}
+ Shuffle {
+  red blue
+  green black
+  blue black
+  alpha black
+  name B
+  xpos 55
+  ypos -166
+ }
+push $Nf260a010
+ Expression {
+  channel0 none
+  expr1 g-(max(b,r))
+  channel2 {-rgba.red -rgba.green -rgba.blue}
+  expr2 b-(max(g,r))
+  channel3 none
+  name FG_process
+  xpos -150
+  ypos -298
+ }
+push $Nf260fea0
+ Expression {
+  channel0 none
+  expr1 g-(max(b,r))
+  channel2 {-rgba.red -rgba.green -rgba.blue}
+  expr2 b-(max(g,r))
+  channel3 none
+  name CP_process
+  xpos -45
+  ypos -298
+ }
+ Merge2 {
+  inputs 2
+  operation divide
+  Achannels {-rgba.red rgba.green rgba.blue rgba.alpha}
+  Bchannels {-rgba.red rgba.green rgba.blue rgba.alpha}
+  name Merge2
+  xpos -45
+  ypos -208
+ }
+ Shuffle {
+  red green
+  green black
+  blue black
+  alpha black
+  name G
+  xpos -45
+  ypos -166
+ }
+ Switch {
+  inputs 2
+  which {{!controller.__sc.g>controller.__sc.b?1:0 i}}
+  name Switch1
+  xpos -8
+  ypos -58
+ }
+set Nf1108870 [stack 0]
+ MergeExpression {
+  inputs 2
+  temp_name0 Rx
+  temp_expr0 "controller.__sc.r - Ar"
+  temp_name1 Gx
+  temp_expr1 "controller.__sc.g - Ag"
+  temp_name2 Bx
+  temp_expr2 "controller.__sc.b - Ab"
+  temp_name3 Bz
+  temp_expr3 clamp(Br,0,1)
+  expr0 "Bz  *  clamp(Rx ,0,1)"
+  expr1 "Bz  * clamp(Gx ,0,1)"
+  expr2 "Bz  *  clamp(Bx ,0,1)"
+  name mExpr_dark
+  xpos -8
+  ypos 14
+ }
+ Merge2 {
+  inputs 2
+  operation plus
+  name Merge12
+  xpos -8
+  ypos 80
+ }
+push $Nf2612f50
+push $Nf1108870
+ MergeExpression {
+  inputs 2
+  temp_name0 Rx
+  temp_expr0 "Ar - controller.__sc.r"
+  temp_name1 Gx
+  temp_expr1 "Ag - controller.__sc.g"
+  temp_name2 Bx
+  temp_expr2 "Ab - controller.__sc.b"
+  temp_name3 Bz
+  temp_expr3 clamp(Br,0,1)
+  expr0 "Bz  *  clamp(Rx ,0,1)"
+  expr1 "Bz * clamp(Gx ,0,1)"
+  expr2 "Bz *  clamp(Bx ,0,1)"
+  name mExpr_light
+  xpos 204
+  ypos 14
+ }
+ Merge2 {
+  inputs 2
+  operation minus
+  name Merge13
+  xpos -8
+  ypos 152
+ }
+ Output {
+  name Output1
+  xpos -8
+  ypos 337
+ }
+push $Nf260a010
+ NoOp {
+  name controller
+  xpos -413
+  ypos -130
+  addUserKnob {20 User}
+  addUserKnob {18 __sc l "screen color"}
+  __sc {0.3073858619 0.9175696373 0.3165615499}
+ }
+ Viewer {
+  input_process false
+  name Viewer1
+  selected true
+  xpos 10
+  ypos 249
+ }
+end_group

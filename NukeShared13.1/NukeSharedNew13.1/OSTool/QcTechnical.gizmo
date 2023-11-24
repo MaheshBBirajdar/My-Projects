@@ -1,0 +1,602 @@
+set cut_paste_input [stack 0]
+version 10.0 v4
+push $cut_paste_input
+Group {
+ name QcTechnical
+ knobChanged "\ntn = nuke.thisNode()\ntk = nuke.thisKnob()\nif tk.name() == 'qcMethod':\n    if tn\['qcMethod'].value() == 'Check Grain':\n        tn\['grainSensitivity'].setVisible(True)\n    else:\n        tn\['grainSensitivity'].setVisible(False)\n    if tn\['qcMethod'].value() == 'Check for Clipping Values':\n        tn\['clippingMix'].setVisible(True)\n    else:\n        tn\['clippingMix'].setVisible(False)\n"
+ note_font "Tahoma \[bitstream]"
+ selected true
+ xpos -310
+ ypos -124
+ mapsize {0.15 0.15}
+ addUserKnob {20 qcTechnical}
+ addUserKnob {4 qcMethod l "QC Method" M {"Check Grain" "Darks, Brights, Illegal, Clipping" "Check Edge of Frame" "Check Darks" "Check Brights" "Check for Illegal Blacks" "Check for Clipping Values" "" "" ""}}
+ addUserKnob {7 grainSensitivity l Sensitivity R 0 10}
+ grainSensitivity 3
+ addUserKnob {7 clippingMix l Mix +HIDDEN}
+ clippingMix 0.8
+}
+ Input {
+  inputs 0
+  name Input1
+  xpos 118
+  ypos -39
+ }
+ Dot {
+  name Dot2
+  xpos 152
+  ypos 3
+ }
+set N6d0fcb0 [stack 0]
+ Dot {
+  name Dot6
+  xpos 244
+  ypos 3
+ }
+set N6ce6d50 [stack 0]
+ Dot {
+  name Dot1
+  xpos 379
+  ypos 3
+ }
+set N6cddfb0 [stack 0]
+ Dot {
+  name Dot8
+  xpos 502
+  ypos 3
+ }
+set N6cf7ac0 [stack 0]
+ Dot {
+  name Dot10
+  xpos 652
+  ypos 3
+ }
+set N6cfc230 [stack 0]
+ Dot {
+  name Dot17
+  xpos 958
+  ypos 3
+ }
+ Dot {
+  name Dot12
+  xpos 958
+  ypos 32
+ }
+set N6d209b0 [stack 0]
+ Dot {
+  name Dot13
+  xpos 848
+  ypos 32
+ }
+set N6d25470 [stack 0]
+ Dot {
+  name Dot14
+  xpos 763
+  ypos 32
+ }
+ Matrix {
+  matrix {
+      {1 1 1}
+      {1 1 1}
+      {1 1 1}
+    }
+  normalize true
+  name Matrix1
+  xpos 729
+  ypos 74
+ }
+ Dot {
+  name Dot15
+  xpos 763
+  ypos 136
+ }
+push $N6d25470
+ MergeExpression {
+  inputs 2
+  expr0 rint(Ar*10000000)==rint(Br*10000000)?1:0
+  expr1 rint(Ag*10000000)==rint(Bg*10000000)?1:0
+  expr2 rint(Ab*10000000)==rint(Bb*10000000)?1:0
+  name MergeExpression1
+  xpos 812
+  ypos 133
+ }
+ Dot {
+  name Dot21
+  xpos 846
+  ypos 177
+ }
+set N79cc4d0 [stack 0]
+ Dot {
+  name Dot20
+  xpos 752
+  ypos 177
+ }
+ Dot {
+  name Dot19
+  xpos 752
+  ypos 327
+ }
+push $N79cc4d0
+ Dilate {
+  size -1
+  name Dilate1
+  xpos 812
+  ypos 208
+ }
+ Dilate {
+  size 1
+  name Dilate2
+  xpos 812
+  ypos 267
+ }
+ CopyBBox {
+  inputs 2
+  name CopyBBox1
+  xpos 812
+  ypos 324
+ }
+ Dot {
+  name Dot16
+  xpos 846
+  ypos 365
+ }
+push $N6d209b0
+ Dissolve {
+  inputs 2
+  which {{clippingMix}}
+  name Dissolve1
+  xpos 924
+  ypos 356
+ }
+ Dot {
+  name Dot18
+  xpos 958
+  ypos 399
+ }
+set N7a099e0 [stack 0]
+push $N6cddfb0
+ Expression {
+  expr0 r<0?1:0
+  expr1 g<0?1:0
+  expr2 b<0?1:0
+  name Expression1
+  xpos 345
+  ypos 148
+ }
+ Dot {
+  name Dot23
+  xpos 379
+  ypos 188
+ }
+set N7a1c5c0 [stack 0]
+push $N6cfc230
+ Grade {
+  white 0.05
+  black_clamp false
+  name Grade1
+  xpos 618
+  ypos 155
+ }
+ Dot {
+  name Dot11
+  xpos 652
+  ypos 213
+ }
+set N7a319b0 [stack 0]
+push $N6cf7ac0
+ Log2Lin {
+  operation lin2log
+  name Log2Lin1
+  xpos 468
+  ypos 137
+ }
+ Dot {
+  name Dot9
+  xpos 502
+  ypos 179
+ }
+set N7a44320 [stack 0]
+push $N6d0fcb0
+ Dot {
+  name Dot4
+  xpos 63
+  ypos 3
+ }
+set N7a4a210 [stack 0]
+ Dot {
+  name Dot34
+  xpos -113
+  ypos 3
+ }
+set N7a4ebd0 [stack 0]
+ Dot {
+  name Dot35
+  xpos -113
+  ypos 575
+ }
+push $N7a4ebd0
+ Dot {
+  name Dot33
+  xpos -538
+  ypos 3
+ }
+ Shuffle {
+  alpha white
+  name Shuffle4
+  xpos -572
+  ypos 37
+ }
+ Dot {
+  name Dot22
+  xpos -538
+  ypos 79
+ }
+set N7a6bbd0 [stack 0]
+ Dot {
+  name Dot25
+  xpos -394
+  ypos 79
+ }
+push $N7a6bbd0
+ Dot {
+  name Dot26
+  xpos -644
+  ypos 79
+ }
+set N7a75190 [stack 0]
+ Dot {
+  name Dot27
+  xpos -822
+  ypos 79
+ }
+set N7a79af0 [stack 0]
+ Dot {
+  name Dot28
+  xpos -966
+  ypos 79
+ }
+ Crop {
+  box {2 0 {width-2 i} {height i}}
+  crop false
+  name Crop13
+  xpos -1000
+  ypos 117
+ }
+ Blur {
+  channels rgba
+  size {0 100}
+  name Blur9
+  xpos -1000
+  ypos 159
+ }
+ Dot {
+  name Dot29
+  xpos -966
+  ypos 201
+ }
+push $N7a79af0
+ Blur {
+  channels rgba
+  size {0 100}
+  name Blur10
+  xpos -856
+  ypos 155
+ }
+ Merge2 {
+  inputs 2
+  operation divide
+  bbox B
+  name Merge9
+  xpos -856
+  ypos 197
+ }
+ Dot {
+  name Dot30
+  xpos -822
+  ypos 239
+ }
+push $N7a75190
+ Crop {
+  box {0 2 {width i} {height-2 i}}
+  crop false
+  name Crop14
+  xpos -678
+  ypos 113
+ }
+ Blur {
+  channels rgba
+  size {100 0}
+  name Blur11
+  xpos -678
+  ypos 155
+ }
+ Dot {
+  name Dot31
+  xpos -644
+  ypos 197
+ }
+push $N7a6bbd0
+ Blur {
+  channels rgba
+  size {100 0}
+  name Blur12
+  xpos -572
+  ypos 151
+ }
+ Merge2 {
+  inputs 2
+  operation divide
+  name Merge10
+  xpos -572
+  ypos 193
+ }
+ Merge2 {
+  inputs 2
+  operation max
+  bbox B
+  name Merge11
+  xpos -572
+  ypos 235
+ }
+ Grade {
+  add -1
+  gamma 0.5
+  black_clamp false
+  name Grade4
+  xpos -572
+  ypos 277
+ }
+ Dot {
+  name Dot32
+  xpos -538
+  ypos 319
+ }
+ Dissolve {
+  inputs 2
+  which 0.1
+  name Dissolve3
+  xpos -428
+  ypos 309
+ }
+set N7b20440 [stack 0]
+ Transform {
+  translate {{width/10 i} {height/10 i}}
+  scale 4
+  name Transform_BL2
+  xpos -238
+  ypos 445
+ }
+ Crop {
+  box {0 0 {width/2 i} {height/2 i}}
+  name Crop15
+  xpos -238
+  ypos 487
+ }
+push $N7b20440
+ Transform {
+  translate {{-width/10 i} {height/10 i}}
+  scale 4
+  center {{width i} 0}
+  name Transform_BR2
+  xpos -333
+  ypos 444
+ }
+ Crop {
+  box {{width/2 i} 0 {width i} {height/2 i}}
+  name Crop16
+  xpos -333
+  ypos 486
+ }
+push 0
+push $N7b20440
+ Transform {
+  translate {{width/10 i} {-height/10 i}}
+  scale 4
+  center {0 {height i}}
+  name Transform_TL2
+  xpos -595
+  ypos 433
+ }
+ Crop {
+  box {0 {height/2 i} {width/2 i} {height i}}
+  name Crop17
+  xpos -595
+  ypos 475
+ }
+push $N7b20440
+ Transform {
+  translate {{-width/10 i} {-height/10 i}}
+  scale 4
+  center {{width i} {height i}}
+  name Transform_TR2
+  xpos -457
+  ypos 438
+ }
+ Crop {
+  box {{width/2 i} {height/2 i} {width i} {height i}}
+  name Crop18
+  xpos -457
+  ypos 480
+ }
+ Merge2 {
+  inputs 4+1
+  operation plus
+  name Merge12
+  xpos -238
+  ypos 529
+ }
+ CopyBBox {
+  inputs 2
+  name CopyBBox2
+  xpos -238
+  ypos 571
+ }
+ Dot {
+  name Dot36
+  xpos -204
+  ypos 613
+ }
+push $N7a099e0
+ Text {
+  output rgb
+  message "\nCheck for Clipping Values"
+  font /usr/share/fonts/open-sans/OpenSans-Regular.ttf
+  xjustify center
+  yjustify top
+  Transform 1
+  box {0 0 {width} {height}}
+  translate {0 -8}
+  center {{width/2} {height/2}}
+  name Text3
+  xpos 924
+  ypos 507
+ }
+push $N7a1c5c0
+ Text {
+  output rgb
+  message "\nCheck for Illegal Blacks"
+  font /usr/share/fonts/open-sans/OpenSans-Regular.ttf
+  xjustify center
+  yjustify top
+  Transform 1
+  box {0 0 {width} {height}}
+  translate {0 -8}
+  center {{width/2} {height/2}}
+  name Text2
+  xpos 588
+  ypos 510
+ }
+push $N7a319b0
+ Text {
+  output rgb
+  message "\nCheck Brights"
+  font /usr/share/fonts/open-sans/OpenSans-Regular.ttf
+  xjustify center
+  yjustify top
+  Transform 1
+  box {0 0 {width} {height}}
+  translate {0 -8}
+  center {{width/2} {height/2}}
+  name Text5
+  xpos 805
+  ypos 506
+ }
+push $N7a44320
+ Text {
+  output rgb
+  message "\nCheck Darks"
+  font /usr/share/fonts/open-sans/OpenSans-Regular.ttf
+  xjustify center
+  yjustify top
+  Transform 1
+  box {0 0 {width} {height}}
+  translate {0 -8}
+  center {{width/2} {height/2}}
+  name Text4
+  xpos 698
+  ypos 508
+ }
+ ContactSheet {
+  inputs 4
+  width {{input.width i}}
+  height {{input.height i}}
+  rows 2
+  columns 2
+  roworder TopBottom
+  startframe 1
+  endframe 1
+  name ContactSheet1
+  xpos 698
+  ypos 569
+ }
+ Dot {
+  name Dot24
+  xpos 732
+  ypos 604
+ }
+push $N7a4a210
+ Blur {
+  channels rgba
+  size 1
+  name Blur1
+  xpos 29
+  ypos 37
+ }
+ Dot {
+  name Dot3
+  xpos 63
+  ypos 81
+ }
+push $N6d0fcb0
+ Merge2 {
+  inputs 2
+  operation from
+  bbox B
+  output rgb
+  name Merge1
+  xpos 118
+  ypos 77
+ }
+ Grade {
+  white {{grainSensitivity*100}}
+  name Grade2
+  xpos 118
+  ypos 119
+ }
+ Dot {
+  name Dot5
+  xpos 152
+  ypos 164
+ }
+push $N6ce6d50
+ Merge2 {
+  inputs 2
+  operation plus
+  bbox B
+  output rgb
+  name Merge3
+  xpos 210
+  ypos 161
+ }
+ Dot {
+  name Dot7
+  xpos 244
+  ypos 211
+ }
+ Switch {
+  inputs 7
+  which {{qcMethod i}}
+  name Switch1
+  xpos 345
+  ypos 682
+ }
+ Text {
+  output rgb
+  opacity {{input.bbox.x<0|input.bbox.y<0|input.bbox.r>input.width|input.bbox.t>input.height?1:0}}
+  message "\nBbox is larger than width."
+  font /usr/share/fonts/open-sans/OpenSans-Regular.ttf
+  xjustify center
+  yjustify top
+  Transform 1
+  box {0 0 {width} {height}}
+  translate {0 -8}
+  center {{width/2} {height/2}}
+  name Text1
+  xpos 345
+  ypos 752
+ }
+set N7c652e0 [stack 0]
+ Output {
+  name Output1
+  xpos 345
+  ypos 794
+ }
+push $N7c652e0
+ Viewer {
+  frame_range 1-100
+  name Viewer1
+  xpos -238
+  ypos 595
+ }
+end_group
+

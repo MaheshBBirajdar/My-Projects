@@ -1,0 +1,193 @@
+#! C:/Program Files/Nuke9.0v6/nuke-9.0.6.dll -nx
+version 9.0 v6
+Gizmo {
+ inputs 3
+ tile_color 0xff0031ff
+ addUserKnob {20 Main}
+ addUserKnob {6 xvb_sw_uv l "Use VectorData" +STARTLINE}
+ addUserKnob {41 channels T VectorBlur1.channels}
+ addUserKnob {26 Direction}
+ addUserKnob {41 center_pos l Center T pos_data_Input.center_pos}
+ addUserKnob {41 direction_pos l Direction T pos_data_Input.direction_pos}
+ addUserKnob {41 offset T VectorBlur1.offset}
+ addUserKnob {6 xvb_sw_up l Unpremult +STARTLINE}
+ addUserKnob {6 xvb_sw_a l "Full Alpha" +STARTLINE}
+ addUserKnob {20 tips l Tips}
+ addUserKnob {26 ts l ta T "1. if you use VectorInput,Please  make Center\n    and Direction value @0 unless you want add\n    a driffent strength\n2.You need add an Alpha Channel to your Image\n    Before you use Unpremult Function"}
+ addUserKnob {20 about l About}
+ addUserKnob {26 about1 l "" +STARTLINE T "This Gizmo will offer you a easy way to make montion edge Just like you use in AE\n\nVersion:1.3\nPowered By Panda Yu\nemail:yutaoforpdwh@163.com\n20th Sep 2015 "}
+}
+ Input {
+  inputs 0
+  name Mask
+  xpos -131
+  ypos 265
+  number 2
+ }
+ Dot {
+  name Dot2
+  selected true
+  xpos -97
+  ypos 452
+ }
+set N13596000 [stack 0]
+ Invert {
+  name Invert1
+  selected true
+  xpos -131
+  ypos 518
+ }
+push $N13596000
+ Input {
+  inputs 0
+  name VectorInput
+  xpos -145
+  ypos -73
+  number 1
+ }
+ Shuffle {
+  in motion
+  red black
+  green black
+  blue black
+  alpha black
+  black red
+  white green
+  red2 blue
+  green2 alpha
+  out2 motion
+  name Shuffle1
+  xpos -144
+  ypos -13
+ }
+ Dot {
+  name Dot1
+  xpos -111
+  ypos 73
+ }
+ Input {
+  inputs 0
+  name Image
+  xpos -1
+  ypos -136
+ }
+ NoOp {
+  name pos_data_Input
+  xpos -1
+  ypos -91
+  addUserKnob {20 User}
+  addUserKnob {12 center_pos l Center}
+  center_pos {952 636.5}
+  addUserKnob {12 direction_pos l Direction}
+  direction_pos {1154 714}
+  addUserKnob {20 Convert}
+  addUserKnob {7 pos_Center_x l cx}
+  pos_Center_x {{center_pos.x}}
+  addUserKnob {7 pos_Center_y l cy}
+  pos_Center_y {{center_pos.y}}
+  addUserKnob {7 pos_direction_x l dx}
+  pos_direction_x {{direction_pos.x}}
+  addUserKnob {7 pos_direction_y l dy}
+  pos_direction_y {{direction_pos.y}}
+ }
+ Expression {
+  temp_name0 cx
+  temp_expr0 parent.pos_data_Input.pos_Center_x
+  temp_name1 cy
+  temp_expr1 parent.pos_data_Input.pos_Center_y
+  temp_name2 dx
+  temp_expr2 parent.pos_data_Input.pos_direction_x
+  temp_name3 dy
+  temp_expr3 parent.pos_data_Input.pos_direction_y
+  channel0 {forward.u -forward.v none -backward.v}
+  expr0 cx>=dx?cx-dx:1-(dx-cx)
+  channel1 {-forward.u forward.v none -backward.v}
+  expr1 cy>=dy?cy-dy:1-(dy-cy)
+  channel2 {backward.u -backward.v none -backward.v}
+  expr2 cx>=dx?cx-dx:1-(dx-cx)
+  channel3 {-backward.u backward.v none -backward.v}
+  expr3 cy>=dy?cy-dy:1-(dy-cy)
+  name pos_data_process
+  xpos -1
+  ypos -46
+ }
+ Merge2 {
+  inputs 2
+  operation plus
+  Achannels none
+  Bchannels none
+  output none
+  also_merge all
+  name Plus
+  xpos -1
+  ypos 63
+  disable {{!xvb_sw_uv}}
+ }
+ VectorBlur {
+  channels rgba
+  uv motion
+  name VectorBlur1
+  xpos 0
+  ypos 135
+ }
+ Unpremult {
+  name Unpremult1
+  selected true
+  xpos 0
+  ypos 366
+  disable {{!xvb_sw_up}}
+ }
+ Expression {
+  expr3 r+g+b>0?1:0
+  name Expression1
+  selected true
+  xpos 0
+  ypos 408
+  disable {{!xvb_sw_a}}
+ }
+set N5979ec00 [stack 0]
+ Merge2 {
+  inputs 2
+  operation mask
+  name Merge1
+  selected true
+  xpos 0
+  ypos 448
+ }
+push $N5979ec00
+ Dot {
+  name Dot4
+  selected true
+  xpos 139
+  ypos 412
+ }
+ Dot {
+  name Dot3
+  selected true
+  xpos 139
+  ypos 528
+ }
+ Keymix {
+  inputs 3
+  name Keymix1
+  selected true
+  xpos 0
+  ypos 518
+ }
+set N135d5c00 [stack 0]
+ Output {
+  name Output1
+  selected true
+  xpos 0
+  ypos 629
+ }
+push $N135d5c00
+ Viewer {
+  frame_range 1-100
+  full_frame_processing true
+  colour_sample_bbox {0.03515625 -0.0625 0.0361328125 -0.0615234375}
+  name Viewer1
+  xpos 286
+  ypos 387
+ }
+end_group

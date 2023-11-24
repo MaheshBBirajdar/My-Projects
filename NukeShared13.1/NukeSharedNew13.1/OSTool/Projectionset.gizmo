@@ -1,0 +1,83 @@
+#! /core/Software/nuke/Nuke12.1v5/libnuke-12.1.5.so -nx
+version 12.1 v5
+Gizmo {
+inputs 3
+tile_color 0xa30000ff
+addUserKnob {20 Projection}
+addUserKnob {41 first_frame l Framehold T FrameHold4.first_frame}
+addUserKnob {26 Projectionproperties l "Projection properties"}
+addUserKnob {41 project_on l "project on" T Project3D2.project_on}
+addUserKnob {41 crop T Project3D2.crop}
+addUserKnob {26 scanline l Scanline}
+addUserKnob {41 antialiasing T ScanlineRender2.antialiasing}
+addUserKnob {41 filter T ScanlineRender2.filter}
+addUserKnob {41 overscan T ScanlineRender2.overscan}
+addUserKnob {41 samples T ScanlineRender2.samples}
+addUserKnob {26 motionblur}
+addUserKnob {41 shutter T ScanlineRender2.shutter}
+addUserKnob {41 shutteroffset l "shutter offset" T ScanlineRender2.shutteroffset}
+addUserKnob {41 uniform_distribution l "uniform distribution" T ScanlineRender2.uniform_distribution}
+}
+Input {
+inputs 0
+name Cam
+label Cam
+xpos 231
+ypos 121
+}
+Dot {
+name Dot6
+xpos 265
+ypos 198
+}
+set N758ff900 [stack 0]
+push $N758ff900
+FrameHold {
+first_frame 1001
+name FrameHold4
+xpos 130
+ypos 188
+}
+Input {
+inputs 0
+name Plate
+label Plate
+xpos -1
+ypos 77
+number 1
+}
+Project3D2 {
+inputs 2
+name Project3D2
+xpos -1
+ypos 194
+}
+Input {
+inputs 0
+name Geo
+label Geo
+xpos -155
+ypos 268
+number 2
+}
+ApplyMaterial {
+inputs 2
+name ApplyMaterial1
+xpos -1
+ypos 274
+}
+push 0
+ScanlineRender {
+inputs 3
+conservative_shader_sampling false
+motion_vectors_type distance
+name ScanlineRender2
+xpos -1
+ypos 385
+}
+Output {
+name Output1
+xpos -1
+ypos 485
+}
+end_group

@@ -1,0 +1,74 @@
+#! /Applications/Nuke6.1v1b11-32/Nuke6.1v1b11.app/Contents/MacOS/Nuke6.1v1b11 -nx
+version 6.1 v1b11
+Gizmo {
+ inputs 2
+ help "Based on Autodesk's Flame 'Sources' function.\n\nOffsets the rgb based on the alpha position.\n\nUsed to remove unwanted areas of an image by copying another section of the same image over the problem area.\n\nTo use...\n\n1. draw a RotoPaint shape around the area to be covered (such as a tracking marker on a greenscreen background), making sure the RotoPaint output is set to 'alpha' and 'replace' is on if needed.\n\n2. Connect the image into 'foregroundPlate' and the RotoPaint into 'definingMatte'.\n\n3. Use the Offset controls in the node to move a clean part of the image over the problem area."
+ addUserKnob {20 User}
+ addUserKnob {41 matrix T Transform1.matrix}
+ addUserKnob {41 translate l offSet T Transform1.translate}
+ addUserKnob {41 rotate T Transform1.rotate}
+ addUserKnob {41 scale T Transform1.scale}
+ addUserKnob {41 skew T Transform1.skew}
+ addUserKnob {41 center T Transform1.center}
+ addUserKnob {41 filter T Transform1.filter}
+ addUserKnob {41 clamp T Transform1.clamp}
+ addUserKnob {41 black_outside l "black outside" T Transform1.black_outside}
+ addUserKnob {41 motionblur T Transform1.motionblur}
+ addUserKnob {41 shutter T Transform1.shutter}
+ addUserKnob {41 shutteroffset l "shutter offset" T Transform1.shutteroffset}
+ addUserKnob {41 shuttercustomoffset l "" -STARTLINE T Transform1.shuttercustomoffset}
+}
+ Input {
+  inputs 0
+  name definingMatte
+  xpos 421
+  ypos -298
+ }
+ Dot {
+  name Dot1
+  xpos 544
+  ypos -295
+ }
+set N1d57ac90 [stack 0]
+push $N1d57ac90
+ Input {
+  inputs 0
+  name foregroundPlate
+  xpos 617
+  ypos -489
+  number 1
+ }
+ Dot {
+  name Dot2
+  xpos 651
+  ypos -430
+ }
+set N1d586270 [stack 0]
+ Transform {
+  translate {47.4 0}
+  center {384 216}
+  name Transform1
+  xpos 551
+  ypos -375
+ }
+push $N1d586270
+ Merge2 {
+  inputs 2+1
+  name Merge1
+  xpos 617
+  ypos -325
+ }
+ Copy {
+  inputs 2
+  from0 rgba.alpha
+  to0 rgba.alpha
+  name Copy1
+  xpos 617
+  ypos -263
+ }
+ Output {
+  name Output
+  xpos 617
+  ypos -199
+ }
+end_group

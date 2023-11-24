@@ -1,0 +1,85 @@
+set cut_paste_input [stack 0]
+version 12.1 v5
+push $cut_paste_input
+Group {
+name Vignette
+selected true
+xpos 418
+ypos 225
+addUserKnob {20 User}
+addUserKnob {41 invert_mask l invert T ColorCorrect12.invert_mask}
+addUserKnob {41 size T Blur4.size}
+addUserKnob {41 scale T Transform1.scale}
+addUserKnob {26 ""}
+addUserKnob {41 gamma T ColorCorrect12.gamma}
+addUserKnob {41 gain T ColorCorrect12.gain}
+addUserKnob {41 contrast T ColorCorrect12.contrast}
+addUserKnob {41 saturation T ColorCorrect12.saturation}
+addUserKnob {26 ""}
+addUserKnob {41 mix T ColorCorrect12.mix}
+}
+Input {
+inputs 0
+name Input1
+xpos -272
+ypos -474
+}
+set N3b6fee40 [stack 0]
+Dot {
+name Dot1
+xpos -36
+ypos -471
+}
+Radial {
+replace true
+area {0 0 {width} {height}}
+softness 0
+name Radial1
+xpos -70
+ypos -453
+}
+Transform {
+center {960 540}
+name Transform1
+xpos -70
+ypos -429
+}
+set Na089260 [stack 0]
+Blur {
+size 400
+name Blur4
+label "\[value size]"
+xpos -70
+ypos -383
+}
+Dot {
+name Dot2
+xpos -36
+ypos -273
+}
+push $N3b6fee40
+ColorCorrect {
+inputs 1+1
+gamma 0.76
+gain 0.38
+invert_mask true
+name ColorCorrect12
+selected true
+xpos -272
+ypos -276
+}
+Output {
+name Output1
+xpos -272
+ypos -215
+}
+push $Na089260
+Viewer {
+frame_increment 8
+input_process false
+far 1000000
+name Viewer1
+xpos 114
+ypos -362
+}
+end_group
