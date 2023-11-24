@@ -1,0 +1,101 @@
+set cut_paste_input [stack 0]
+version 12.1 v5
+push 0
+push 0
+push $cut_paste_input
+add_layer {DI_Alpha DI_Alpha.red}
+Group {
+inputs 3
+name DI_Alpha
+tile_color 0x4272ff
+selected true
+xpos 180
+ypos 3959
+addUserKnob {20 User}
+addUserKnob {41 mergeMode l "metadata from" T CopyMetaData1.mergeMode}
+addUserKnob {26 ""}
+addUserKnob {41 channels l "Layer Copy" T Copy2.channels}
+addUserKnob {41 from0 l "Copy channel" T Copy2.from0}
+addUserKnob {41 to0 l "" -STARTLINE T Copy2.to0}
+addUserKnob {26 ""}
+addUserKnob {6 Alpha_White +STARTLINE}
+Alpha_White true
+}
+Input {
+inputs 0
+name Plate
+xpos -114
+ypos 90
+number 1
+}
+Dot {
+name Dot1
+xpos -80
+ypos 184
+}
+set Na7029c0 [stack 0]
+Input {
+inputs 0
+name DI_Alpha
+xpos 199
+ypos 133
+number 2
+}
+Dot {
+name Dot4
+xpos 233
+ypos 192
+}
+push $Na7029c0
+Input {
+inputs 0
+name Comp
+xpos 40
+ypos 65
+}
+CopyMetaData {
+inputs 2
+mergeMode "Meta only"
+name CopyMetaData1
+xpos 40
+ypos 180
+}
+Copy {
+inputs 2
+from0 rgba.alpha
+to0 DI_Alpha.red
+channels DI_Alpha
+name Copy2
+xpos 40
+ypos 249
+}
+set Na720d00 [stack 0]
+push $Na720d00
+Shuffle2 {
+fromInput1 {{0} B}
+fromInput2 {{0} B}
+mappings "4 rgba.red 0 0 rgba.red 0 0 rgba.green 0 1 rgba.green 0 1 rgba.blue 0 2 rgba.blue 0 2 white -1 -1 rgba.alpha 0 3"
+name Shuffle1
+xpos 163
+ypos 353
+}
+Switch {
+inputs 2
+which 1
+name Switch1
+xpos 40
+ypos 391
+disable {{parent.Alpha_White}}
+}
+CopyBBox {
+inputs 2
+name CopyBBox1
+xpos 40
+ypos 468
+}
+Output {
+name Output1
+xpos 40
+ypos 647
+}
+end_group
