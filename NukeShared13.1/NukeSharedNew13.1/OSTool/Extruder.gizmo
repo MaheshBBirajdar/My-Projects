@@ -1,0 +1,549 @@
+set cut_paste_input [stack 0]
+version 12.1 v5
+push $cut_paste_input
+Group {
+name Extruder
+tile_color 0xff00ff
+selected true
+xpos 39
+ypos 228
+addUserKnob {20 Extruder}
+addUserKnob {41 channels T STMap3.channels}
+addUserKnob {4 alpha_type l "Alpha input" t "set which alpha channel you would like use for extrude purposes" M {Source Matte "" "" "" ""}}
+alpha_type Matte
+addUserKnob {26 ""}
+addUserKnob {4 erode_type l "Erode type" M {Box Blur Gausian Dilate KeyChew "" "" ""}}
+erode_type KeyChew
+addUserKnob {6 erode_preset l "Erode preset" t "For erode adjust, temporarily premult" +STARTLINE}
+addUserKnob {7 erode l Erode t "it's not neccesary, but have better results if set properly" R -10 10}
+addUserKnob {26 ""}
+addUserKnob {4 ext_type l "Extrude type" t "different approach for extruding, must set Blur if you want use different height and width" M {Defocus Blur "" "" ""}}
+addUserKnob {14 extrude l Extrude t "if you want choose different value for height and widht, you must use Blur extrude type" R 0 100}
+extrude 4
+addUserKnob {41 filter_1 l filter t "filtering used for extruded areas" T STMap3.filter}
+addUserKnob {7 effect_mix l "Effect mix"}
+effect_mix 1
+addUserKnob {26 ""}
+addUserKnob {26 note l "" +STARTLINE T "1. switch Erode preset ON and remove outline as much as possible, \npremult will effect temporarilly\n2. switch Erode preset OFF and slide Extrude as needed\n"}
+addUserKnob {26 ""}
+addUserKnob {26 creator l "" +STARTLINE T "Extruder 6.4.2 - (c) 2012 - Ales Gargulak  - alesgargulak@gmail.com\n( please feel free to use )"}
+}
+Input {
+inputs 0
+name mask
+xpos -1656
+ypos 682
+number 2
+}
+Dot {
+name Dot25
+xpos -1622
+ypos 876
+}
+Input {
+inputs 0
+name matte
+xpos -853
+ypos -230
+number 1
+}
+Input {
+inputs 0
+name src
+xpos -658
+ypos -404
+}
+Dot {
+name Dot2
+xpos -624
+ypos -277
+}
+set Neff2af0 [stack 0]
+Dot {
+name Dot10
+xpos -734
+ypos -277
+}
+set Ne8526b0 [stack 0]
+Copy {
+inputs 2
+from0 rgba.alpha
+to0 rgba.alpha
+name Copy2
+xpos -772
+ypos -136
+}
+push $Neff2af0
+Dot {
+name Dot8
+xpos -624
+ypos -170
+}
+set Nedf6450 [stack 0]
+Switch {
+inputs 2
+which {{alpha_type}}
+name Switch2
+xpos -650
+ypos -67
+}
+Dot {
+name Dot72
+xpos -616
+ypos 28
+}
+set N139f4370 [stack 0]
+Clamp {
+channels alpha
+name Clamp3
+xpos -763
+ypos 18
+}
+set Nf594710 [stack 0]
+Clamp {
+channels alpha
+name Clamp1
+xpos -766
+ypos 97
+}
+set N8ca2450 [stack 0]
+Clamp {
+channels alpha
+name Clamp2
+xpos -769
+ypos 172
+}
+set Nb34b6c0 [stack 0]
+Clamp {
+channels alpha
+name Clamp4
+xpos -763
+ypos 254
+}
+set Nc655be0 [stack 0]
+Clamp {
+channels alpha
+name Clamp5
+xpos -760
+ypos 315
+}
+Group {
+name KeyChew
+help "The old KeyChew from the Shake days. Will allow for fine dilate/erode control of a matte as well as softening. This gizmo will only manipulate the Alpha channel."
+tile_color 0xff00ff
+note_font "Bitstream Vera Sans"
+selected true
+xpos -864
+ypos 329
+mapsize {0.15 0.15}
+addUserKnob {20 User}
+addUserKnob {41 chew T X.chew}
+addUserKnob {41 soften T X.soften}
+addUserKnob {41 premult T X.premult}
+}
+Input {
+inputs 0
+name Input1
+label "\[value number]"
+xpos 545
+ypos -1499
+}
+NoOp {
+name NoOp1
+xpos 545
+ypos -1031
+}
+set N13760a60 [stack 0]
+Invert {
+channels rgba
+name Invert1
+xpos 663
+ypos -902
+}
+push $N13760a60
+Switch {
+inputs 2
+which {{X.chew>=0?0:1 i}}
+name Switch1
+xpos 545
+ypos -822
+}
+Blur {
+channels rgba
+size {{abs(X.chew) i}}
+name Blur1
+xpos 545
+ypos -647
+}
+set N101a9c20 [stack 0]
+Multiply {
+channels alpha
+value {{max(Blur1.size*1.5,1) i}}
+name Multiply1
+xpos 545
+ypos -582
+}
+Gamma {
+channels alpha
+value {{gamma_curve.n_result i}}
+name Gamma1
+xpos 545
+ypos -486
+}
+set N1465fbb0 [stack 0]
+Dot {
+name Dot2
+xpos 664
+ypos -402
+}
+Dot {
+name Dot3
+xpos 833
+ypos -402
+}
+push $N13760a60
+Dot {
+name Dot1
+xpos 881
+ypos -1026
+}
+set N96a23730 [stack 0]
+Merge2 {
+inputs 2
+operation from
+name Merge1
+xpos 847
+ypos -287
+}
+Dot {
+name Dot4
+xpos 881
+ypos -234
+}
+Dot {
+name Dot5
+xpos 657
+ypos -234
+}
+push $N1465fbb0
+Switch {
+inputs 2
+which {{X.chew>=0?0:1 i}}
+name Switch3
+xpos 545
+ypos -167
+}
+Clamp {
+channels rgba
+name Clamp1
+xpos 545
+ypos -102
+}
+Blur {
+channels rgba
+size {{X.soften i}}
+name Blur2
+xpos 545
+ypos -36
+}
+push $N96a23730
+Dot {
+name Dot6
+xpos 1258
+ypos -1026
+}
+Dot {
+name Dot7
+xpos 1258
+ypos 54
+}
+Dot {
+name Dot8
+xpos 682
+ypos 54
+}
+Copy {
+inputs 2
+from0 rgba.alpha
+to0 rgba.alpha
+name Copy1
+xpos 545
+ypos 114
+disable {{"!\[exists parent.input0]" i}}
+}
+Premult {
+name Premult1
+xpos 545
+ypos 193
+disable {{!X.premult i}}
+}
+Output {
+name Output1
+xpos 545
+ypos 685
+}
+push $N101a9c20
+Grade {
+multiply {{max(Blur1.size*1.5,1) i}}
+white_clamp true
+name Grade1
+xpos 689
+ypos -578
+}
+NoOp {
+inputs 0
+name gamma_curve
+xpos 110
+ypos -479
+addUserKnob {20 User}
+addUserKnob {16 n_curve}
+n_curve {{curve i 1 x5 0.95 0.8 x20 0.5 x40 0.3 x80 0.2 x200 0.1}}
+addUserKnob {16 n_result}
+n_result {{gamma_curve.n_curve(n_value) i}}
+addUserKnob {16 n_value}
+n_value {{abs(X.chew) i}}
+}
+NoOp {
+inputs 0
+name X
+selected true
+xpos 110
+ypos -647
+addUserKnob {20 User}
+addUserKnob {7 chew R -10 10}
+chew {{parent.parent.erode}}
+addUserKnob {7 soften R 0 10}
+addUserKnob {6 premult +STARTLINE}
+}
+end_group
+push $Nc655be0
+Dilate {
+channels alpha
+size {{-parent.erode}}
+name Dilate1
+xpos -861
+ypos 254
+}
+push $Nb34b6c0
+FilterErode {
+channels alpha
+size {{parent.erode}}
+filter gaussian
+name FilterErode3
+xpos -877
+ypos 175
+}
+push $N8ca2450
+Erode {
+size {{parent.erode}}
+name Erode5
+xpos -881
+ypos 95
+}
+push $Nf594710
+FilterErode {
+size {{parent.erode}}
+name FilterErode4
+xpos -873
+ypos 18
+}
+Dot {
+name Dot81
+xpos -963
+ypos 28
+}
+Switch {
+inputs 5
+which {{erode_type}}
+name Switch1
+xpos -1012
+ypos 268
+}
+set N121219c0 [stack 0]
+push $Ne8526b0
+Dot {
+name Dot3
+xpos -1425
+ypos -277
+}
+Remove {
+name Remove1
+xpos -1459
+ypos -153
+}
+Expression {
+expr0 "(x + 0.5) / width"
+expr1 "(y + 0.5) / height"
+name Expression1
+xpos -1459
+ypos -104
+}
+Dot {
+name Dot4
+xpos -1425
+ypos 52
+}
+set Nd5e10990 [stack 0]
+Dot {
+name Dot82
+xpos -1158
+ypos 47
+}
+Copy {
+inputs 2
+from0 rgba.alpha
+to0 rgba.alpha
+name Copy1
+xpos -1192
+ypos 262
+}
+Premult {
+name Premult28
+xpos -1192
+ypos 523
+}
+set N1188b330 [stack 0]
+Blur {
+channels rgba
+size {{"erode_preset ==  0 ? parent.extrude : 0"} {"erode_preset == 0 ? parent.extrude : 0"}}
+name Blur2
+xpos -1135
+ypos 598
+}
+push $N1188b330
+Defocus {
+channels rgba
+defocus {{"erode_preset == 0 ? parent.extrude : 0"}}
+name Defocus1
+xpos -1270
+ypos 594
+}
+Switch {
+inputs 2
+which {{ext_type}}
+name Switch4
+xpos -1196
+ypos 666
+}
+Unpremult {
+name Unpremult7
+xpos -1192
+ypos 730
+}
+Grade {
+channels alpha
+whitepoint 0.03
+name Grade13
+xpos -1192
+ypos 806
+}
+Premult {
+name Premult29
+xpos -1192
+ypos 872
+}
+push $Nd5e10990
+Merge2 {
+inputs 2+1
+mix {{parent.effect_mix}}
+name Merge20
+xpos -1459
+ypos 872
+}
+Dot {
+name Dot84
+xpos -1425
+ypos 1141
+}
+Dot {
+name Dot6
+xpos -863
+ypos 1147
+}
+push $Nedf6450
+Dot {
+name Dot9
+xpos -528
+ypos -170
+}
+Dot {
+name Dot7
+xpos -511
+ypos 268
+}
+push $N139f4370
+Copy {
+inputs 2
+from0 rgba.alpha
+to0 rgba.alpha
+name Copy3
+xpos -648
+ypos 352
+}
+Dot {
+name Dot1
+xpos -616
+ypos 501
+}
+set Nfa46d40 [stack 0]
+push $N121219c0
+Premult {
+name Premult1
+xpos -997
+ypos 500
+}
+set Nf34a350 [stack 0]
+Switch {
+inputs 2
+which {{!erode_preset}}
+name Switch6
+xpos -650
+ypos 648
+}
+push $Nfa46d40
+push $Nf34a350
+Switch {
+inputs 2
+which {{!erode_preset}}
+name Switch3
+xpos -997
+ypos 644
+}
+Switch {
+inputs 2
+which {{ext_type}}
+name Switch_defocus_blur
+xpos -857
+ypos 759
+}
+Log2Lin {
+operation lin2log
+black 0
+gamma 1
+name Log2Lin3
+xpos -857
+ypos 1054
+}
+STMap {
+inputs 2
+channels rgb
+uv rgb
+blur_scale 0
+filter Simon
+name STMap3
+xpos -857
+ypos 1197
+}
+Log2Lin {
+black 0
+gamma 1
+name Log2Lin2
+xpos -857
+ypos 1280
+}
+Output {
+name Output1
+xpos -857
+ypos 1521
+}
+end_group

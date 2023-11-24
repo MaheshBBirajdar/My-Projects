@@ -1,0 +1,192 @@
+set cut_paste_input [stack 0]
+version 12.1 v5
+push $cut_paste_input
+Group {
+ name ExpandRGB1
+ selected true
+ xpos 344
+ ypos -165
+ addUserKnob {20 ExpandRGB}
+ addUserKnob {41 size l "Alpha pre-blur" T Blur9.size}
+ addUserKnob {3 x_offset l "x offset"}
+ x_offset 1
+ addUserKnob {3 y_offset l "y offset" -STARTLINE}
+ y_offset 1
+ addUserKnob {41 uv_scale l "UV scale" T IDistort1.uv_scale}
+ addUserKnob {41 erode_size l "Post-erode alpha" T FilterErode14.size}
+ addUserKnob {41 post_blur l "Post-blur size" T Blur10.size}
+}
+ Input {
+  inputs 0
+  name unpemulted_source_with_alpha
+  label "Unpremulted sorce with alpha"
+  xpos -404
+  ypos -250
+ }
+ Dot {
+  name Dot50
+  xpos -370
+  ypos -177
+ }
+set Nb045f50 [stack 0]
+push $Nb045f50
+ Blur {
+  channels alpha
+  size 12.5
+  name Blur9
+  label "\[value size]"
+  xpos 172
+  ypos -198
+ }
+ Dot {
+  name Dot1
+  xpos 206
+  ypos -108
+ }
+set Na1f2a40 [stack 0]
+ Dot {
+  name Dot48
+  xpos 412
+  ypos -108
+ }
+set Na2002b0 [stack 0]
+ Transform {
+  translate {0 {y_offset}}
+  center {1440 810}
+  filter Mitchell
+  name Transform22
+  label "filter: \[value filter]"
+  xpos 268
+  ypos -62
+ }
+push $Na2002b0
+ Transform {
+  translate {0 {-y_offset}}
+  center {1440 810}
+  filter Mitchell
+  name Transform23
+  label "filter: \[value filter]"
+  xpos 378
+  ypos -65
+ }
+ Merge2 {
+  inputs 2
+  operation from
+  name Merge18
+  label "Mix \[value mix]"
+  xpos 340
+  ypos 27
+ }
+push $Na1f2a40
+ Dot {
+  name Dot47
+  xpos 20
+  ypos -108
+ }
+set Na214590 [stack 0]
+ Transform {
+  translate {{x_offset} 0}
+  center {1440 810}
+  filter Mitchell
+  name Transform14
+  label "filter: \[value filter]"
+  xpos -14
+  ypos -50
+ }
+push $Na214590
+ Transform {
+  translate {{x_offset*(-1)} 0}
+  center {1440 810}
+  filter Mitchell
+  name Transform15
+  label "filter: \[value filter]"
+  xpos 98
+  ypos -50
+ }
+ Merge2 {
+  inputs 2
+  operation from
+  name Merge17
+  label "Mix \[value mix]"
+  xpos 47
+  ypos 27
+ }
+push $Nb045f50
+ Dot {
+  name Dot49
+  xpos -168
+  ypos -12
+ }
+set Nc3b8660 [stack 0]
+ Copy {
+  inputs 2
+  from0 rgba.alpha
+  to0 forward.u
+  name Copy12
+  xpos -77
+  ypos 104
+ }
+ Copy {
+  inputs 2
+  from0 rgba.alpha
+  to0 forward.v
+  name Copy13
+  xpos -77
+  ypos 166
+ }
+ IDistort {
+  uv forward
+  uv_scale 10
+  filter Mitchell
+  name IDistort1
+  label "filter: \[value filter]"
+  xpos -77
+  ypos 204
+ }
+ FilterErode {
+  channels alpha
+  size 17
+  name FilterErode14
+  xpos -77
+  ypos 254
+ }
+ Invert {
+  channels alpha
+  name Invert5
+  xpos -77
+  ypos 292
+ }
+ Blur {
+  channels alpha
+  name Blur10
+  label "\[value size]"
+  xpos -77
+  ypos 330
+ }
+ Premult {
+  name Premult12
+  xpos -77
+  ypos 380
+ }
+push $Nc3b8660
+ Merge2 {
+  inputs 2
+  name Merge19
+  label "Mix \[value mix]"
+  xpos -202
+  ypos 374
+ }
+ Copy {
+  inputs 2
+  from0 rgba.alpha
+  to0 rgba.alpha
+  name Copy14
+  xpos -404
+  ypos 374
+ }
+ Output {
+  name Output1
+  xpos -404
+  ypos 474
+ }
+end_group

@@ -1,0 +1,208 @@
+set cut_paste_input [stack 0]
+version 11.3 v3
+push $cut_paste_input
+Group {
+ name FloodBucket
+ tile_color 0xcc804eff
+ selected true
+ xpos -900
+ ypos -194
+ addUserKnob {20 User}
+ addUserKnob {41 value l "fill colour" T Multiply1.value}
+ addUserKnob {41 floodMode l "Flood Mode" T BlinkScript1.floodMode}
+ addUserKnob {41 centre T BlinkScript1.centre}
+ addUserKnob {41 FloodGrow_cycles l cycles T BlinkScript1.FloodGrow_cycles}
+ addUserKnob {41 disable_1 l "effect only" T Plus.disable}
+ addUserKnob {41 FloodGrow_startShape l "use source shape" T BlinkScript1.FloodGrow_startShape}
+ addUserKnob {41 boundaryStencil l "boundary stencil" T BlinkScript1.boundaryStencil}
+ addUserKnob {20 growSettings l "Growth Settings" n 1}
+ growSettings 0
+ addUserKnob {41 FloodGrow_floodCorners l "flood corners" T BlinkScript1.FloodGrow_floodCorners}
+ addUserKnob {41 visualiseGrowth l "visualise growth" T BlinkScript1.visualiseGrowth}
+ addUserKnob {20 endGroup n -1}
+ addUserKnob {20 channelSettings l "Channel Settings" n 1}
+ channelSettings 0
+ addUserKnob {41 gain l "boundary gain" T Expression1.gain}
+ addUserKnob {41 threshold l "boundary threshold" T Expression1.threshold}
+ addUserKnob {41 gain_1 l "source shape gain" T Expression4.gain}
+ addUserKnob {41 threshold_1 l "source shape threshold" T Expression4.threshold}
+ addUserKnob {20 endGroup_1 l endGroup n -1}
+ addUserKnob {26 ""}
+ addUserKnob {26 credit l "" +STARTLINE T "A Chris Fryer Experiment | 2021"}
+ addUserKnob {20 Warnings}
+ addUserKnob {26 warnings l "" +STARTLINE T "- All inputs should be the same resolution/have the same bounding box\n- High number of cycles will crash sometimes"}
+}
+ Input {
+  inputs 0
+  name boundry
+  xpos -703
+  ypos -493
+ }
+ Dot {
+  name Dot6
+  xpos -669
+  ypos -361
+ }
+ Dot {
+  name Dot8
+  xpos -813
+  ypos -361
+ }
+ Dot {
+  name Dot7
+  xpos -813
+  ypos 14
+ }
+ Dot {
+  name Dot9
+  xpos -813
+  ypos 59
+ }
+ Input {
+  inputs 0
+  name sourceShape
+  xpos -305
+  ypos -496
+  number 1
+ }
+ Expression {
+  expr0 "clamp((a*gain)/threshold) == 1 ? 1 : 0"
+  expr1 "clamp((a*gain)/threshold) == 1 ? 1 : 0"
+  expr2 "clamp((a*gain)/threshold) == 1 ? 1 : 0"
+  expr3 "clamp((a*gain)/threshold) == 1 ? 1 : 0"
+  name Expression4
+  xpos -305
+  ypos -312
+  addUserKnob {20 User}
+  addUserKnob {7 threshold R 0 2}
+  threshold 1
+  addUserKnob {7 gain R 0 2}
+  gain 1
+ }
+ Dot {
+  name Dot3
+  xpos -271
+  ypos -252
+ }
+ Dot {
+  name Dot2
+  xpos -381
+  ypos -252
+ }
+set N2a870c00 [stack 0]
+ Expression {
+  inputs 0
+  expr0 clamp((a*gain)/threshold)
+  expr1 clamp((a*gain)/threshold)
+  expr2 clamp((a*gain)/threshold)
+  expr3 clamp((a*gain)/threshold)
+  name Expression1
+  xpos -703
+  ypos -305
+  addUserKnob {20 User}
+  addUserKnob {7 gain R 0 2}
+  gain 1
+  addUserKnob {7 threshold R 0 2}
+  threshold 1
+ }
+set N2a870800 [stack 0]
+ Dot {
+  name Dot1
+  xpos -474
+  ypos -301
+ }
+ BlinkScript {
+  inputs 2
+  recompileCount 103
+  ProgramGroup 1
+  KernelDescription "2 \"FloodGrow\" iterate pixelWise 09a5da91e93ac2c97506a8641ff0a8e05501674216b5d022ecef667293582fe8 3 \"src\" Read Random \"floodShape\" Read Random \"dst\" Write Random 4 \"centre\" Int 2 AAAAAAAAAAA= \"cycles\" Int 1 AAAAAA== \"startShape\" Bool 1 AA== \"floodCorners\" Bool 1 AA== 4 \"centre\" 2 1 \"cycles\" 1 1 \"startShape\" 1 1 \"floodCorners\" 1 1 1 \"resolution\" Float 2 1 AAAAAAAAAAA="
+  kernelSource "\nkernel FloodGrow : ImageComputationKernel<ePixelWise>\n\{\n  Image<eRead, eAccessRandom> src; // the input image\n  Image<eRead, eAccessRandom> floodShape; // the input image\n  Image<eWrite, eAccessRandom> dst; // the output image\n\n  param:\n\n    int2 centre;\n    int cycles;\n    bool startShape;\n    bool floodCorners;\n\n  local:\n\n    float2 resolution;\n    \n\n  void define() \{\n\n  \}\n\n  void init() \{\n\n    resolution.x = src.bounds.width();\n    resolution.y = src.bounds.height();\n\n  \}\n\n  void process(int2 pos) \{\n  \n    \n\n    \n\n\n    if(pos.x == centre.x && pos.y == centre.y)\{\n\n\n    if(startShape == 1)\{\n\n    for(int X = 1; X <= resolution.x; X++)\{\n        for(int Y = 1; Y <= resolution.y; Y++)\{\n\n          dst(X,Y) = floodShape(X,Y);\n        \}   \n    \}\n    \}else\{\n\n      dst(centre.x, centre.y) = float4(1,0,0,0);\n\n    \}\n\n    for(int i = 0; i < cycles;i++)\{\n\n      for(int X = 1; X <= resolution.x; X++)\{\n        for(int Y = 1; Y <= resolution.y; Y++)\{\n\n          \n\n\n          if(dst(X,Y).y == 1)\{\n\n            dst(X,Y) = float4(1,0,0,0)  ;\n\n          \}\n\n        \}\n      \}\n\n      for(int X = 1; X <= resolution.x; X++)\{\n        for(int Y = 1; Y <= resolution.y; Y++)\{\n\n          if(dst(X,Y).x == 1 && src(X,Y).x != 1 )\{\n\n            if(dst(X+1,Y).x != 1)\{\n              dst(X+1,Y) = float4(0,1,0,0);\n            \}\n\n            if(dst(X,Y+1).x != 1)\{\n              dst(X,Y+1) = float4(0,1,0,0);\n            \}\n            if(dst(X-1,Y).x != 1)\{\n              dst(X-1,Y) = float4(0,1,0,0);\n            \}            \n            if(dst(X,Y-1).x != 1)\{\n              dst(X,Y-1) = float4(0,1,0,0);   \n            \}\n\n\n\n            if(floodCorners == 1)\{\n\n            if(dst(X+1,Y+1).x != 1)\{\n              dst(X+1,Y+1) = float4(0,1,0,0);\n            \}\n            if(dst(X-1,Y+1).x != 1)\{\n              dst(X-1,Y+1) = float4(0,1,0,0);\n            \}\n            if(dst(X-1,Y-1).x != 1)\{\n              dst(X-1,Y-1) = float4(0,1,0,0);\n            \}\n            if(dst(X+1,Y-1).x != 1)\{\n              dst(X+1,Y-1) = float4(0,1,0,0);\n            \}\n            \n            \}\n            \n            if(src(X,Y).x == 1)\{\n\n              dst(X,Y) == 0;\n\n            \}\n\n            \n\n\n          \}\n          if(dst(resolution.x-X,1080-Y).x == 1 && src(1920-X,1080-Y).x != 1)\{\n\n              if(dst(resolution.x-X+1,1080-Y).x != 1)\{\n                dst(resolution.x-X+1,1080-Y) = float4(0,1,0,0);\n              \}\n              if(dst(resolution.x-X,1080-Y+1).x != 1)\{\n                dst(resolution.x-X,1080-Y+1) = float4(0,1,0,0);\n              \}\n              if(dst(resolution.x-X-1,1080-Y).x != 1)\{\n                dst(resolution.x-X-1,1080-Y) = float4(0,1,0,0);\n              \}\n              if(dst(resolution.x-X,1080-Y-1).x != 1)\{\n                dst(resolution.x-X,1080-Y-1) = float4(0,1,0,0);\n              \}\n           \n\n              if(floodCorners == 1)\{\n\n              if(dst(resolution.x-X+1,1080-Y+1).x != 1)\{\n                dst(resolution.x-X+1,1080-Y+1) = float4(0,1,0,0);\n              \}\n              if(dst(resolution.x-X-1,1080-Y+1).x != 1)\{\n                dst(resolution.x-X-1,1080-Y+1) = float4(0,1,0,0);\n              \}\n              if(dst(resolution.x-X-1,1080-Y-1).x != 1)\{\n                dst(resolution.x-X-1,1080-Y-1) = float4(0,1,0,0);\n              \}\n              if(dst(resolution.x-X+1,1080-Y-1).x != 1)\{\n                dst(resolution.x-X+1,1080-Y-1) = float4(0,1,0,0);\n              \}         \n            \n              \}\n\n            if(src(resolution.x-X,1080-Y).x == 1)\{\n\n              dst(resolution.x-X,1080-Y) == 0;\n\n            \}\n\n          \}\n          \n\n          \n        \}\n\n         \n        \}\n      \}\n    \}\n\n\n\n  \}\n\};\n"
+  useGPUIfAvailable false
+  rebuild ""
+  FloodGrow_centre {{min(centre.x,width-1)} {min(centre.y,width-1)}}
+  FloodGrow_cycles 1
+  FloodGrow_floodCorners true
+  rebuild_finalise ""
+  name BlinkScript1
+  xpos -508
+  ypos -188
+  addUserKnob {20 User}
+  addUserKnob {6 visualiseGrowth l "Visualise Growth" +STARTLINE}
+  addUserKnob {6 boundaryStencil l "Boundary Stencil" +STARTLINE}
+  boundaryStencil true
+  addUserKnob {4 floodMode l "Flood Mode" M {Bucket Growth}}
+  addUserKnob {12 centre}
+  centre {1 1}
+ }
+ Expression {
+  expr0 max(r,g)
+  expr1 max(r,g)
+  expr2 max(r,g)
+  expr3 max(r,g)
+  name Expression3
+  xpos -508
+  ypos -133
+  disable {{parent.BlinkScript1.visualiseGrowth x2 1}}
+ }
+ Dot {
+  name Dot5
+  xpos -474
+  ypos -84
+ }
+push $N2a870c00
+ Dot {
+  name Dot4
+  xpos -586
+  ypos -252
+ }
+push $N2a870800
+ BlinkScript {
+  inputs 2
+  recompileCount 54
+  ProgramGroup 1
+  KernelDescription "2 \"FloodBucket\" iterate pixelWise 273e4626a8ad68dc0a6916a7397823baa763c8383e356788985f4b2ac493b088 3 \"src\" Read Random \"floodShape\" Read Random \"dst\" Write Random 3 \"centre\" Int 2 AAAAAAAAAAA= \"cycles\" Int 1 AAAAAA== \"startShape\" Bool 1 AA== 3 \"centre\" 2 1 \"cycles\" 1 1 \"startShape\" 1 1 1 \"resolution\" Float 2 1 AAAAAAAAAAA="
+  kernelSource "\nkernel FloodBucket : ImageComputationKernel<ePixelWise>\n\{\n  Image<eRead, eAccessRandom> src; // the input image\n  Image<eRead, eAccessRandom> floodShape; // the input image\n  Image<eWrite, eAccessRandom> dst; // the output image\n\n  param:\n\n    int2 centre;\n    int cycles;\n    bool startShape;\n\n  local:\n\n    float2 resolution;\n    \n    \n\n  void define() \{\n\n  \}\n\n  void init() \{\n\n    resolution.x = src.bounds.width();\n    resolution.y = src.bounds.height();\n\n  \}\n\n  void process(int2 pos) \{\n  \n   \n\n    \n\n    if(pos.x == centre.x && pos.y == centre.y)\{\n\n    if(startShape == 1)\{\n\n      for(int X = 1; X <= resolution.x; X++)\{\n        for(int Y = 1; Y <= resolution.y; Y++)\{\n\n          dst(X,Y) = floodShape(X,Y);\n        \}   \n      \}\n    \}else\{\n\n      dst(centre.x, centre.y) = 1;\n\n    \}\n\n\n\n    for(int i = 0; i < cycles; i++)\{\n      for(int X = 1; X <= resolution.x; X++)\{\n        for(int Y = 1; Y <= resolution.y; Y++)\{\n\n          \n\n          if(dst(X,Y).x == 1 && src(X,Y).x != 1 )\{\n\n            dst(X+1,Y) = 1;\n            dst(X,Y+1) = 1;\n            dst(X-1,Y) = 1;\n            dst(X,Y-1) = 1;   \n            \n            if(src(X,Y).x == 1)\{\n\n              dst(X,Y) == 0;\n\n            \}\n\n          \}\n          if(dst(resolution.x-X,resolution.y-Y).x == 1 && src(resolution.x-X,resolution.y-Y).x != 1)\{\n\n            dst(resolution.x-X+1,resolution.y-Y) = 1;\n            dst(resolution.x-X,resolution.y-Y+1) = 1;\n            dst(resolution.x-X-1,resolution.y-Y) = 1;\n            dst(resolution.x-X,resolution.y-Y-1) = 1;   \n            \n            if(src(resolution.x-X,resolution.y-Y).x == 1)\{\n\n              dst(resolution.x-X,resolution.y-Y) == 0;\n\n            \}\n\n            \n          \}\n\n          \n\n          \n        \}\n\n        \n        \}\n      \}\n    \}\n\n\n\n  \}\n\};\n"
+  useGPUIfAvailable false
+  rebuild ""
+  FloodBucket_centre {{parent.BlinkScript1.FloodGrow_centre.0} {parent.BlinkScript1.FloodGrow_centre.1}}
+  FloodBucket_cycles {{parent.BlinkScript1.FloodGrow_cycles}}
+  FloodBucket_startShape {{parent.BlinkScript1.FloodGrow_startShape}}
+  rebuild_finalise ""
+  name BlinkScript2
+  note_font Verdana
+  xpos -703
+  ypos -189
+ }
+ Switch {
+  inputs 2
+  which {{BlinkScript1.floodMode}}
+  name Switch1
+  xpos -703
+  ypos -88
+ }
+ Multiply {
+  channels rgba
+  name Multiply1
+  xpos -703
+  ypos -37
+ }
+ Merge2 {
+  operation stencil
+  name Merge1
+  xpos -703
+  ypos 10
+  disable {{min((1-parent.BlinkScript1.boundaryStencil),Plus.disable)}}
+ }
+ Merge2 {
+  operation plus
+  name Plus
+  xpos -703
+  ypos 55
+  disable true
+ }
+ Output {
+  name Output1
+  xpos -703
+  ypos 145
+ }
+end_group

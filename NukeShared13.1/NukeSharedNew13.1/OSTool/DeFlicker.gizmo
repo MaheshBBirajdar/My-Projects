@@ -1,0 +1,145 @@
+set cut_paste_input [stack 0]
+version 8.0 v5
+push $cut_paste_input
+Gizmo {
+ name DeFlicker
+  help "Remove flickering.\nYou can mask unwanted parts.\n\n�Copyright:\nJonas Almeida.\n jgadpp.com \n2014"
+ selected true
+ addUserKnob {20 User l DeFlicker}
+ addUserKnob {26 Analize l DeFlicker -STARTLINE}
+ addUserKnob {41 go l Go! -STARTLINE T CurveTool.go}
+ addUserKnob {41 ROI T CurveTool.ROI}
+ addUserKnob {41 resetROI l Reset -STARTLINE T CurveTool.resetROI}
+ addUserKnob {6 mask l Mask +STARTLINE}
+}
+ NoOp {
+  inputs 0
+  name Averages
+  xpos 160
+  ypos -461
+  addUserKnob {20 User}
+  addUserKnob {18 avg l Averages}
+  avg {{"CurveTool.intensitydata.r.integrate(root.first_frame, root.last_frame)/(root.last_frame)"} {"CurveTool.intensitydata.g.integrate(root.first_frame, root.last_frame)/(root.last_frame)"} {"CurveTool.intensitydata.b.integrate(root.first_frame, root.last_frame)/(root.last_frame)"}}
+  addUserKnob {6 avg_panelDropped l "panel dropped state" -STARTLINE +HIDDEN}
+ }
+ Input {
+  inputs 0
+  name Input1
+  xpos -440
+  ypos -661
+ }
+ Dot {
+  name Dot23
+  xpos -406
+  ypos -606
+ }
+set N3af26fb0 [stack 0]
+ Dot {
+  name Dot9
+  xpos -206
+  ypos -606
+ }
+set N3af27320 [stack 0]
+ Dot {
+  name Dot8
+  xpos -6
+  ypos -606
+ }
+set N3af27690 [stack 0]
+ Dot {
+  name Dot25
+  xpos 194
+  ypos -606
+ }
+ CurveTool {
+  ROI {0 0 1920 1080}
+  autocropdata {108 1264.5 1642 1885.5}
+  intensitydata {1 1 1 1}
+  name CurveTool
+  xpos 160
+  ypos -561
+ }
+ Input {
+  inputs 0
+  name Mask
+  xpos -240
+  ypos -261
+  number 1
+ }
+ Dot {
+  name Dot1
+  xpos -206
+  ypos -206
+ }
+push $N3af26fb0
+ Multiply {
+  channels {rgba.red -rgba.green -rgba.blue none}
+  value {{Averages.avg.r/CurveTool.intensitydata.r}}
+  name Multiply7
+  tile_color 0xff0000ff
+  xpos -440
+  ypos -517
+ }
+ Dot {
+  name Dot6
+  xpos -406
+  ypos -406
+ }
+push $N3af27320
+ Multiply {
+  channels {-rgba.red rgba.green -rgba.blue none}
+  value {{Averages.avg.g/CurveTool.intensitydata.g}}
+  name Multiply11
+  tile_color 0xff00ff
+  xpos -240
+  ypos -517
+ }
+ ShuffleCopy {
+  inputs 2
+  red red
+  name ShuffleCopy7
+  xpos -240
+  ypos -411
+ }
+ Dot {
+  name Dot7
+  xpos -206
+  ypos -356
+ }
+push $N3af27690
+ Multiply {
+  channels {-rgba.red -rgba.green rgba.blue none}
+  value {{Averages.avg.b/CurveTool.intensitydata.b}}
+  name Multiply12
+  tile_color 0xffff
+  xpos -40
+  ypos -517
+ }
+ ShuffleCopy {
+  inputs 2
+  red red
+  green green
+  name ShuffleCopy8
+  xpos -40
+  ypos -361
+ }
+ Copy {
+  inputs 2
+  from0 rgba.alpha
+  to0 rgba.alpha
+  name Copy1
+  xpos -40
+  ypos -216
+ }
+ Premult {
+  name Premult1
+  xpos -40
+  ypos -161
+  disable {{mask+(mask-2)}}
+ }
+ Output {
+  name Output1
+  xpos -40
+  ypos -111
+ }
+end_group

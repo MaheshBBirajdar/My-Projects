@@ -1,0 +1,124 @@
+#! /Applications/Nuke13.1v2/Nuke13.1v2.app/Contents/MacOS/libnuke-13.1.2.dylib -nx
+version 13.1 v2
+Gizmo {
+inputs 3
+lock_connections {{curve x1001 0 x1152 1 x1168 0}}
+addUserKnob {20 User}
+addUserKnob {41 firstFrame l "Ref Frame" T FrameHold1.firstFrame}
+addUserKnob {41 setToCurrentFrame l "Set to Current Frame" -STARTLINE T FrameHold1.setToCurrentFrame}
+addUserKnob {26 "" +STARTLINE}
+addUserKnob {7 DB l "Detail Blur" R 0 100}
+addUserKnob {7 Color R 0 2}
+Color 1
+addUserKnob {26 "" +STARTLINE}
+addUserKnob {26 "" l mask}
+addUserKnob {41 maskChannelInput l "" -STARTLINE T Merge3.maskChannelInput}
+addUserKnob {41 inject -STARTLINE T Merge3.inject}
+addUserKnob {41 invert_mask l invert -STARTLINE T Merge3.invert_mask}
+addUserKnob {41 fringe -STARTLINE T Merge3.fringe}
+addUserKnob {41 mix T Merge3.mix}
+}
+Input {
+inputs 0
+name Mask
+xpos -908
+ypos -662
+number 2
+}
+Dot {
+name Dot8
+xpos -874
+ypos 246
+}
+Input {
+inputs 0
+name Color
+label Color
+xpos -1275
+ypos -655
+number 1
+}
+Blur {
+size {{parent.DB}}
+name Blur1
+xpos -1275
+ypos -532
+}
+ColorCorrect {
+saturation {{parent.Color}}
+name ColorCorrect3
+xpos -1276
+ypos -276
+}
+Dot {
+name Dot6
+xpos -1242
+ypos -77
+}
+set N3fb5b400 [stack 0]
+push $N3fb5b400
+Dot {
+name Dot7
+xpos -1364
+ypos -77
+}
+FrameHold {
+firstFrame {0}
+increment {0}
+name FrameHold1
+xpos -1398
+ypos -9
+addUserKnob {20 User}
+}
+Dot {
+name Dot5
+xpos -1364
+ypos 130
+}
+Merge2 {
+inputs 2
+operation divide
+name Merge2
+xpos -1276
+ypos 127
+}
+Dot {
+name Dot4
+xpos -1242
+ypos 246
+}
+Input {
+inputs 0
+name B
+label B
+xpos -1054
+ypos -661
+}
+Merge2 {
+inputs 2+1
+operation multiply
+name Merge3
+xpos -1054
+ypos 243
+}
+set N3fb59c00 [stack 0]
+Viewer {
+frame 1152
+frame_range 1001-1169
+fps 25
+name Viewer1
+xpos -1165
+ypos -203
+}
+push $N3fb59c00
+Output {
+name Output1
+xpos -1054
+ypos 328
+}
+Output {
+name Output1
+xpos -1054
+ypos 430
+}
+end_group

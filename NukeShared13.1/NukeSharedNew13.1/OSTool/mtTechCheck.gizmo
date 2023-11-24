@@ -1,0 +1,2093 @@
+Group {
+ name mtTechCheck
+ inputs 2
+ knobChanged "knobA = nuke.thisKnob()\nif knobA.name() == \"pulldown\":\n    \n    nodeA = nuke.thisNode()\n    currentIndexA = knobA.getValue()\n\n    # set visibility\n    nodeA.knob(\"grainv2\").setVisible(currentIndexA == 3)\n    nodeA.knob(\"Grain\").setVisible(currentIndexA == 3)\n    nodeA.knob(\"sliderGrain\").setVisible(currentIndexA == 3)\n    nodeA.knob(\"expoAddW\").setVisible(currentIndexA == 0)\n    nodeA.knob(\"expoAdd\").setVisible(currentIndexA == 1)\n    nodeA.knob(\"saturationextra\").setVisible(currentIndexA == 2)\n    nodeA.knob(\"boolean_2\").setVisible(currentIndexA == 6)"
+ tile_color 0xffbf00ff
+ note_font "Verdana Bold"
+ note_font_size 12
+ addUserKnob {20 TechCheck}
+ addUserKnob {41 in l Layers T Shuffle21.in}
+ addUserKnob {4 pulldown l "Check Steps" M {"White Levels" "Black Levels" Saturation Grain "Negative Values" "nan/inf Values" Difference Original "" "" "" "" "" "" "" "" ""}}
+ pulldown Grain
+ addUserKnob {26 ""}
+ addUserKnob {6 compare l "Compare Against plate" +STARTLINE}
+ addUserKnob {41 boxsize l "Checker Size" T CheckerBoard2.boxsize}
+ addUserKnob {26 space50 l "    " T "    "}
+ addUserKnob {26 ""}
+ addUserKnob {26 controlsCheck l "" +STARTLINE T "<font color='light blue'>Checking Controls </font>\n"}
+ addUserKnob {26 space22 l "   " T "   "}
+ addUserKnob {7 expoAddW l "Expo Whites" +HIDDEN R -0.25 0.25}
+ addUserKnob {7 expoAdd l "Expo Blacks" +HIDDEN R -0.25 0.25}
+ addUserKnob {6 grainv2 l "Alternative Grain" +STARTLINE}
+ addUserKnob {6 Grain l "Grain Boost" -STARTLINE}
+ addUserKnob {7 sliderGrain l "Grain slider" R -2 2}
+ addUserKnob {7 saturationextra l "Saturation Extra" +HIDDEN R -2 2}
+ addUserKnob {6 boolean_2 l "Red Color/Classic Difference" +HIDDEN +STARTLINE}
+ boolean_2 true
+ addUserKnob {26 space5 l "   " T "   "}
+ addUserKnob {6 bbox l "switch off Alerts" t "If alerts got freeze, disable and enable the node." +STARTLINE}
+ addUserKnob {26 ""}
+ addUserKnob {26 contactSheetinfo l "" +STARTLINE T "<font color='light blue'>Contact Sheet Controls </font>"}
+ addUserKnob {26 space2 l "   " T "   "}
+ addUserKnob {6 boolean l "VIEW 1 or 4" +STARTLINE}
+ boolean true
+ addUserKnob {4 pulldown_2 l Channels M {Luma/rgb Red Green Blue "" ""}}
+ addUserKnob {6 lumargb l "Swich luma/rgb" -STARTLINE}
+ lumargb true
+ addUserKnob {41 width l "Contact Resolution" T ContactSheet2.width}
+ addUserKnob {41 height l "" -STARTLINE T ContactSheet2.height}
+ addUserKnob {26 ""}
+ addUserKnob {26 naming l "  " T "<span style=\"color:#665\"><br/>V2 TechCheck - <span style=\"color:#665\">Miguel Torija</a>"}
+}
+ BackdropNode {
+  inputs 0
+  name BackdropNode1
+  tile_color 0x388e8e00
+  label Saturation
+  note_font Verdana
+  note_font_size 42
+  xpos 2940
+  ypos 31
+  bdwidth 563
+  bdheight 668
+ }
+ BackdropNode {
+  inputs 0
+  name BackdropNode2
+  tile_color 0x8e8e3800
+  label "Bbox Checker"
+  note_font_size 42
+  xpos 305
+  ypos 2761
+  bdwidth 1194
+  bdheight 525
+ }
+ BackdropNode {
+  inputs 0
+  name BackdropNode3
+  tile_color 0x666666ff
+  label "Check Whites"
+  note_font_size 42
+  xpos -74
+  ypos -41
+  bdwidth 1121
+  bdheight 869
+ }
+ BackdropNode {
+  inputs 0
+  name BackdropNode4
+  tile_color 0x388e8e00
+  label "Check Blacks"
+  note_font_size 42
+  xpos 1105
+  ypos -55
+  bdwidth 1637
+  bdheight 1111
+ }
+ BackdropNode {
+  inputs 0
+  name BackdropNode6
+  tile_color 0x8e388e00
+  label Grain
+  note_font_size 65
+  xpos 3733
+  ypos -393
+  bdwidth 3173
+  bdheight 2016
+ }
+ BackdropNode {
+  inputs 0
+  name BackdropNode7
+  tile_color 0x7171c600
+  label Difference
+  note_font_size 42
+  xpos 1178
+  ypos 1737
+  bdwidth 1012
+  bdheight 676
+ }
+ BackdropNode {
+  inputs 0
+  name BackdropNode8
+  tile_color 0x71c67100
+  label "negative Values"
+  note_font_size 42
+  xpos 239
+  ypos 1337
+  bdwidth 423
+  bdheight 346
+ }
+ BackdropNode {
+  inputs 0
+  name BackdropNode9
+  tile_color 0x8e8e3800
+  note_font_size 42
+  xpos 455
+  ypos 3352
+  bdwidth 641
+  bdheight 738
+ }
+ BackdropNode {
+  inputs 0
+  name BackdropNode5
+  tile_color 0x666628ff
+  note_font_size 42
+  xpos 1058
+  ypos 2963
+  bdwidth 348
+  bdheight 165
+  z_order 1
+ }
+ CheckerBoard2 {
+  inputs 0
+  boxsize 60
+  centerlinewidth 0
+  name CheckerBoard2
+  xpos 6610
+  ypos -106
+ }
+ Reformat {
+  type "to box"
+  format "3840 2160 0 0 3840 2160 1 UHD_4K"
+  box_width {{NoOp2.size_wh}}
+  box_height {{NoOp2.size_wh_1}}
+  box_fixed true
+  name Reformat1
+  xpos 6610
+  ypos 63
+ }
+ Shuffle {
+  alpha red
+  name Shuffle4
+  xpos 6610
+  ypos 199
+ }
+ Grade {
+  channels alpha
+  blackpoint {0.1000000015 0.1000000015 0.1000000015 0.200000003}
+  whitepoint {0.5 0.5 0.5 0.5}
+  name Grade1
+  xpos 6610
+  ypos 259
+ }
+ Clamp {
+  name Clamp2
+  xpos 6610
+  ypos 318
+ }
+ Dot {
+  name Dot39
+  xpos 6644
+  ypos 419
+ }
+set N978e9c00 [stack 0]
+ Dot {
+  name Dot100
+  label CHECKER
+  note_font "Verdana Bold"
+  note_font_size 20
+  xpos 372
+  ypos -256
+  hide_input true
+ }
+ Input {
+  inputs 0
+  name Plate_Input
+  xpos 6302
+  ypos -559
+  number 1
+ }
+set N978e9400 [stack 0]
+ Dot {
+  name Dot37
+  label PLATE_INPUT
+  note_font "DejaVu Sans Bold Italic"
+  note_font_size 20
+  xpos 6336
+  ypos -328
+ }
+set N2ac32800 [stack 0]
+ Dot {
+  name Dot99
+  label INPUT
+  note_font "Verdana Bold"
+  note_font_size 20
+  xpos 397
+  ypos -367
+  hide_input true
+ }
+ Input {
+  inputs 0
+  name Comp_Input
+  xpos 542
+  ypos -612
+ }
+set N2ac33400 [stack 0]
+ Shuffle {
+  name Shuffle21
+  xpos 542
+  ypos -509
+ }
+ Dot {
+  name Dot71
+  xpos 576
+  ypos -345
+ }
+set Nd331fc00 [stack 0]
+ Keymix {
+  inputs 3
+  name Keymix4
+  xpos 542
+  ypos -266
+  disable {{compare?0:1}}
+ }
+ set Cd331f800 [stack 0]
+ Dot {
+  name Dot20
+  xpos 576
+  ypos -149
+ }
+set Nd331f400 [stack 0]
+ Dot {
+  name Dot74
+  xpos 501
+  ypos -149
+ }
+set N90064400 [stack 0]
+ Dot {
+  name Dot9
+  xpos -231
+  ypos -149
+ }
+ Dot {
+  name Dot10
+  xpos -231
+  ypos 1420
+ }
+set N90065400 [stack 0]
+ Dot {
+  name Dot64
+  xpos 1158
+  ypos 3025
+  hide_input true
+ }
+set N49d3c00 [stack 0]
+push $N2ac32800
+ Dot {
+  name Dot96
+  xpos 6337
+  ypos -162
+ }
+set N48593c00 [stack 0]
+ Dot {
+  name Dot97
+  xpos 6139
+  ypos -162
+ }
+ Log2Lin {
+  operation lin2log
+  name Log2Lin1
+  xpos 6105
+  ypos -93
+ }
+ Dot {
+  name Dot98
+  xpos 6139
+  ypos -6
+ }
+push $N48593c00
+ Switch {
+  inputs 2
+  which 1
+  name Switch14
+  xpos 6302
+  ypos -10
+  disable {{grainv2?0:1}}
+ }
+ Dot {
+  name Dot70
+  xpos 6336
+  ypos 70
+ }
+set N9d3f7800 [stack 0]
+ Dot {
+  name Dot65
+  xpos 1244
+  ypos 3026
+  hide_input true
+ }
+set N9d3f7400 [stack 0]
+ Switch {
+  inputs 2
+  which {{"\[value input0.bbox.x]+\[value input0.bbox.y]+\[value input0.bbox.r]+\[value input0.bbox.t]-1<\[value input01.bbox.x]+\[value input1.bbox.y]+\[value input1.bbox.r]+\[value input1.bbox.t]?1:0" x45 0}}
+  name Switch13
+  xpos 1246
+  ypos 3087
+ }
+push $N49d3c00
+push $N9d3f7400
+ Switch {
+  inputs 2
+  which {{"\[value input0.bbox.x]+\[value input0.bbox.y]+\[value input0.bbox.r]+\[value input0.bbox.t]+1>\[value input01.bbox.x]+\[value input1.bbox.y]+\[value input1.bbox.r]+\[value input1.bbox.t]?1:0" x45 0}}
+  name Switch12
+  xpos 1080
+  ypos 3083
+ }
+push $Nd331fc00
+ NoOp {
+  name NoOp3
+  label "\[value size_wh]\n\[value size_wh_1]"
+  xpos 705
+  ypos -361
+  addUserKnob {20 User}
+  addUserKnob {14 size_wh R 0 100}
+  size_wh {{"\[value input0.format.r]"}}
+  addUserKnob {14 size_wh_1 R 0 100}
+  size_wh_1 {{"\[value input0.format.t]"}}
+ }
+push $N90065400
+ Dot {
+  name Dot92
+  xpos -231
+  ypos 1592
+ }
+set N9d3f6000 [stack 0]
+push $N2ac33400
+ Dot {
+  name Dot4
+  label Plate
+  xpos 1770
+  ypos 1820
+  hide_input true
+ }
+set N31112400 [stack 0]
+push $N978e9400
+ Dot {
+  name Dot3
+  label Comp
+  xpos 1398
+  ypos 1820
+  hide_input true
+ }
+set N31113400 [stack 0]
+ Dot {
+  name Dot7
+  xpos 1545
+  ypos 1820
+ }
+set N31113c00 [stack 0]
+ Merge2 {
+  inputs 2
+  operation difference
+  name Merge1
+  xpos 1619
+  ypos 1817
+ }
+ Grade {
+  multiply 3
+  name Grade2
+  xpos 1619
+  ypos 2066
+ }
+ Dot {
+  name Dot6
+  xpos 1653
+  ypos 2142
+ }
+push $N31112400
+ Dot {
+  name Dot5
+  xpos 1770
+  ypos 1956
+ }
+push $N31113400
+ Difference {
+  inputs 2
+  gain 100
+  name Difference1
+  xpos 1365
+  ypos 1947
+ }
+ Constant {
+  inputs 0
+  channels rgb
+  color {1 0 0 0}
+  color_panelDropped true
+  name Constant1
+  xpos 1188
+  ypos 2115
+ }
+push $N31113c00
+ Dot {
+  name Dot8
+  xpos 1545
+  ypos 2142
+ }
+ Keymix {
+  inputs 3
+  name Keymix1
+  xpos 1365
+  ypos 2133
+ }
+ Switch {
+  inputs 2
+  which 1
+  name Switch10
+  xpos 1466
+  ypos 2290
+  disable {{parent.boolean_2}}
+ }
+ Dot {
+  name Dot93
+  xpos 852
+  ypos 2294
+ }
+push $N9d3f6000
+ Expression {
+  expr0 (isnan(r)||isinf(r))?1:0
+  expr1 (isnan(g)||isinf(g))?1:0
+  expr2 (isnan(b)||isinf(b))?1:0
+  expr3 (isnan(a)||isinf(a))?1:0
+  name Expression3
+  xpos -265
+  ypos 1794
+ }
+push $N90065400
+ Expression {
+  expr0 r<0?1:0
+  expr1 g<0?1:0
+  expr2 b<0?1:0
+  expr3 a>0.01?1:0
+  name Expression1
+  xpos 249
+  ypos 1417
+ }
+ Dot {
+  name Dot11
+  xpos 283
+  ypos 1484
+ }
+ Text2 {
+  inputs 0
+  font_size_toolbar 50
+  font_width_toolbar 100
+  font_height_toolbar 100
+  message "Grain B"
+  old_message {{71 114 97 105 110 32 66}
+    }
+  box {31.18051147 962.5983276 507 1052.941895}
+  transforms {{0 2}
+    }
+  font_size_values {{0 50 1 50 2 50 3 50 4 50 5 50 6 50 0 50 1 50 2 50 3 50 4 50 5 50 6 50}
+    }
+  font_width_values {{0 100 1 100 2 100 3 100 4 100 5 100 6 100 0 100 1 100 2 100 3 100 4 100 5 100 6 100}
+    }
+  cursor_position 5
+  global_font_scale 0.59
+  font_size 50
+  center {960 540}
+  cursor_initialised true
+  autofit_bbox false
+  initial_cursor_position {{31.18048286 1052.142334}
+    }
+  group_animations {{0} imported: 0 selected: items: "root transform/"}
+  animation_layers {{1 11 960 540 0 0 1 1 0 0 0 0}
+    }
+  name Text9
+  xpos 5067
+  ypos 750
+ }
+ Reformat {
+  type "to box"
+  format "3840 2160 0 0 3840 2160 1 UHD_4K"
+  box_width {{NoOp3.size_wh}}
+  box_height {{NoOp3.size_wh_1}}
+  box_fixed true
+  name Reformat6
+  xpos 5067
+  ypos 790
+ }
+ Dot {
+  name Dot62
+  xpos 5101
+  ypos 845
+ }
+push $N978e9c00
+push $N9d3f7800
+ Dot {
+  name Dot1
+  xpos 6135
+  ypos 70
+ }
+ Blur {
+  channels rgba
+  size {{Blur2.size}}
+  name Blur1
+  xpos 6101
+  ypos 237
+ }
+push $N9d3f7800
+ Merge2 {
+  inputs 2
+  operation difference
+  name Merge2
+  xpos 6302
+  ypos 237
+ }
+push $Nd331f400
+ Dot {
+  name Dot21
+  xpos 1893
+  ypos -149
+ }
+set N3135ec00 [stack 0]
+ Dot {
+  name Dot22
+  xpos 3230
+  ypos -149
+ }
+set N9a43c000 [stack 0]
+ Dot {
+  name Dot40
+  xpos 4674
+  ypos -149
+ }
+set N9a43cc00 [stack 0]
+ Dot {
+  name Dot94
+  xpos 4830
+  ypos -149
+ }
+ Log2Lin {
+  operation lin2log
+  name Log2Lin13
+  xpos 4796
+  ypos -75
+ }
+ Dot {
+  name Dot95
+  xpos 4830
+  ypos 7
+ }
+push $N9a43cc00
+ Switch {
+  inputs 2
+  which 1
+  name Switch11
+  xpos 4640
+  ypos 3
+  disable {{grainv2?0:1}}
+ }
+ Dot {
+  name Dot41
+  label COMP_INPUT
+  note_font "DejaVu Sans Bold Italic"
+  note_font_size 20
+  xpos 4674
+  ypos 52
+ }
+set N406d1000 [stack 0]
+ Dot {
+  name Dot2
+  xpos 4889
+  ypos 52
+ }
+ Blur {
+  channels rgba
+  size {{2.1+sliderGrain x1031 4.6}}
+  name Blur2
+  xpos 4855
+  ypos 239
+ }
+push $N406d1000
+ Merge2 {
+  inputs 2
+  operation difference
+  name Merge4
+  xpos 4640
+  ypos 239
+ }
+ Dot {
+  name Dot43
+  xpos 4674
+  ypos 312
+ }
+clone $Cd331f800 {
+  inputs 3
+  xpos 4640
+  ypos 398
+  selected false
+ }
+ EXPTool {
+  red 0.85
+  green 0.85
+  blue 0.85
+  name Exposure8
+  xpos 4640
+  ypos 469
+ }
+ ColorCorrect {
+  saturation 1.5
+  contrast 1.3
+  name ColorCorrect1
+  xpos 4640
+  ypos 519
+  disable {{Grain?0:1 x1031 1}}
+ }
+ Dot {
+  name Dot42
+  xpos 4674
+  ypos 596
+ }
+set Nca8cd000 [stack 0]
+ Dot {
+  name Dot46
+  xpos 4884
+  ypos 596
+ }
+set Nca8ccc00 [stack 0]
+ Dot {
+  name Dot47
+  xpos 5245
+  ypos 596
+ }
+ Shuffle {
+  red blue
+  green blue
+  alpha black
+  name Shuffle3
+  tile_color 0x557fffff
+  label B
+  xpos 5211
+  ypos 704
+ }
+ Merge2 {
+  inputs 2
+  name Merge8
+  xpos 5211
+  ypos 841
+ }
+ Dot {
+  name Dot63
+  xpos 5245
+  ypos 890
+ }
+set N35db7c00 [stack 0]
+ Text2 {
+  inputs 0
+  font_size_toolbar 50
+  font_width_toolbar 100
+  font_height_toolbar 100
+  message "Grain G"
+  old_message {{71 114 97 105 110 32 71}
+    }
+  box {31.18051147 962.5983276 507 1052.941895}
+  transforms {{0 2}
+    }
+  font_size_values {{0 50 1 50 2 50 3 50 4 50 5 50 6 50 0 50 5 50 6 50}
+    }
+  font_width_values {{0 100 5 100 6 100 0 100 5 100 6 100}
+    }
+  global_font_scale 0.59
+  font_size 50
+  center {960 540}
+  cursor_initialised true
+  autofit_bbox false
+  initial_cursor_position {{31.18048286 1052.142334}
+    }
+  group_animations {{0} imported: 0 selected: items: "root transform/"}
+  animation_layers {{1 11 960 540 0 0 1 1 0 0 0 0}
+    }
+  name Text10
+  xpos 4727
+  ypos 708
+ }
+ Reformat {
+  type "to box"
+  format "3840 2160 0 0 3840 2160 1 UHD_4K"
+  box_width {{NoOp3.size_wh}}
+  box_height {{NoOp3.size_wh_1}}
+  box_fixed true
+  name Reformat5
+  xpos 4727
+  ypos 747
+ }
+ Dot {
+  name Dot61
+  xpos 4761
+  ypos 801
+ }
+push $Nca8ccc00
+ Shuffle {
+  red green
+  blue green
+  alpha black
+  name Shuffle26
+  tile_color 0x55ff7fff
+  label G
+  xpos 4850
+  ypos 705
+ }
+ Merge2 {
+  inputs 2
+  name Merge7
+  xpos 4850
+  ypos 797
+ }
+ Dot {
+  name Dot60
+  xpos 4884
+  ypos 856
+ }
+set N35db6000 [stack 0]
+ Text2 {
+  inputs 0
+  font_size_toolbar 50
+  font_width_toolbar 100
+  font_height_toolbar 100
+  message "Grain R"
+  old_message {{71 114 97 105 110 32 82}
+    }
+  box {31.18051147 962.5983276 507 1052.941895}
+  transforms {{0 2}
+    }
+  font_size_values {{0 50 1 50 2 50 3 50 4 50 5 50 6 50 0 50}
+    }
+  font_width_values {{0 100 0 100}
+    }
+  cursor_position 7
+  global_font_scale 0.59
+  font_size 50
+  center {960 540}
+  cursor_initialised true
+  autofit_bbox false
+  initial_cursor_position {{31.18048286 1052.142334}
+    }
+  group_animations {{0} imported: 0 selected: items: "root transform/"}
+  animation_layers {{1 11 960 540 0 0 1 1 0 0 0 0}
+    }
+  name Text11
+  xpos 4352
+  ypos 729
+ }
+ Reformat {
+  type "to box"
+  format "3840 2160 0 0 3840 2160 1 UHD_4K"
+  box_width {{NoOp3.size_wh}}
+  box_height {{NoOp3.size_wh_1}}
+  box_fixed true
+  name Reformat4
+  xpos 4352
+  ypos 771
+ }
+ Dot {
+  name Dot18
+  xpos 4386
+  ypos 824
+ }
+push $Nca8cd000
+ Dot {
+  name Dot49
+  xpos 4488
+  ypos 596
+ }
+set Ncf7f6c00 [stack 0]
+ Shuffle {
+  green red
+  blue red
+  alpha black
+  name Shuffle27
+  tile_color 0xff5555ff
+  label R
+  xpos 4454
+  ypos 706
+ }
+ Merge2 {
+  inputs 2
+  name Merge6
+  xpos 4454
+  ypos 820
+ }
+ Dot {
+  name Dot19
+  xpos 4488
+  ypos 857
+ }
+set Ncf7f6000 [stack 0]
+ Text2 {
+  inputs 0
+  font_size_toolbar 50
+  font_width_toolbar 100
+  font_height_toolbar 100
+  message "Grain RGB/L"
+  old_message {{71 114 97 105 110 32 82 71 66 47 76}
+    }
+  box {31.18051147 962.5983276 507 1052.941895}
+  transforms {{0 2}
+    }
+  font_size_values {{0 50 1 50 2 50 3 50 4 50 5 50 6 50 7 50 8 50 9 50 10 50 0 50}
+    }
+  font_width_values {{0 100 0 100}
+    }
+  cursor_position 11
+  global_font_scale 0.59
+  font_size 50
+  center {960 540}
+  cursor_initialised true
+  autofit_bbox false
+  initial_cursor_position {{31.18048286 1052.142334}
+    }
+  group_animations {{0} imported: 0 selected: items: "root transform/"}
+  animation_layers {{1 11 960 540 0 0 1 1 0 0 0 0}
+    }
+  name Text12
+  xpos 4052
+  ypos 774
+ }
+ Reformat {
+  type "to box"
+  format "3840 2160 0 0 3840 2160 1 UHD_4K"
+  box_width {{NoOp3.size_wh}}
+  box_height {{NoOp3.size_wh_1}}
+  box_fixed true
+  name Reformat3
+  xpos 4052
+  ypos 825
+ }
+ Dot {
+  name Dot12
+  xpos 4086
+  ypos 890
+ }
+push $Ncf7f6c00
+ Dot {
+  name Dot55
+  xpos 4196
+  ypos 596
+ }
+set N52b6ec00 [stack 0]
+ Dot {
+  name Dot58
+  xpos 4069
+  ypos 596
+ }
+ Dot {
+  name Dot84
+  xpos 4069
+  ypos 678
+ }
+push $N52b6ec00
+ Colorspace {
+  colorspace_out HSL
+  name Colorspace1
+  xpos 4162
+  ypos 630
+ }
+ Shuffle {
+  red blue
+  green blue
+  alpha black
+  name Shuffle13
+  tile_color 0x999999ff
+  label Luma
+  xpos 4162
+  ypos 670
+ }
+ Switch {
+  inputs 2
+  which {{lumargb}}
+  name Switch15
+  xpos 4162
+  ypos 738
+ }
+ Merge2 {
+  inputs 2
+  name Merge3
+  xpos 4162
+  ypos 886
+ }
+ Dot {
+  name Dot50
+  xpos 4196
+  ypos 924
+ }
+set Nd8331000 [stack 0]
+ Switch {
+  inputs 4
+  which {{parent.Switch3.which}}
+  name Switch6
+  xpos 4489
+  ypos 1074
+  hide_input true
+ }
+push $N35db7c00
+ Dot {
+  name Dot48
+  xpos 5245
+  ypos 924
+ }
+push $N35db6000
+push $Ncf7f6000
+push $Nd8331000
+ ContactSheet {
+  inputs 4
+  width {{ContactSheet2.width}}
+  height {{ContactSheet2.height}}
+  rows 2
+  columns 2
+  gap 5
+  center true
+  roworder TopBottom
+  name ContactSheet1
+  xpos 4638
+  ypos 921
+ }
+ Switch {
+  inputs 2
+  which 1
+  name Switch7
+  xpos 4638
+  ypos 1074
+  disable {{parent.Switch2.disable}}
+ }
+ Dot {
+  name Dot59
+  xpos 4672
+  ypos 1428
+ }
+push $N9a43c000
+ Saturation {
+  saturation {{"7 + + saturationextra" x1075 7}}
+  name Saturation2
+  label High
+  xpos 3196
+  ypos 404
+ }
+ Dot {
+  name Dot56
+  xpos 3230
+  ypos 1342
+ }
+ Text2 {
+  inputs 0
+  font_size_toolbar 50
+  font_width_toolbar 100
+  font_height_toolbar 100
+  message "Black Levels Bh"
+  old_message {{66 108 97 99 107 32 76 101 118 101 108 115 32 66 104}
+    }
+  box {31.18051147 962.5983276 507 1052.941895}
+  transforms {{0 2}
+    }
+  font_size_values {{0 50 1 50 2 50 3 50 4 50 5 50 6 50 7 50 8 50 9 50 10 50 11 50 12 50 13 50 14 50 0 50 1 50 2 50 3 50 4 50 5 50 6 50 7 50 8 50 9 50 10 50 11 50 12 50 13 50}
+    }
+  font_width_values {{0 100 1 100 2 100 3 100 4 100 5 100 6 100 7 100 8 100 9 100 10 100 11 100 12 100 13 100 0 100 1 100 2 100 3 100 4 100 5 100 6 100 7 100 8 100 9 100 10 100 11 100 12 100 13 100}
+    }
+  cursor_position 15
+  global_font_scale 0.59
+  font_size 50
+  center {960 540}
+  cursor_initialised true
+  autofit_bbox false
+  initial_cursor_position {{31.18048286 1052.142334}
+    }
+  group_animations {{0} imported: 0 selected: items: "root transform/"}
+  animation_layers {{1 11 960 540 0 0 1 1 0 0 0 0}
+    }
+  color {0 0 0 1}
+  name Text3
+  xpos 2362
+  ypos 304
+ }
+ Reformat {
+  type "to box"
+  format "3840 2160 0 0 3840 2160 1 UHD_4K"
+  box_width {{NoOp3.size_wh}}
+  box_height {{NoOp3.size_wh_1}}
+  box_fixed true
+  name Reformat14
+  xpos 2362
+  ypos 348
+ }
+ Dot {
+  name Dot83
+  xpos 2396
+  ypos 398
+ }
+push $N3135ec00
+ EXPTool {
+  red {{0.425+expoAdd}}
+  green {{0.425+expoAdd}}
+  blue {{0.425+expoAdd}}
+  name Exposure6
+  xpos 1859
+  ypos 93
+ }
+ Dot {
+  name Dot30
+  xpos 1893
+  ypos 215
+ }
+set Ncf5b9c00 [stack 0]
+ Dot {
+  name Dot31
+  xpos 2178
+  ypos 215
+ }
+set Ncf5b9800 [stack 0]
+ Dot {
+  name Dot32
+  xpos 2547
+  ypos 215
+ }
+ Shuffle {
+  red blue
+  green blue
+  alpha black
+  name Shuffle9
+  tile_color 0x557fffff
+  label B
+  xpos 2513
+  ypos 323
+ }
+ Merge2 {
+  inputs 2
+  name Merge17
+  xpos 2513
+  ypos 395
+ }
+ Dot {
+  name Dot79
+  xpos 2547
+  ypos 441
+ }
+set Ncf5b8800 [stack 0]
+ Text2 {
+  inputs 0
+  font_size_toolbar 50
+  font_width_toolbar 100
+  font_height_toolbar 100
+  message "Black Levels G"
+  old_message {{66 108 97 99 107 32 76 101 118 101 108 115 32 71}
+    }
+  box {31.18051147 962.5983276 507 1052.941895}
+  transforms {{0 2}
+    }
+  font_size_values {{0 50 1 50 2 50 3 50 4 50 5 50 6 50 7 50 8 50 9 50 10 50 11 50 12 50 13 50 0 50 1 50 2 50 3 50 4 50 5 50 6 50 7 50 8 50 9 50 10 50 11 50 12 50 13 50}
+    }
+  font_width_values {{0 100 1 100 2 100 3 100 4 100 5 100 6 100 7 100 8 100 9 100 10 100 11 100 12 100 13 100 0 100 1 100 2 100 3 100 4 100 5 100 6 100 7 100 8 100 9 100 10 100 11 100 12 100 13 100}
+    }
+  cursor_position 14
+  global_font_scale 0.59
+  font_size 50
+  center {960 540}
+  cursor_initialised true
+  autofit_bbox false
+  initial_cursor_position {{31.18048286 1052.142334}
+    }
+  group_animations {{0} imported: 0 selected: items: "root transform/"}
+  animation_layers {{1 11 960 540 0 0 1 1 0 0 0 0}
+    }
+  color {0 0 0 1}
+  name Text2
+  xpos 1993
+  ypos 287
+ }
+ Reformat {
+  type "to box"
+  format "3840 2160 0 0 3840 2160 1 UHD_4K"
+  box_width {{NoOp3.size_wh}}
+  box_height {{NoOp3.size_wh_1}}
+  box_fixed true
+  name Reformat13
+  xpos 1993
+  ypos 331
+ }
+ Dot {
+  name Dot82
+  xpos 2027
+  ypos 392
+ }
+push $Ncf5b9800
+ Shuffle {
+  red green
+  blue green
+  alpha black
+  name Shuffle10
+  tile_color 0x55ff7fff
+  label G
+  xpos 2144
+  ypos 324
+ }
+ Merge2 {
+  inputs 2
+  name Merge16
+  xpos 2144
+  ypos 389
+ }
+ Dot {
+  name Dot78
+  xpos 2178
+  ypos 440
+ }
+set Nd0ef8c00 [stack 0]
+ Text2 {
+  inputs 0
+  font_size_toolbar 50
+  font_width_toolbar 100
+  font_height_toolbar 100
+  message "Black Levels R"
+  old_message {{66 108 97 99 107 32 76 101 118 101 108 115 32 82}
+    }
+  box {31.18051147 962.5983276 507 1052.941895}
+  transforms {{0 2}
+    }
+  font_size_values {{0 50 1 50 2 50 3 50 4 50 5 50 6 50 7 50 8 50 9 50 10 50 11 50 12 50 13 50 0 50 1 50 2 50 3 50 4 50 5 50 6 50 7 50 8 50 9 50 10 50 11 50 12 50 13 50}
+    }
+  font_width_values {{0 100 1 100 2 100 3 100 4 100 5 100 6 100 7 100 8 100 9 100 10 100 11 100 12 100 13 100 0 100 1 100 2 100 3 100 4 100 5 100 6 100 7 100 8 100 9 100 10 100 11 100 12 100 13 100}
+    }
+  global_font_scale 0.59
+  font_size 50
+  center {960 540}
+  cursor_initialised true
+  autofit_bbox false
+  initial_cursor_position {{31.18048286 1052.142334}
+    }
+  group_animations {{0} imported: 0 selected: items: "root transform/"}
+  animation_layers {{1 11 960 540 0 0 1 1 0 0 0 0}
+    }
+  color {0 0 0 1}
+  name Text1
+  xpos 1555
+  ypos 288
+ }
+ Reformat {
+  type "to box"
+  format "3840 2160 0 0 3840 2160 1 UHD_4K"
+  box_width {{NoOp3.size_wh}}
+  box_height {{NoOp3.size_wh_1}}
+  box_fixed true
+  name Reformat12
+  xpos 1555
+  ypos 337
+ }
+ Dot {
+  name Dot81
+  xpos 1589
+  ypos 398
+ }
+push $Ncf5b9c00
+ Dot {
+  name Dot34
+  xpos 1745
+  ypos 215
+ }
+set Ncbee7800 [stack 0]
+ Shuffle {
+  green red
+  blue red
+  alpha black
+  name Shuffle11
+  tile_color 0xff5555ff
+  label R
+  xpos 1711
+  ypos 325
+ }
+ Merge2 {
+  inputs 2
+  name Merge15
+  xpos 1711
+  ypos 395
+ }
+ Dot {
+  name Dot77
+  xpos 1745
+  ypos 438
+ }
+set Ncbee6c00 [stack 0]
+ Text2 {
+  inputs 0
+  font_size_toolbar 50
+  font_width_toolbar 100
+  font_height_toolbar 100
+  message "Black Levels L/RGB"
+  old_message {{66 108 97 99 107 32 76 101 118 101 108 115 32 76 47 82 71 66}
+    }
+  box {31.18051147 962.5983276 507 1052.941895}
+  transforms {{0 2}
+    }
+  font_size_values {{0 50 1 50 2 50 3 50 4 50 5 50 6 50 7 50 8 50 9 50 10 50 11 50 12 50 13 50 14 50 15 50 16 50 17 50 0 50 1 50 2 50 3 50 4 50 5 50 6 50 7 50 8 50 9 50 10 50 11 50 12 50 13 50}
+    }
+  font_width_values {{0 100 1 100 2 100 3 100 4 100 5 100 6 100 7 100 8 100 9 100 10 100 11 100 12 100 13 100 0 100 1 100 2 100 3 100 4 100 5 100 6 100 7 100 8 100 9 100 10 100 11 100 12 100 13 100}
+    }
+  cursor_position 18
+  global_font_scale 0.59
+  font_size 50
+  center {960 540}
+  cursor_initialised true
+  autofit_bbox false
+  initial_cursor_position {{31.18048286 1052.142334}
+    }
+  group_animations {{0} imported: 0 selected: items: "root transform/"}
+  animation_layers {{1 11 960 540 0 0 1 1 0 0 0 0}
+    }
+  color {0 0 0 1}
+  name Text4
+  xpos 1214
+  ypos 361
+ }
+ Reformat {
+  type "to box"
+  format "3840 2160 0 0 3840 2160 1 UHD_4K"
+  box_width {{NoOp3.size_wh}}
+  box_height {{NoOp3.size_wh_1}}
+  box_fixed true
+  name Reformat11
+  xpos 1214
+  ypos 412
+ }
+ Dot {
+  name Dot80
+  xpos 1248
+  ypos 473
+ }
+push $Ncbee7800
+ Dot {
+  name Dot35
+  xpos 1409
+  ypos 215
+ }
+set Ncfb3f800 [stack 0]
+ Dot {
+  name Dot53
+  xpos 1282
+  ypos 215
+ }
+ Dot {
+  name Dot54
+  xpos 1282
+  ypos 297
+ }
+push $Ncfb3f800
+ Colorspace {
+  colorspace_out HSL
+  name Colorspace3
+  xpos 1375
+  ypos 249
+ }
+ Shuffle {
+  red blue
+  green blue
+  alpha black
+  name Shuffle12
+  tile_color 0x999999ff
+  label Luma
+  xpos 1375
+  ypos 289
+ }
+ Switch {
+  inputs 2
+  which {{lumargb}}
+  name Switch9
+  xpos 1375
+  ypos 357
+ }
+ Dot {
+  name Dot52
+  xpos 1409
+  ypos 421
+ }
+ Merge2 {
+  inputs 2
+  name Merge14
+  xpos 1375
+  ypos 470
+ }
+ Dot {
+  name Dot76
+  xpos 1409
+  ypos 513
+ }
+set Nca6d3800 [stack 0]
+ Switch {
+  inputs 4
+  which {{parent.Switch3.which}}
+  name Switch4
+  xpos 1455
+  ypos 690
+  hide_input true
+ }
+push $Ncf5b8800
+ Dot {
+  name Dot33
+  xpos 2547
+  ypos 543
+ }
+push $Nd0ef8c00
+push $Ncbee6c00
+push $Nca6d3800
+ Dot {
+  name Dot36
+  xpos 1409
+  ypos 543
+ }
+ ContactSheet {
+  inputs 4
+  width {{ContactSheet2.width}}
+  height {{ContactSheet2.height}}
+  rows 2
+  columns 2
+  gap 5
+  center true
+  roworder TopBottom
+  name ContactSheet3
+  xpos 1772
+  ypos 540
+ }
+ Switch {
+  inputs 2
+  which 1
+  name Switch5
+  xpos 1772
+  ypos 690
+  disable {{parent.Switch2.disable}}
+ }
+ Dot {
+  name Dot57
+  xpos 1806
+  ypos 1285
+ }
+ Text2 {
+  inputs 0
+  font_size_toolbar 50
+  font_width_toolbar 100
+  font_height_toolbar 100
+  message "White Levels B"
+  old_message {{87 104 105 116 101 32 76 101 118 101 108 115 32 66}
+    }
+  box {31.18051147 962.5983276 507 1052.941895}
+  transforms {{0 2}
+    }
+  font_size_values {{0 50 1 50 2 50 3 50 4 50 5 50 6 50 7 50 8 50 9 50 10 50 11 50 12 50 13 50 0 50 1 50 2 50 3 50 4 50 5 50 6 50 7 50 8 50 9 50 10 50 11 50 12 50 13 50}
+    }
+  font_width_values {{0 100 1 100 2 100 3 100 4 100 5 100 6 100 7 100 8 100 9 100 10 100 11 100 12 100 13 100 0 100 1 100 2 100 3 100 4 100 5 100 6 100 7 100 8 100 9 100 10 100 11 100 12 100 13 100}
+    }
+  cursor_position 14
+  global_font_scale 0.59
+  font_size 50
+  center {960 540}
+  cursor_initialised true
+  autofit_bbox false
+  initial_cursor_position {{31.18048286 1052.142334}
+    }
+  group_animations {{0} imported: 0 selected: items: "root transform/"}
+  animation_layers {{1 11 960 540 0 0 1 1 0 0 0 0}
+    }
+  name Text5
+  xpos 746
+  ypos 302
+ }
+ Reformat {
+  type "to box"
+  format "3840 2160 0 0 3840 2160 1 UHD_4K"
+  box_width {{NoOp3.size_wh}}
+  box_height {{NoOp3.size_wh_1}}
+  box_fixed true
+  name Reformat10
+  xpos 746
+  ypos 347
+ }
+ Dot {
+  name Dot75
+  xpos 780
+  ypos 408
+ }
+push $N90064400
+ EXPTool {
+  red {{-0.9+expoAddW}}
+  green {{-0.9+expoAddW}}
+  blue {{-0.9+expoAddW}}
+  name Exposure5
+  xpos 467
+  ypos 84
+ }
+ Dot {
+  name Dot26
+  xpos 501
+  ypos 201
+ }
+set Nc8ad2800 [stack 0]
+ Dot {
+  name Dot23
+  xpos 649
+  ypos 201
+ }
+set Nc8ad2400 [stack 0]
+ Dot {
+  name Dot24
+  xpos 931
+  ypos 201
+ }
+ Shuffle {
+  red blue
+  green blue
+  alpha black
+  name Shuffle5
+  tile_color 0x557fffff
+  label B
+  xpos 897
+  ypos 309
+ }
+ Merge2 {
+  inputs 2
+  name Merge13
+  xpos 897
+  ypos 405
+ }
+ Dot {
+  name Dot16
+  xpos 931
+  ypos 444
+ }
+set Nd8847400 [stack 0]
+ Text2 {
+  inputs 0
+  font_size_toolbar 50
+  font_width_toolbar 100
+  font_height_toolbar 100
+  message "White Levels G"
+  old_message {{87 104 105 116 101 32 76 101 118 101 108 115 32 71}
+    }
+  box {31.18051147 962.5983276 507 1052.941895}
+  transforms {{0 2}
+    }
+  font_size_values {{0 50 1 50 2 50 3 50 4 50 5 50 6 50 7 50 8 50 9 50 10 50 11 50 12 50 13 50 0 50 1 50 2 50 3 50 4 50 5 50 6 50 7 50 8 50 9 50 10 50 11 50 12 50 13 50}
+    }
+  font_width_values {{0 100 1 100 2 100 3 100 4 100 5 100 6 100 7 100 8 100 9 100 10 100 11 100 12 100 13 100 0 100 1 100 2 100 3 100 4 100 5 100 6 100 7 100 8 100 9 100 10 100 11 100 12 100 13 100}
+    }
+  cursor_position 5
+  global_font_scale 0.59
+  font_size 50
+  center {960 540}
+  cursor_initialised true
+  autofit_bbox false
+  initial_cursor_position {{31.18048286 1052.142334}
+    }
+  group_animations {{0} imported: 0 selected: items: "root transform/"}
+  animation_layers {{1 11 960 540 0 0 1 1 0 0 0 0}
+    }
+  name Text7
+  xpos 505
+  ypos 289
+ }
+ Reformat {
+  type "to box"
+  format "3840 2160 0 0 3840 2160 1 UHD_4K"
+  box_width {{NoOp3.size_wh}}
+  box_height {{NoOp3.size_wh_1}}
+  box_fixed true
+  name Reformat9
+  xpos 505
+  ypos 331
+ }
+ Dot {
+  name Dot73
+  xpos 539
+  ypos 392
+ }
+push $Nc8ad2400
+ Shuffle {
+  red green
+  blue green
+  alpha black
+  name Shuffle6
+  tile_color 0x55ff7fff
+  label G
+  xpos 615
+  ypos 310
+ }
+ Merge2 {
+  inputs 2
+  name Merge12
+  xpos 615
+  ypos 389
+ }
+ Dot {
+  name Dot15
+  xpos 649
+  ypos 441
+ }
+set Nd0703800 [stack 0]
+ Text2 {
+  inputs 0
+  font_size_toolbar 50
+  font_width_toolbar 100
+  font_height_toolbar 100
+  message "White Levels R"
+  old_message {{87 104 105 116 101 32 76 101 118 101 108 115 32 82}
+    }
+  box {31.18051147 962.5983276 507 1052.941895}
+  transforms {{0 2}
+    }
+  font_size_values {{0 50 1 50 2 50 3 50 4 50 5 50 6 50 7 50 8 50 9 50 10 50 11 50 12 50 13 50 0 50 1 50 2 50 3 50 4 50 5 50 6 50 7 50 8 50 9 50 10 50 11 50 12 50 13 50}
+    }
+  font_width_values {{0 100 1 100 2 100 3 100 4 100 5 100 6 100 7 100 8 100 9 100 10 100 11 100 12 100 13 100 0 100 1 100 2 100 3 100 4 100 5 100 6 100 7 100 8 100 9 100 10 100 11 100 12 100 13 100}
+    }
+  cursor_position 5
+  global_font_scale 0.59
+  font_size 50
+  center {960 540}
+  cursor_initialised true
+  autofit_bbox false
+  initial_cursor_position {{31.18048286 1052.142334}
+    }
+  group_animations {{0} imported: 0 selected: items: "root transform/"}
+  animation_layers {{1 11 960 540 0 0 1 1 0 0 0 0}
+    }
+  name Text6
+  xpos 260
+  ypos 311
+ }
+ Reformat {
+  type "to box"
+  format "3840 2160 0 0 3840 2160 1 UHD_4K"
+  box_width {{NoOp3.size_wh}}
+  box_height {{NoOp3.size_wh_1}}
+  box_fixed true
+  name Reformat7
+  xpos 260
+  ypos 344
+ }
+ Dot {
+  name Dot72
+  xpos 294
+  ypos 405
+ }
+push $Nc8ad2800
+ Dot {
+  name Dot27
+  xpos 438
+  ypos 201
+ }
+set Nd0702400 [stack 0]
+ Shuffle {
+  green red
+  blue red
+  alpha black
+  name Shuffle7
+  tile_color 0xff5555ff
+  label R
+  xpos 404
+  ypos 310
+ }
+ Merge2 {
+  inputs 2
+  name Merge11
+  xpos 404
+  ypos 402
+ }
+ Dot {
+  name Dot14
+  xpos 438
+  ypos 443
+ }
+set Nd8a1d800 [stack 0]
+ Text2 {
+  inputs 0
+  font_size_toolbar 50
+  font_width_toolbar 100
+  font_height_toolbar 100
+  message "White Levels L/RGB"
+  old_message {{87 104 105 116 101 32 76 101 118 101 108 115 32 76 47 82 71 66}
+    }
+  box {31.18051147 962.5983276 507 1052.941895}
+  transforms {{0 2}
+    }
+  font_size_values {{0 50 1 50 2 50 3 50 4 50 5 50 6 50 7 50 8 50 9 50 10 50 11 50 12 50 13 50 14 50 15 50 16 50 17 50 0 50 5 50 6 50 7 50 8 50 9 50 10 50 11 50 12 50 13 50}
+    }
+  font_width_values {{0 100 5 100 6 100 7 100 8 100 9 100 10 100 11 100 12 100 13 100 0 100 5 100 6 100 7 100 8 100 9 100 10 100 11 100 12 100 13 100}
+    }
+  cursor_position 18
+  global_font_scale 0.59
+  font_size 50
+  center {960 540}
+  cursor_initialised true
+  autofit_bbox false
+  initial_cursor_position {{31.18048286 1052.142334}
+    }
+  group_animations {{0} imported: 0 selected: items: "root transform/"}
+  animation_layers {{1 11 960 540 0 0 1 1 0 0 0 0}
+    }
+  name Text8
+  xpos 19
+  ypos 388
+ }
+ Reformat {
+  type "to box"
+  format "3840 2160 0 0 3840 2160 1 UHD_4K"
+  box_width {{NoOp3.size_wh}}
+  box_height {{NoOp3.size_wh_1}}
+  box_fixed true
+  name Reformat2
+  xpos 19
+  ypos 412
+ }
+ Dot {
+  name Dot17
+  xpos 53
+  ypos 454
+ }
+push $Nd0702400
+ Dot {
+  name Dot28
+  xpos 158
+  ypos 201
+ }
+set Nd8a1c400 [stack 0]
+ Dot {
+  name Dot45
+  xpos 31
+  ypos 201
+ }
+ Dot {
+  name Dot44
+  xpos 31
+  ypos 279
+ }
+push $Nd8a1c400
+ Colorspace {
+  colorspace_out HSL
+  name Colorspace2
+  xpos 124
+  ypos 248
+ }
+ Shuffle {
+  red blue
+  green blue
+  alpha black
+  name Shuffle8
+  tile_color 0x999999ff
+  label Luma
+  xpos 124
+  ypos 283
+ }
+ Switch {
+  inputs 2
+  which {{lumargb}}
+  name Switch8
+  xpos 124
+  ypos 339
+ }
+ Dot {
+  name Dot38
+  xpos 158
+  ypos 395
+ }
+ Merge2 {
+  inputs 2
+  name Merge5
+  xpos 124
+  ypos 451
+ }
+ Dot {
+  name Dot13
+  xpos 158
+  ypos 489
+ }
+set Nd7aea400 [stack 0]
+ Switch {
+  inputs 4
+  which {{pulldown_2}}
+  name Switch3
+  xpos 313
+  ypos 680
+  hide_input true
+ }
+push $Nd8847400
+ Dot {
+  name Dot25
+  xpos 931
+  ypos 529
+ }
+push $Nd0703800
+push $Nd8a1d800
+push $Nd7aea400
+ Dot {
+  name Dot29
+  xpos 158
+  ypos 529
+ }
+ ContactSheet {
+  inputs 4
+  width 4608
+  height 3072
+  rows 2
+  columns 2
+  gap 5
+  center true
+  roworder TopBottom
+  startframe 1
+  endframe 1
+  name ContactSheet2
+  xpos 465
+  ypos 526
+ }
+ Switch {
+  inputs 2
+  which 1
+  name Switch2
+  xpos 465
+  ypos 680
+  disable {{boolean?0:1}}
+ }
+ Switch {
+  inputs 8
+  which {{pulldown}}
+  name Switch1
+  xpos 465
+  ypos 1588
+ }
+ Dot {
+  name Dot68
+  xpos 499
+  ypos 2709
+ }
+set N4120c800 [stack 0]
+ Dot {
+  name Dot69
+  xpos 670
+  ypos 2709
+ }
+ NoOp {
+  name NoOp1
+  label "\[value size_wh]\n\[value size_wh_1]"
+  xpos 636
+  ypos 2936
+  addUserKnob {20 User}
+  addUserKnob {14 size_wh R 0 100}
+  size_wh {{"\[value input0.format.r]"}}
+  addUserKnob {14 size_wh_1 R 0 100}
+  size_wh_1 {{"\[value input0.format.t]"}}
+ }
+ Text2 {
+  inputs 0
+  font_size_toolbar 60
+  font_width_toolbar 100
+  font_height_toolbar 100
+  message "-Bbox doesn't match to your plate."
+  old_message {{45 66 98 111 120 32 100 111 101 115 110 39 116 32 109 97 116 99 104 32 116 111 32 121 111 117 114 32 112 108 97 116 101 46}
+    }
+  box {1368.53125 161.625 1899.46875 180.375}
+  xjustify right
+  transforms {{0 2}
+    }
+  font_size_values {{0 60 1 60 2 60 3 60 4 60 5 60 6 60 7 60 8 60 9 60 10 60 11 60 12 60 13 60 14 60 15 60 16 60 17 60 18 60 19 60 20 60 21 60 22 60 23 60 24 60 25 60 26 60 27 60 28 60 29 60 30 60 31 60 32 60 33 60}
+    }
+  cursor_position 22
+  global_font_scale 0.38
+  font_size 60
+  center {960 540}
+  cursor_initialised true
+  autofit_bbox false
+  initial_cursor_position {{31.18048286 1052.142334}
+    }
+  group_animations {{0} imported: 0 selected: items: "root transform/"}
+  animation_layers {{1 11 960 540 0 0 1 1 0 0 0 0}
+    }
+  enable_shadows true
+  shadow_opacity 0.85
+  shadow_distance 3
+  name Text13
+  xpos 820
+  ypos 2875
+ }
+ Reformat {
+  type "to box"
+  format {{{[value NoOp1.size_wh]}}}
+  box_width {{NoOp1.size_wh}}
+  box_height {{NoOp1.size_wh_1}}
+  box_fixed true
+  resize distort
+  name Reformat8
+  xpos 820
+  ypos 2952
+ }
+ Shuffle {
+  red black
+  green black
+  blue black
+  alpha black
+  name Shuffle1
+  xpos 820
+  ypos 3023
+  disable {{bbox?0:1}}
+ }
+ Dot {
+  name Dot66
+  xpos 854
+  ypos 3086
+ }
+set N46cb8c00 [stack 0]
+ Dot {
+  name Dot67
+  xpos 854
+  ypos 3140
+ }
+push $N46cb8c00
+push $N4120c800
+ Merge2 {
+  inputs 2
+  mix 0.5
+  name Merge9
+  xpos 465
+  ypos 3082
+  disable {{parent.Switch12.which}}
+ }
+ Merge2 {
+  inputs 2
+  mix 0.5
+  name Merge10
+  xpos 465
+  ypos 3137
+  disable {{parent.Switch13.which}}
+ }
+ Dot {
+  name Dot88
+  xpos 499
+  ypos 3432
+ }
+set Ncb685c00 [stack 0]
+ Dot {
+  name Dot89
+  xpos 659
+  ypos 3432
+ }
+ NoOp {
+  name NoOpSettingsChecker
+  xpos 625
+  ypos 3491
+  addUserKnob {20 User}
+  addUserKnob {3 RootFirstFrame}
+  RootFirstFrame {{"\[value root.first_frame]"}}
+  addUserKnob {3 RootLastFrame}
+  RootLastFrame {{"\[value root.last_frame]"}}
+  addUserKnob {3 InputFirstFrame}
+  InputFirstFrame {{"\[value input0.first_frame]" x33 2}}
+  addUserKnob {3 InputLastFrame}
+  InputLastFrame {{"\[value input0.last_frame]"}}
+  addUserKnob {26 ""}
+  addUserKnob {3 RootSizeR}
+  RootSizeR {{"\[value root.format.r]"}}
+  addUserKnob {3 RootSizeT}
+  RootSizeT {{"\[value root.format.t]"}}
+  addUserKnob {3 InputSizeR_1 l InputSizeR}
+  InputSizeR_1 {{"\[value input0.format.r]"}}
+  addUserKnob {3 InputSizeT}
+  InputSizeT {{"\[value input0.format.t]"}}
+  addUserKnob {26 ""}
+ }
+ Text2 {
+  inputs 0
+  font_size_toolbar 60
+  font_width_toolbar 100
+  font_height_toolbar 100
+  message "-Format doesn't match with project settings."
+  old_message {{45 70 111 114 109 97 116 32 100 111 101 115 110 39 116 32 109 97 116 99 104 32 119 105 116 104 32 112 114 111 106 101 99 116 32 115 101 116 116 105 110 103 115 46}
+    }
+  box {1319 65.125 1898.9375 82}
+  xjustify right
+  transforms {{0 2}
+    }
+  font_size_values {{0 60 1 60 2 60 3 60 4 60 5 60 6 60 7 60 8 60 9 60 10 60 11 60 12 60 13 60 14 60 15 60 16 60 17 60 18 60 19 60 20 60 21 60 22 60 23 60 24 60 25 60 26 60 27 60 28 60 29 60 30 60 31 60 32 60 33 60 34 60 35 60 36 60 37 60 38 60 39 60 40 60 41 60 42 60 43 60 43 60}
+    }
+  cursor_position 20
+  global_font_scale 0.38
+  font_size 60
+  center {960 540}
+  cursor_initialised true
+  autofit_bbox false
+  initial_cursor_position {{31.18048286 1052.142334}
+    }
+  group_animations {{0} imported: 0 selected: items: "root transform/"}
+  animation_layers {{1 11 960 540 0 0 1 1 0 0 0 0}
+    }
+  enable_shadows true
+  shadow_opacity 0.85
+  shadow_distance 3
+  name Text19
+  xpos 925
+  ypos 3776
+ }
+ Reformat {
+  type "to box"
+  format {{{[value NoOp1.size_wh]}}}
+  box_width {{NoOp1.size_wh}}
+  box_height {{NoOp1.size_wh_1}}
+  box_fixed true
+  resize distort
+  name Reformat20
+  xpos 925
+  ypos 3827
+ }
+ Dot {
+  name Dot91
+  xpos 959
+  ypos 3860
+ }
+set Ncb684400 [stack 0]
+ Shuffle {
+  red black
+  green black
+  blue black
+  alpha black
+  name Shuffle17
+  xpos 824
+  ypos 3921
+  disable {{"NoOpSettingsChecker.RootSizeR ==NoOpSettingsChecker.InputSizeR_1 ?0:1"}}
+ }
+push $Ncb684400
+ Shuffle {
+  red black
+  green black
+  blue black
+  alpha black
+  name Shuffle18
+  xpos 1002
+  ypos 3928
+  disable {{"NoOpSettingsChecker.RootSizeT==NoOpSettingsChecker.InputSizeT ?0:1"}}
+ }
+ Merge2 {
+  inputs 2
+  name Merge24
+  xpos 920
+  ypos 3979
+ }
+ Shuffle {
+  red black
+  green black
+  blue black
+  alpha black
+  name Shuffle20
+  xpos 920
+  ypos 4010
+  disable {{bbox?0:1}}
+ }
+ Text2 {
+  inputs 0
+  font_size_toolbar 60
+  font_width_toolbar 100
+  font_height_toolbar 100
+  message "-Frame Range doesn't match with project settings."
+  old_message {{45 70 114 97 109 101 32 82 97 110 103 101 32 100 111 101 115 110 39 116 32 109 97 116 99 104 32 119 105 116 104 32 112 114 111 106 101 99 116 32 115 101 116 116 105 110 103 115 46}
+    }
+  box {1368.53125 114.125 1899.46875 132.875}
+  xjustify right
+  transforms {{0 2}
+    }
+  font_size_values {{0 60 1 60 2 60 3 60 4 60 5 60 6 60 7 60 8 60 9 60 10 60 11 60 12 60 13 60 14 60 15 60 16 60 17 60 18 60 19 60 20 60 21 60 22 60 23 60 24 60 25 60 26 60 27 60 28 60 29 60 30 60 31 60 32 60 33 60 34 60 35 60 36 60 37 60 38 60 39 60 40 60 41 60 42 60 43 60 44 60 45 60 46 60 47 60 48 60}
+    }
+  cursor_position 18
+  global_font_scale 0.38
+  font_size 60
+  center {960 540}
+  cursor_initialised true
+  autofit_bbox false
+  initial_cursor_position {{31.18048286 1052.142334}
+    }
+  group_animations {{0} imported: 0 selected: items: "root transform/"}
+  animation_layers {{1 11 960 540 0 0 1 1 0 0 0 0}
+    }
+  enable_shadows true
+  shadow_opacity 0.85
+  shadow_distance 3
+  name Text18
+  xpos 895
+  ypos 3443
+ }
+ Reformat {
+  type "to box"
+  format {{{[value NoOp1.size_wh]}}}
+  box_width {{NoOp1.size_wh}}
+  box_height {{NoOp1.size_wh_1}}
+  box_fixed true
+  resize distort
+  name Reformat19
+  xpos 895
+  ypos 3486
+ }
+ Dot {
+  name Dot90
+  xpos 929
+  ypos 3526
+ }
+set N21516400 [stack 0]
+ Shuffle {
+  red black
+  green black
+  blue black
+  alpha black
+  name Shuffle16
+  xpos 794
+  ypos 3587
+  disable {{"NoOpSettingsChecker.RootLastFrame ==NoOpSettingsChecker.InputLastFrame ?0:1"}}
+ }
+push $N21516400
+ Shuffle {
+  red black
+  green black
+  blue black
+  alpha black
+  name Shuffle2
+  xpos 972
+  ypos 3594
+  disable {{"NoOpSettingsChecker.RootFirstFrame ==NoOpSettingsChecker.InputFirstFrame ?0:1"}}
+ }
+ Merge2 {
+  inputs 2
+  name Merge23
+  xpos 890
+  ypos 3652
+ }
+ Shuffle {
+  red black
+  green black
+  blue black
+  alpha black
+  name Shuffle19
+  xpos 890
+  ypos 3685
+  disable {{bbox?0:1}}
+ }
+push $Ncb685c00
+ Merge2 {
+  inputs 2
+  mix 0.5
+  name Merge22
+  xpos 465
+  ypos 3685
+ }
+ Merge2 {
+  inputs 2
+  mix 0.5
+  name Merge25
+  xpos 465
+  ypos 4010
+ }
+ Output {
+  name Output1
+  xpos 465
+  ypos 4279
+ }
+push $N9d3f7800
+ NoOp {
+  name NoOp2
+  label "\[value size_wh]\n\[value size_wh_1]"
+  xpos 6446
+  ypos 53
+  addUserKnob {20 User}
+  addUserKnob {14 size_wh R 0 100}
+  size_wh {{"\[value input0.format.r]"}}
+  addUserKnob {14 size_wh_1 R 0 100}
+  size_wh_1 {{"\[value input0.format.t]"}}
+ }
+end_group

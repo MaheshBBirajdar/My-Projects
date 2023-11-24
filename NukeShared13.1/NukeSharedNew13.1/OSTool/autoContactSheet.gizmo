@@ -1,0 +1,22 @@
+set cut_paste_input [stack 0]
+version 12.2 v3
+push $cut_paste_input
+ContactSheet {
+ width {{width*columns*resolutionScale}}
+ height {{height*rows*resolutionScale}}
+ rows {{"WideTall == 0 ?  rint(inputs**.5) : ceil(inputs**.5)"}}
+ columns {{"WideTall == 0 ? ceil(inputs**.5) : rint(inputs**.5)"}}
+ roworder TopBottom
+ name autoContactSheet
+ tile_color 0xff00ffff
+ note_font "DejaVu Sans"
+ selected true
+ xpos 317
+ ypos -645
+ addUserKnob {20 User}
+ addUserKnob {4 WideTall l Wide/Tall M {Wide Tall}}
+ addUserKnob {7 resolutionScale l "Resolution Scale"}
+ resolutionScale 1
+ addUserKnob {26 ""}
+ addUserKnob {26 _1 l "" +STARTLINE T "Chris Fryer | 2020"}
+}

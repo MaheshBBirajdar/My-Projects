@@ -1,0 +1,102 @@
+set cut_paste_input [stack 0]
+version 12.2 v3
+push $cut_paste_input
+Group {
+ name dirBlurIntuitive
+ tile_color 0xff00ffff
+ selected true
+ xpos 253
+ ypos -544
+ addUserKnob {20 User}
+ addUserKnob {41 p1 T NoOp1.p1}
+ addUserKnob {41 p2 T NoOp1.p2}
+ addUserKnob {41 adjustBBox l "adjust BBox" T AdjBBox1.adjustBBox}
+ addUserKnob {26 ""}
+ addUserKnob {26 _1 l "" +STARTLINE T "Chris Fryer | 2020"}
+}
+ Input {
+  inputs 0
+  name img
+  xpos -328
+  ypos -682
+ }
+ Dot {
+  name Dot33
+  xpos -294
+  ypos -616
+ }
+set N1f1ae800 [stack 0]
+ Dot {
+  name Dot32
+  xpos -183
+  ypos -616
+ }
+ AdjBBox {
+  numpixels {{parent.NoOp1.distance}}
+  name AdjBBox1
+  selected true
+  xpos -217
+  ypos -550
+  disable {{1-adjustBBox}}
+  addUserKnob {20 User}
+  addUserKnob {6 adjustBBox l "adjust BBox" +STARTLINE}
+  adjustBBox true
+ }
+ Dot {
+  name Dot31
+  xpos -183
+  ypos -496
+ }
+push $N1f1ae800
+ Transform {
+  rotate {{parent.NoOp1.angle}}
+  center {1078 452}
+  shutteroffset centred
+  name Transform2
+  xpos -328
+  ypos -583
+ }
+ Blur {
+  size {{parent.NoOp1.distance} 0}
+  name Blur8
+  xpos -328
+  ypos -559
+ }
+ Transform {
+  rotate {{-parent.NoOp1.angle}}
+  center {1078 452}
+  shutteroffset centred
+  name Transform7
+  xpos -328
+  ypos -523
+ }
+ CopyBBox {
+  inputs 2
+  name CopyBBox1
+  xpos -328
+  ypos -499
+ }
+ Dot {
+  name Dot34
+  xpos -294
+  ypos -438
+ }
+ Output {
+  name Output1
+  xpos -294
+  ypos -338
+ }
+ NoOp {
+  inputs 0
+  name NoOp1
+  xpos -450
+  ypos -559
+  addUserKnob {20 User}
+  addUserKnob {7 distance}
+  distance {{"((p1.x-p2.x)**2 + (p1.y-p2.y)**2)**.5"}}
+  addUserKnob {7 angle}
+  angle {{"isnan((atan((p1.x-p2.x)/(p1.y-p2.y))/pi+.5)*180) == 1 ? 0 : (atan((p1.x-p2.x)/(p1.y-p2.y))/pi+.5)*180"}}
+  addUserKnob {12 p1}
+  addUserKnob {12 p2}
+ }
+end_group

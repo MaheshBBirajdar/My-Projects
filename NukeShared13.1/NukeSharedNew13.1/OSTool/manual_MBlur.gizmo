@@ -1,0 +1,61 @@
+set cut_paste_input [stack 0]
+version 12.1 v5
+push $cut_paste_input
+Group {
+ name Manual_motionBlur
+ tile_color 0x557fffff
+ gl_color 0x513f87ff
+ selected true
+ xpos -39
+ ypos -99
+ addUserKnob {20 Manual_motionBlur}
+ addUserKnob {41 rotate T Transform1.rotate}
+ addUserKnob {41 scale T Transform1.scale}
+ addUserKnob {26 text l "Published by Akshay Yadav 2022"}
+}
+ Constant {
+  inputs 0
+  color 1
+  name Constant1
+  xpos -228
+  ypos 171
+ }
+ Crop {
+  box {1227.52002 858.3400269 1242.47998 861.6599731}
+  reformat true
+  crop false
+  name Crop1
+  xpos -228
+  ypos 243
+ }
+ Transform {
+  scale 2
+  center {2 1}
+  name Transform1
+  xpos -228
+  ypos 269
+ }
+ Reformat {
+  resize none
+  name Reformat2
+  xpos -228
+  ypos 295
+ }
+ Input {
+  inputs 0
+  name Input1
+  xpos -461
+  ypos 249
+ }
+ Convolve2 {
+  inputs 2
+  name Convolve1
+  xpos -461
+  ypos 289
+ }
+ Output {
+  name Output1
+  xpos -461
+  ypos 389
+ }
+end_group

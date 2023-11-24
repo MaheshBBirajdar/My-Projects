@@ -1,0 +1,36 @@
+#! C:/Program Files/Nuke12.1v1/nuke-12.1.1.dll -nx
+version 12.1 v1
+Gizmo {
+ tile_color 0xc0fd24ff
+ addUserKnob {20 User}
+ addUserKnob {7 overscan_x l "overscan X" R 0 100}
+ overscan_x 100
+ addUserKnob {7 overscan_y l "overscan Y" R 0 100}
+ overscan_y 100
+}
+ Input {
+  inputs 0
+  name Input1
+  xpos 231
+  ypos 402
+ }
+ Crop {
+  box {{-overscan_x} {-overscan_y} {format.width-Crop1.box.x x43 2184} {format.height-Crop1.box.y x43 1280}}
+  name Crop1
+  selected true
+  xpos 231
+  ypos 459
+ }
+ Expression {
+  expr0 (x+0.5)/format.width
+  expr1 (y+0.5)/format.height
+  name Expression1
+  xpos 231
+  ypos 517
+ }
+ Output {
+  name Output1
+  xpos 231
+  ypos 594
+ }
+end_group

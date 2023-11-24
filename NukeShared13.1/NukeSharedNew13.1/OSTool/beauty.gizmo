@@ -1,0 +1,81 @@
+set cut_paste_input [stack 0]
+version 12.1 v5
+push $cut_paste_input
+Group {
+ name Beauty
+ tile_color 0x56ff
+ selected true
+ xpos 6648
+ ypos 2582
+ addUserKnob {20 Beauty}
+ addUserKnob {41 Blur T Blur2.size}
+ addUserKnob {41 Detail T Blur1.size}
+}
+ Input {
+  inputs 0
+  name Plate
+  selected true
+  xpos -203
+  ypos -226
+ }
+ Dot {
+  name Dot1
+  xpos -169
+  ypos -186
+ }
+set N6caf45f0 [stack 0]
+ Input {
+  inputs 0
+  name Mask
+  label Mask
+  xpos 41
+  ypos -222
+  number 1
+ }
+ Dot {
+  name Dot2
+  xpos 75
+  ypos -102
+ }
+set N4f7faa30 [stack 0]
+push $N6caf45f0
+ Blur {
+  inputs 1+1
+  size 4.7
+  name Blur1
+  xpos -75
+  ypos -112
+  disable {{parent.Merge1.disable}}
+ }
+set N51ffcb40 [stack 0]
+ Merge2 {
+  inputs 2
+  operation from
+  name Merge1
+  xpos -203
+  ypos -106
+ }
+push $N4f7faa30
+push $N51ffcb40
+ Blur {
+  inputs 1+1
+  size 7.6
+  name Blur2
+  xpos -75
+  ypos -15
+  disable {{parent.Merge1.disable x1383 1}}
+ }
+ Merge2 {
+  inputs 2
+  operation from
+  name Merge2
+  xpos -203
+  ypos -9
+  disable {{parent.Merge1.disable}}
+ }
+ Output {
+  name Output1
+  xpos -203
+  ypos 91
+ }
+end_group

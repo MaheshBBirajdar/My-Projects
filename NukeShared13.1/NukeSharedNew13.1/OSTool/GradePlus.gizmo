@@ -1,0 +1,219 @@
+set cut_paste_input [stack 0]
+version 12.2 v3
+push $cut_paste_input
+Group {
+ name GradePlus
+ tile_color 0x79a9ffff
+ label "\[if \{\[value extraAOV] == true\} \{return ExtraAOV\} \{return \[value in]\}]"
+ selected true
+ xpos 380
+ ypos -454
+ addUserKnob {20 User}
+ addUserKnob {41 in l AOV T Shuffle1.in}
+ addUserKnob {41 extraAOV l "Use ExtraAOV" T Switch2.disable}
+ addUserKnob {41 reshuffleAOV l "reshuffle AOV" -STARTLINE T ShuffleCopy1.reshuffleAOV}
+ addUserKnob {41 disable_1 l view -STARTLINE T Switch1.disable}
+ addUserKnob {26 ""}
+ addUserKnob {41 channels_1 l channels T Saturation1.channels}
+ addUserKnob {41 saturation T Saturation1.saturation}
+ addUserKnob {41 mode l "luminance math" T Saturation1.mode}
+ addUserKnob {41 saturateInLog l "saturate in log" -STARTLINE T Log2Lin1.saturateInLog}
+ addUserKnob {26 ""}
+ addUserKnob {41 channels T Grade1.channels}
+ addUserKnob {41 blackpoint T Grade1.blackpoint}
+ addUserKnob {41 whitepoint T Grade1.whitepoint}
+ addUserKnob {41 black l lift T Grade1.black}
+ addUserKnob {41 white l gain T Grade1.white}
+ addUserKnob {41 multiply T Grade1.multiply}
+ addUserKnob {41 add l offset T Grade1.add}
+ addUserKnob {41 gamma T Grade1.gamma}
+ addUserKnob {41 reverse T Grade1.reverse}
+ addUserKnob {41 black_clamp l "black clamp" -STARTLINE T Grade1.black_clamp}
+ addUserKnob {41 white_clamp l "white clamp" -STARTLINE T Grade1.white_clamp}
+ addUserKnob {22 simplifyGain l "SmartMult whitepoint and gain" -STARTLINE T "node = nuke.thisNode()\n\n\nprevWhitepoints = node\['whitepoint'].value()\nprevGain = node\['white'].value()\n\nnode\['whitepoint'].setValue(1)\n\nnode\['white'].setValue(1/prevWhitepoints\[0]*prevGain\[0],0)\nnode\['white'].setValue(1/prevWhitepoints\[1]*prevGain\[1],1)\nnode\['white'].setValue(1/prevWhitepoints\[2]*prevGain\[2],2)\nnode\['white'].setValue(1/prevWhitepoints\[3]*prevGain\[3],3)"}
+ addUserKnob {41 maskChannelMask l mask T Grade1.maskChannelMask}
+ addUserKnob {41 maskChannelInput l "" -STARTLINE T Grade1.maskChannelInput}
+ addUserKnob {41 inject -STARTLINE T Grade1.inject}
+ addUserKnob {41 fringe -STARTLINE T Grade1.fringe}
+ addUserKnob {41 invert_mask l invert -STARTLINE T Grade1.invert_mask}
+ addUserKnob {41 unpremult l "(un)premult by" T Grade1.unpremult}
+ addUserKnob {41 enable_mix_luminance l "mix luminance" T Grade1.enable_mix_luminance}
+ addUserKnob {41 mix_luminance l "" -STARTLINE T Grade1.mix_luminance}
+ addUserKnob {41 invert_unpremult l invert -STARTLINE T Grade1.invert_unpremult}
+ addUserKnob {41 mix T Grade1.mix}
+ addUserKnob {26 ""}
+ addUserKnob {26 _1 l "" +STARTLINE T "Chris Fryer | 2020"}
+}
+ Input {
+  inputs 0
+  name mask
+  xpos 327
+  ypos 105
+  number 1
+ }
+ Dot {
+  name Dot6
+  xpos 361
+  ypos 208
+ }
+set N1f0d8400 [stack 0]
+ Dot {
+  name Dot8
+  xpos 361
+  ypos 284
+ }
+push $N1f0d8400
+ Input {
+  inputs 0
+  name img
+  xpos 0
+ }
+ Dot {
+  name Dot1
+  xpos 34
+  ypos 54
+ }
+set N19b3f400 [stack 0]
+ Dot {
+  name Dot2
+  xpos 148
+  ypos 54
+ }
+ Shuffle {
+  black red
+  white green
+  red2 blue
+  green2 alpha
+  out2 rgba
+  name Shuffle1
+  xpos 114
+  ypos 82
+ }
+set N19b3ec00 [stack 0]
+ Input {
+  inputs 0
+  name ExtraAOV
+  xpos 230
+  ypos 14
+  number 2
+ }
+ Dot {
+  name Dot7
+  xpos 264
+  ypos 116
+ }
+ Switch {
+  inputs 2
+  which 1
+  name Switch2
+  xpos 114
+  ypos 112
+ }
+set N19b3e000 [stack 0]
+ Log2Lin {
+  operation lin2log
+  name Log2Lin1
+  xpos 114
+  ypos 178
+  disable {{1-saturateInLog}}
+  addUserKnob {20 User}
+  addUserKnob {6 saturateInLog l "saturate in log" +STARTLINE}
+ }
+ Saturation {
+  inputs 1+1
+  maskChannelInput {{{parent.Grade1.maskChannelInput}}}
+  inject {{parent.Grade1.inject}}
+  invert_mask {{parent.Grade1.invert_mask}}
+  fringe {{parent.Grade1.fringe}}
+  unpremult {{{parent.Grade1.unpremult}}}
+  invert_unpremult {{parent.Grade1.invert_unpremult}}
+  name Saturation1
+  xpos 114
+  ypos 204
+ }
+ Log2Lin {
+  name Log2Lin2
+  xpos 114
+  ypos 230
+  disable {{parent.Log2Lin1.disable}}
+ }
+ Grade {
+  inputs 1+1
+  black_clamp false
+  name Grade1
+  xpos 114
+  ypos 280
+ }
+ Dot {
+  name Dot3
+  xpos 148
+  ypos 328
+ }
+set N19b3cc00 [stack 0]
+ Dot {
+  name Dot5
+  xpos 148
+  ypos 391
+ }
+set N19b3c800 [stack 0]
+ Dot {
+  name Dot4
+  xpos 148
+  ypos 452
+ }
+push $N19b3cc00
+push $N19b3e000
+push $N19b3f400
+ Merge2 {
+  inputs 2
+  operation from
+  output rgb
+  name Merge1
+  xpos 0
+  ypos 112
+ }
+ Merge2 {
+  inputs 2
+  operation plus
+  output rgb
+  name Plus
+  xpos 0
+  ypos 324
+ }
+push $N19b3c800
+ Switch {
+  inputs 2
+  which 1
+  name Switch1
+  xpos 0
+  ypos 387
+ }
+ ShuffleCopy {
+  inputs 2
+  alpha alpha2
+  black red
+  white green
+  red2 blue
+  green2 alpha
+  out2 {{{parent.Shuffle1.in}}}
+  name ShuffleCopy1
+  xpos 0
+  ypos 448
+  disable {{1-reshuffleAOV}}
+  addUserKnob {20 User}
+  addUserKnob {6 reshuffleAOV l "reshuffle AOV" +STARTLINE}
+ }
+ Output {
+  name Output1
+  xpos 0
+  ypos 509
+ }
+push $N19b3ec00
+ Viewer {
+  frame_range 300-300
+  name Viewer1
+  selected true
+  xpos 249
+  ypos 384
+ }
+end_group

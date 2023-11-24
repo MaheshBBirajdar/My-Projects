@@ -1,0 +1,420 @@
+set cut_paste_input [stack 0]
+version 12.2 v3
+push $cut_paste_input
+Group {
+ name ChannelKeyer
+ help "Use this expression keyer to generate a matte for Green and Blue Screens, or to key Red tracking markers.\nKey can be refined by adjusting the colour of the input BEFORE the key operation (Pre Keyer Adjustment) as well as AFTER the keyer operation (Post Keyer Alpha Adjust). "
+ label "(\[value Keyer_Colour] :\ntype \"\[value Keyer_Type]\")"
+ note_font "Verdana Bold"
+ selected true
+ xpos 237
+ ypos -334
+ addUserKnob {20 ChannelKeyer l "Channel Keyer"}
+ addUserKnob {4 Keyer_Type l "Keyer Type" t "Choose type \"A\" or \"B\". Just different maths expressions, try both types to see which works best." M {A B}}
+ addUserKnob {4 Keyer_Colour l "Keyer Colour" t "Select the colour type you wish to key. " M {"Red Keyer" "Green Keyer" "Blue Keyer" "" ""}}
+ Keyer_Colour "Green Keyer"
+ addUserKnob {41 maskChannelInput l mask T Mask_Control.maskChannelInput}
+ addUserKnob {41 inject_2 l inject -STARTLINE T Mask_Control.inject}
+ addUserKnob {41 invert_mask_2 l invert -STARTLINE T Mask_Control.invert_mask}
+ addUserKnob {41 fringe_2 l fringe -STARTLINE T Mask_Control.fringe}
+ addUserKnob {26 Divider1 l INVISIBLE +INVISIBLE}
+ addUserKnob {26 Pre_Keyer_Adjustment l "Pre Keyer Adjustment" t "Use this to adjust the colour, saturation and contrast of the input to improve the keyer result.\nThis operation happens BEFORE the keyer process."}
+ addUserKnob {41 gain T ColorCorrect2.gain}
+ addUserKnob {41 gamma T ColorCorrect2.gamma}
+ addUserKnob {41 saturation T ColorCorrect2.saturation}
+ addUserKnob {41 contrast T ColorCorrect2.contrast}
+ addUserKnob {41 maskChannelMask l mask T ColorCorrect2.maskChannelMask}
+ addUserKnob {41 inject -STARTLINE T ColorCorrect2.inject}
+ addUserKnob {41 invert_mask l invert -STARTLINE T ColorCorrect2.invert_mask}
+ addUserKnob {41 fringe -STARTLINE T ColorCorrect2.fringe}
+ addUserKnob {41 unpremult l "(un)premult by" T ColorCorrect2.unpremult}
+ addUserKnob {41 invert_unpremult l invert -STARTLINE T ColorCorrect2.invert_unpremult}
+ addUserKnob {41 mix T ColorCorrect2.mix}
+ addUserKnob {26 Divider2 l INVISIBLE +INVISIBLE}
+ addUserKnob {26 Alpha_Adjust l "Post Keyer Alpha Adjust" t "Use to refine and adjust the matte output AFTER the keyer operation."}
+ addUserKnob {41 blackpoint T Grade2.blackpoint}
+ addUserKnob {41 whitepoint T Grade2.whitepoint}
+ addUserKnob {41 multiply T Grade2.multiply}
+ addUserKnob {41 gamma_1 l gamma T Grade2.gamma}
+ addUserKnob {41 reverse T Grade2.reverse}
+ addUserKnob {41 black_clamp l "black clamp" -STARTLINE T Grade2.black_clamp}
+ addUserKnob {41 white_clamp l "white clamp" -STARTLINE T Grade2.white_clamp}
+ addUserKnob {41 maskChannelMask_1 l mask T Grade2.maskChannelMask}
+ addUserKnob {41 inject_1 l inject -STARTLINE T Grade2.inject}
+ addUserKnob {41 invert_mask_1 l invert -STARTLINE T Grade2.invert_mask}
+ addUserKnob {41 fringe_1 l fringe -STARTLINE T Grade2.fringe}
+ addUserKnob {41 mix_1 l mix T Grade2.mix}
+ addUserKnob {26 ""}
+ addUserKnob {26 Author l "" +STARTLINE T "\t\n\tby Alex Llewellyn © 2011"}
+}
+ Constant {
+  inputs 0
+  channels rgb
+  name Constant2
+  xpos -524
+  ypos -404
+ }
+ Expression {
+  maskChannelMask none
+  name Mask_Control1
+  note_font "Verdana Bold"
+  xpos -524
+  ypos -302
+ }
+ Constant {
+  inputs 0
+  channels rgb
+  name Constant1
+  xpos 934
+  ypos -573
+ }
+ Expression {
+  name Mask_Control
+  note_font "Verdana Bold"
+  xpos 934
+  ypos -480
+ }
+ Input {
+  inputs 0
+  name Input1
+  xpos 487
+  ypos -736
+ }
+ Dot {
+  name Dot6
+  xpos 521
+  ypos -610
+ }
+set N29364800 [stack 0]
+ Dot {
+  name Dot13
+  xpos 802
+  ypos -610
+ }
+ Dot {
+  name Dot1
+  xpos 802
+  ypos -560
+ }
+set N1b7cfc00 [stack 0]
+ Dot {
+  name Dot2
+  xpos 802
+  ypos -394
+ }
+set N1b7cf800 [stack 0]
+ Dot {
+  name Dot3
+  xpos 802
+  ypos -313
+ }
+set N1b7cf400 [stack 0]
+ Dot {
+  name Dot4
+  xpos 802
+  ypos -206
+ }
+set N1b7cf000 [stack 0]
+ Dot {
+  name Dot5
+  xpos 802
+  ypos -33
+ }
+push $N29364800
+ Dot {
+  name Dot34
+  xpos 263
+  ypos -610
+ }
+ Dot {
+  name Dot20
+  xpos 263
+  ypos -368
+ }
+set N1b7ce400 [stack 0]
+ Dot {
+  name Dot21
+  xpos 263
+  ypos -305
+ }
+set N1b7ce000 [stack 0]
+ Dot {
+  name Dot22
+  xpos 263
+  ypos -206
+ }
+set N1b7cdc00 [stack 0]
+push $N1b7cfc00
+push $N29364800
+ ColorCorrect {
+  inputs 1+1
+  maskChannelMask none
+  name ColorCorrect2
+  xpos 487
+  ypos -563
+ }
+ Shuffle {
+  alpha black
+  name Shuffle1
+  xpos 487
+  ypos -503
+ }
+set N1b7cd400 [stack 0]
+ Dot {
+  name Dot33
+  xpos -50
+  ypos -500
+ }
+ Dot {
+  name Dot24
+  xpos -50
+  ypos -419
+ }
+set N1b7ccc00 [stack 0]
+ Dot {
+  name Dot25
+  xpos 134
+  ypos -419
+ }
+ Expression {
+  inputs 1+1
+  temp_name0 l
+  temp_expr0 r*0.3+g*0.59+b*0.11
+  channel3 alpha
+  expr3 l-((r+g)+(l-b))
+  maskChannelMask {{{parent.Mask_Control.maskChannelInput}}}
+  inject {{parent.Mask_Control1.inject i}}
+  invert_mask {{parent.Mask_Control1.invert_mask i}}
+  fringe {{parent.Mask_Control1.fringe i}}
+  name Expression_Blue_Keyer_01
+  tile_color 0x3fff0fff
+  note_font "Verdana Bold"
+  note_font_size 14
+  xpos 100
+  ypos -210
+ }
+push $N1b7ce000
+push $N1b7ccc00
+ Expression {
+  inputs 1+1
+  temp_name0 l
+  temp_expr0 r*0.3+g*0.59+b*0.11
+  channel3 alpha
+  expr3 l-((r+b)+(l-g))
+  maskChannelMask {{{parent.Mask_Control.maskChannelInput}}}
+  inject {{parent.Mask_Control1.inject i}}
+  invert_mask {{parent.Mask_Control1.invert_mask i}}
+  fringe {{parent.Mask_Control1.fringe i}}
+  name Expression_Green_Keyer_01
+  tile_color 0x3fff0fff
+  note_font "Verdana Bold"
+  note_font_size 14
+  xpos -84
+  ypos -309
+ }
+push $N1b7ce400
+push $N1b7ccc00
+ Dot {
+  name Dot26
+  xpos -204
+  ypos -419
+ }
+ Expression {
+  inputs 1+1
+  temp_name0 l
+  temp_expr0 r*0.3+g*0.59+b*0.11
+  channel3 alpha
+  expr3 l-((g+b)+(l-r))
+  maskChannelMask {{{parent.Mask_Control.maskChannelInput}}}
+  inject {{parent.Mask_Control1.inject i}}
+  invert_mask {{parent.Mask_Control1.invert_mask i}}
+  fringe {{parent.Mask_Control1.fringe i}}
+  name Expression_Red_Keyer_01
+  tile_color 0x3fff0fff
+  note_font "Verdana Bold"
+  note_font_size 14
+  xpos -238
+  ypos -372
+ }
+ Dot {
+  name Dot27
+  xpos -204
+  ypos -206
+ }
+ Switch {
+  inputs 3
+  which {{parent.Keyer_Colour i}}
+  name Switch3
+  xpos -84
+  ypos -209
+ }
+ Dot {
+  name Dot35
+  xpos -50
+  ypos -126
+ }
+push $N1b7cf000
+push $N1b7cd400
+ Dot {
+  name Dot9
+  xpos 521
+  ypos -448
+ }
+set N1b78e400 [stack 0]
+ Dot {
+  name Dot10
+  xpos 685
+  ypos -448
+ }
+ Expression {
+  inputs 1+1
+  temp_name0 l
+  temp_expr0 r*0.3+g*0.59+b*0.11
+  channel0 alpha
+  channel3 alpha
+  expr3 l-(r+(l-b))
+  maskChannelMask {{{parent.Mask_Control.maskChannelInput}}}
+  inject {{parent.Mask_Control.inject i}}
+  invert_mask {{parent.Mask_Control.invert_mask i}}
+  fringe {{parent.Mask_Control.fringe i}}
+  name Expression_Blue_Keyer_02
+  tile_color 0x3fff0fff
+  note_font "Verdana Bold"
+  note_font_size 14
+  xpos 651
+  ypos -210
+ }
+push $N1b7cf400
+push $N1b78e400
+ Expression {
+  inputs 1+1
+  temp_name0 l
+  temp_expr0 r*0.3+g*0.59+b*0.11
+  channel0 alpha
+  channel3 alpha
+  expr3 l-(r+(l-g))
+  maskChannelMask {{{parent.Mask_Control.maskChannelInput}}}
+  inject {{parent.Mask_Control.inject i}}
+  invert_mask {{parent.Mask_Control.invert_mask i}}
+  fringe {{parent.Mask_Control.fringe i}}
+  name Expression_Green_Keyer_02
+  tile_color 0x3fff0fff
+  note_font "Verdana Bold"
+  note_font_size 14
+  xpos 487
+  ypos -317
+ }
+push $N1b7cf800
+push $N1b78e400
+ Dot {
+  name Dot11
+  xpos 401
+  ypos -448
+ }
+ Expression {
+  inputs 1+1
+  temp_name0 l
+  temp_expr0 r*0.3+g*0.59+b*0.11
+  channel0 alpha
+  channel3 alpha
+  expr3 l-(g+(l-r))
+  maskChannelMask {{{parent.Mask_Control.maskChannelInput}}}
+  inject {{parent.Mask_Control.inject i}}
+  invert_mask {{parent.Mask_Control.invert_mask i}}
+  fringe {{parent.Mask_Control.fringe i}}
+  name Expression_Red_Keyer_02
+  tile_color 0x3fff0fff
+  note_font "Verdana Bold"
+  note_font_size 14
+  xpos 367
+  ypos -398
+ }
+ Dot {
+  name Dot12
+  xpos 401
+  ypos -206
+ }
+ Switch {
+  inputs 3
+  which {{parent.Keyer_Colour i}}
+  name Switch2
+  xpos 487
+  ypos -209
+ }
+ Switch {
+  inputs 2
+  which {{parent.Keyer_Type i}}
+  name Switch1
+  xpos 487
+  ypos -129
+ }
+ Grade {
+  inputs 1+1
+  channels alpha
+  white_clamp true
+  maskChannelMask none
+  name Grade2
+  selected true
+  xpos 487
+  ypos -42
+ }
+ Dot {
+  name Dot16
+  xpos 521
+  ypos 47
+ }
+set N1b73f800 [stack 0]
+ Dot {
+  name Dot14
+  xpos 612
+  ypos 47
+ }
+ Dot {
+  name Dot15
+  xpos 612
+  ypos 210
+ }
+push $N1b7cdc00
+ Dot {
+  name Dot17
+  xpos 263
+  ypos 118
+ }
+ Remove {
+  channels alpha
+  name Remove1
+  label RemoveRGB
+  xpos 342
+  ypos 103
+ }
+push $N1b73f800
+ Copy {
+  inputs 2
+  from0 -rgba.alpha
+  to0 -rgba.alpha
+  channels all
+  name Copy1
+  xpos 487
+  ypos 103
+ }
+ Copy {
+  inputs 2
+  to0 -rgba.alpha
+  channels alpha
+  name Copy2
+  xpos 487
+  ypos 195
+ }
+ Output {
+  name Output1
+  xpos 487
+  ypos 307
+ }
+ Keyer {
+  inputs 0
+  operation "luminance key"
+  name Keyer1
+  xpos 840
+  ypos -9
+ }
+end_group

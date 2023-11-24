@@ -1,0 +1,314 @@
+#! C:/Program Files/Nuke9.0v6/nuke-9.0.6.dll -nx
+version 9.0 v6
+Gizmo {
+ inputs 2
+ addUserKnob {20 KillSpill}
+ addUserKnob {4 back_color l ScreenColor t "This dominant color is neutralized." M {red green blue ""}}
+ back_color green
+ addUserKnob {7 supp l Suppression t "Amount of suppression. Default = 0.5" R 0 2}
+ supp 0.5
+ addUserKnob {7 masterMult l Limiter R 0 10}
+ masterMult 1
+ addUserKnob {18 SpillTweak t "Use this to make the despilled areas lighter or darker. Can also be used to add a tint to the despilled areas by using independant RGB values." R 0 10}
+ SpillTweak 1
+ addUserKnob {6 SpillTweak_panelDropped l "panel dropped state" -STARTLINE +HIDDEN}
+}
+ Input {
+  inputs 0
+  name mask
+  xpos -375
+  ypos 881
+  number 1
+ }
+ Input {
+  inputs 0
+  name img
+  xpos -526
+  ypos -348
+ }
+ Dot {
+  name Dot3
+  xpos -492
+  ypos -271
+ }
+set N4dbdd000 [stack 0]
+ PostageStamp {
+  name PostageStamp6
+  xpos -645
+  ypos 858
+  hide_input true
+  postage_stamp true
+ }
+push $N4dbdd000
+ PostageStamp {
+  name PostageStamp1
+  xpos -344
+  ypos 717
+  hide_input true
+  postage_stamp true
+ }
+push $N4dbdd000
+ PostageStamp {
+  name PostageStamp7
+  xpos -402
+  ypos 276
+  hide_input true
+  postage_stamp true
+ }
+push $N4dbdd000
+ Dot {
+  name Dot5
+  xpos -299
+  ypos -271
+ }
+set Necaf800 [stack 0]
+ Dot {
+  name Dot6
+  xpos 110
+  ypos -271
+ }
+set Necaf400 [stack 0]
+ Dot {
+  name Dot7
+  xpos 221
+  ypos -271
+ }
+ Shuffle {
+  red blue
+  green blue
+  alpha black
+  name Blue
+  xpos 187
+  ypos -103
+ }
+set N4dbdc000 [stack 0]
+ PostageStamp {
+  name PostageStamp9
+  xpos -200
+  ypos -5
+  hide_input true
+  postage_stamp true
+ }
+push $Necaf400
+ Shuffle {
+  red green
+  blue green
+  alpha black
+  name Green
+  xpos 76
+  ypos -105
+ }
+set N50e33c00 [stack 0]
+ PostageStamp {
+  name PostageStamp8
+  xpos -466
+  ypos -5
+  hide_input true
+  postage_stamp true
+ }
+push $Necaf800
+ Shuffle {
+  green red
+  blue red
+  alpha black
+  name Red
+  xpos -333
+  ypos -95
+ }
+set N50e33800 [stack 0]
+ Switch {
+  inputs 3
+  which {{back_color}}
+  name High
+  xpos -333
+  ypos 18
+ }
+push $N50e33c00
+push $N50e33800
+ PostageStamp {
+  name PostageStamp10
+  xpos -53
+  ypos -18
+  hide_input true
+  postage_stamp true
+ }
+ Switch {
+  inputs 2
+  which {{"back_color == 0 ? 1 : back_color == 1 ? 0 : 0" i}}
+  name LowA
+  xpos 76
+  ypos 5
+ }
+ Multiply {
+  value {{"1 - supp" i}}
+  name Multiply1
+  xpos 76
+  ypos 59
+ }
+push $N4dbdc000
+push $N50e33c00
+ PostageStamp {
+  name PostageStamp11
+  xpos 341
+  ypos -14
+  hide_input true
+  postage_stamp true
+ }
+push 0
+ Switch {
+  inputs 3
+  which {{"back_color == 0 ? 2 : back_color == 1 ? 2 : 1" i}}
+  name LowB
+  xpos 187
+  ypos 9
+ }
+ Multiply {
+  value {{supp i}}
+  name Multiply2
+  xpos 187
+  ypos 56
+ }
+ Dot {
+  name Dot1
+  xpos 221
+  ypos 135
+ }
+ Merge2 {
+  inputs 2
+  operation plus
+  name Merge1
+  xpos 76
+  ypos 131
+ }
+ Multiply {
+  value {{masterMult i}}
+  name Multiply3
+  xpos 76
+  ypos 159
+ }
+ Merge2 {
+  inputs 2
+  operation min
+  name Merge10
+  xpos -333
+  ypos 165
+ }
+set N50e6b800 [stack 0]
+ PostageStamp {
+  name PostageStamp4
+  xpos -249
+  ypos 358
+  hide_input true
+  postage_stamp true
+ }
+ ShuffleCopy {
+  inputs 2
+  red red
+  green green
+  name ShuffleBlue
+  xpos -402
+  ypos 381
+ }
+push $N4dbdd000
+push $N50e6b800
+ ShuffleCopy {
+  inputs 2
+  red red
+  blue blue
+  name ShuffleGreen
+  xpos -526
+  ypos 165
+ }
+push $N4dbdd000
+ PostageStamp {
+  name PostageStamp2
+  xpos -659
+  ypos 246
+  hide_input true
+  postage_stamp true
+ }
+push $N50e6b800
+ PostageStamp {
+  name PostageStamp5
+  xpos -808
+  ypos 358
+  hide_input true
+  postage_stamp true
+ }
+ ShuffleCopy {
+  inputs 2
+  green green
+  blue blue
+  name ShuffleRed
+  xpos -659
+  ypos 381
+ }
+ Switch {
+  inputs 3
+  which {{back_color i}}
+  name Switch1
+  xpos -526
+  ypos 381
+ }
+ Dot {
+  name Dot2
+  xpos -492
+  ypos 551
+ }
+set N129e5c00 [stack 0]
+push $N4dbdd000
+ PostageStamp {
+  name PostageStamp3
+  xpos -195
+  ypos 524
+  hide_input true
+  postage_stamp true
+ }
+push $N129e5c00
+ Merge2 {
+  inputs 2
+  operation minus
+  name Merge9
+  xpos -338
+  ypos 547
+ }
+ Saturation {
+  saturation 0
+  name Saturation1
+  xpos -338
+  ypos 586
+ }
+ ColorCorrect {
+  gain {{SpillTweak.r i} {SpillTweak.g i} {SpillTweak.b i} {1 i}}
+  name ColorCorrect1
+  xpos -338
+  ypos 655
+ }
+ Merge2 {
+  inputs 2
+  operation plus
+  name Merge11
+  xpos -526
+  ypos 655
+ }
+ ShuffleCopy {
+  inputs 2
+  name ShuffleCopy1
+  xpos -526
+  ypos 740
+ }
+ Keymix {
+  inputs 3
+  invertMask true
+  bbox A
+  name Keymix1
+  xpos -526
+  ypos 875
+  disable {{"\[exists parent.input1] ? 0 : 1" i}}
+ }
+ Output {
+  name Output1
+  xpos -526
+  ypos 980
+ }
+end_group

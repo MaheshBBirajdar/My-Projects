@@ -1,0 +1,72 @@
+set cut_paste_input [stack 0]
+version 11.0 v1
+push $cut_paste_input
+Group {
+ name mb_get_edge
+ tile_color 0x6a55ffff
+ note_font Verdana
+ selected true
+ xpos -9792
+ ypos -1167
+ addUserKnob {20 Get_edge l mb_get_edge}
+ addUserKnob {41 Erode l Outer_erode T Dilate2.size}
+ addUserKnob {41 Blur l Outer_BLur T Blur1.size}
+ addUserKnob {26 ""}
+ addUserKnob {41 Erode_1 l Inner_Erode T Dilate1.size}
+ addUserKnob {41 Blur l Inner_Blur T Blur2.size}
+ addUserKnob {26 ""}
+ addUserKnob {41 Multiply l Mix T Multiply1.value}
+ addUserKnob {26 ""}
+ addUserKnob {26 Manmath_Biradar l "Manmath_Biradar Toolset" T ""}
+}
+ Input {
+  inputs 0
+  name Input1
+  xpos -172
+  ypos -274
+ }
+ Dot {
+  name Dot1
+  xpos -138
+  ypos -120
+ }
+set Nd92c7880 [stack 0]
+ Dilate {
+  name Dilate2
+  xpos -258
+  ypos -73
+ }
+ Blur {
+  name Blur1
+  xpos -258
+  ypos 18
+ }
+push $Nd92c7880
+ Dilate {
+  name Dilate1
+  xpos -83
+  ypos -74
+ }
+ Blur {
+  name Blur2
+  xpos -82
+  ypos 5
+ }
+ Merge2 {
+  inputs 2
+  operation xor
+  name Merge2
+  xpos -162
+  ypos 122
+ }
+ Multiply {
+  name Multiply1
+  xpos -162
+  ypos 202
+ }
+ Output {
+  name Output1
+  xpos -162
+  ypos 436
+ }
+end_group

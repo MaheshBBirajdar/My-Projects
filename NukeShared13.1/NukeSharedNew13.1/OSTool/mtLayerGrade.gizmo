@@ -1,0 +1,193 @@
+Group {
+ name mtLayerGrade
+ inputs 2
+ tile_color 0xffbf00ff
+ label "\[value in]"
+ note_font "Verdana Bold"
+ note_font_size 12
+ addUserKnob {20 MT_LayerGrade_v001}
+ addUserKnob {41 in T Shuffle4.in}
+ addUserKnob {26 esp l "" +STARTLINE T "        "}
+ addUserKnob {6 ShowLayer l "View Layer" +STARTLINE}
+ addUserKnob {6 boolean l "Check All Layers" -STARTLINE}
+ addUserKnob {26 asdw l "  " -STARTLINE T " "}
+ addUserKnob {6 premult l Unpremult|Premult -STARTLINE}
+ addUserKnob {26 ""}
+ addUserKnob {41 channels T Grade1.channels}
+ addUserKnob {41 blackpoint T Grade1.blackpoint}
+ addUserKnob {41 whitepoint T Grade1.whitepoint}
+ addUserKnob {41 black l lift T Grade1.black}
+ addUserKnob {41 white l gain T Grade1.white}
+ addUserKnob {41 multiply T Grade1.multiply}
+ addUserKnob {41 add l offset T Grade1.add}
+ addUserKnob {41 gamma T Grade1.gamma}
+ addUserKnob {41 reverse T Grade1.reverse}
+ addUserKnob {41 black_clamp l "black clamp" -STARTLINE T Grade1.black_clamp}
+ addUserKnob {41 white_clamp l "white clamp" -STARTLINE T Grade1.white_clamp}
+ addUserKnob {26 ""}
+ addUserKnob {41 saturation T ColorCorrect1.saturation}
+ addUserKnob {41 contrast T ColorCorrect1.contrast}
+ addUserKnob {26 ""}
+ addUserKnob {41 mix T Grade1.mix}
+ addUserKnob {26 text l "" +STARTLINE T "<span style=\"color:#665\"><br/><b>V3.1 LayerGrade</b> - <span style=\"color:#665\">Miguel Torija</a>"}
+}
+ Input {
+  inputs 0
+  name Input1
+  xpos 131
+  ypos -80
+ }
+ Unpremult {
+  channels all
+  name Unpremult1
+  xpos 131
+  ypos -37
+  disable {{premult?0:1}}
+ }
+ Dot {
+  name Dot15
+  xpos 165
+  ypos 52
+ }
+set N1ac07000 [stack 0]
+ Dot {
+  name Dot5
+  xpos -30
+  ypos 52
+ }
+ LayerContactSheet {
+  center true
+  showLayerNames {{boolean?1:0}}
+  name LayerContactSheet1
+  xpos -64
+  ypos 416
+  disable {{boolean?0:1}}
+ }
+ Dot {
+  name Dot6
+  xpos -30
+  ypos 557
+ }
+ Input {
+  inputs 0
+  name mask
+  xpos 268
+  ypos 219
+  number 1
+ }
+ Shuffle {
+  in none
+  alpha white
+  name Shuffle1
+  xpos 268
+  ypos 315
+  disable {{"\[exists parent.input1]"}}
+ }
+push $N1ac07000
+ Dot {
+  name Dot16
+  xpos 448
+  ypos 52
+ }
+ Shuffle {
+  in none
+  name Shuffle4
+  xpos 414
+  ypos 95
+ }
+ Dot {
+  name Dot2
+  xpos 448
+  ypos 143
+ }
+set N1b8b0c00 [stack 0]
+ Dot {
+  name Dot3
+  xpos 614
+  ypos 143
+ }
+ Grade {
+  name Grade1
+  xpos 580
+  ypos 197
+ }
+ ColorCorrect {
+  mix {{Grade1.mix}}
+  name ColorCorrect1
+  xpos 580
+  ypos 248
+ }
+ Dot {
+  name Dot4
+  xpos 614
+  ypos 318
+ }
+push $N1b8b0c00
+ Keymix {
+  inputs 3
+  name Keymix1
+  xpos 414
+  ypos 309
+ }
+ Dot {
+  name Dot17
+  xpos 448
+  ypos 422
+ }
+set N1b8eb400 [stack 0]
+ Dot {
+  name Dot1
+  xpos 448
+  ypos 501
+ }
+push $N1b8eb400
+push $N1b8b0c00
+push $N1ac07000
+ Merge2 {
+  inputs 2
+  operation from
+  Achannels {rgba.red rgba.green rgba.blue -rgba.alpha}
+  Bchannels {rgba.red rgba.green rgba.blue -rgba.alpha}
+  output {rgba.red rgba.green rgba.blue -rgba.alpha}
+  name Merge12
+  xpos 131
+  ypos 140
+ }
+ Merge2 {
+  inputs 2
+  operation plus
+  Achannels {rgba.red rgba.green rgba.blue -rgba.alpha}
+  Bchannels {rgba.red rgba.green rgba.blue -rgba.alpha}
+  output {rgba.red rgba.green rgba.blue -rgba.alpha}
+  name Merge13
+  xpos 131
+  ypos 419
+ }
+ Switch {
+  inputs 2
+  which {{boolean?2:1}}
+  name Switch1
+  xpos 131
+  ypos 498
+  disable {{"ShowLayer ? 0:1" x23 0}}
+ }
+ Switch {
+  inputs 2
+  which {{boolean?1:0}}
+  name Switch2
+  xpos 131
+  ypos 554
+ }
+ Premult {
+  channels all
+  name Premult1
+  xpos 131
+  ypos 620
+  disable {{premult?0:1}}
+ }
+ Output {
+  name Output1
+  xpos 131
+  ypos 687
+ }
+end_group

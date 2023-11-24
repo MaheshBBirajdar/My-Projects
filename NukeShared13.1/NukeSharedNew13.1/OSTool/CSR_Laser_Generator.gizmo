@@ -1,0 +1,321 @@
+#! C:/Program Files/Nuke9.0v6/nuke-9.0.6.dll -nx
+version 9.0 v6
+Gizmo {
+inputs 0
+tile_color 0xff3fff
+addUserKnob {20 User}
+addUserKnob {41 color T laser_ctrl.color}
+addUserKnob {26 ""}
+addUserKnob {41 startframe T laser_ctrl.startframe}
+addUserKnob {26 ""}
+addUserKnob {41 speed T laser_ctrl.speed}
+addUserKnob {41 rate T laser_ctrl.rate}
+addUserKnob {41 length T laser_ctrl.length}
+addUserKnob {26 ""}
+addUserKnob {41 offset T laser_ctrl.offset}
+addUserKnob {41 positionrandom l "position random" T laser_ctrl.positionrandom}
+addUserKnob {26 text l CSR_Laser_Generator T "Calvin Romeyn 2016"}
+}
+Noise {
+inputs 0
+size 9.2
+zoffset {{frame}}
+gain 0.166
+gamma 0.915
+center {960 400}
+name Noise4
+xpos -588
+ypos 478
+}
+Constant {
+inputs 0
+channels rgb
+color {{parent.laser_ctrl.color} {parent.laser_ctrl.color} {parent.laser_ctrl.color} {parent.laser_ctrl.color}}
+color_panelDropped true
+name Constant1
+xpos -724
+ypos 138
+}
+Roto {
+output alpha
+curves {{{v x3f99999a}
+  {f 0}
+  {n
+   {layer Root
+    {f 2097664}
+    {t x44700000 x43c80000}
+    {a pt1x 0 pt1y 0 pt2x 0 pt2y 0 pt3x 0 pt3y 0 pt4x 0 pt4y 0 ptex00 0 ptex01 0 ptex02 0 ptex03 0 ptex10 0 ptex11 0 ptex12 0 ptex13 0 ptex20 0 ptex21 0 ptex22 0 ptex23 0 ptex30 0 ptex31 0 ptex32 0 ptex33 0 ptof1x 0 ptof1y 0 ptof2x 0 ptof2y 0 ptof3x 0 ptof3y 0 ptof4x 0 ptof4y 0 pterr 0 ptrefset 0 ptmot x40800000 ptref 0}
+    {curvegroup Bezier1 512 bezier
+     {{cc
+       {f 8192}
+       {px x42880000
+        {{{x421cab80 xc0462a00 1 0 1}}
+	 {{xc12f5aa0 x40687200 1 0 1}}}
+        {{{x444d0806 x41a6d8b5 1 0 1}}
+	 {{x43d494ed xbec30d55 1 0 1}}}
+        {{{xc21ae920 xbf2696ab 1 0 1}}
+	 {{x412d6260 xbff559ab 1 0 1}}}
+        {{{xc21acec0 x40876a55 1 0 1}}
+	 {{x3f5c2a00 -}}}
+        {{{x447253b4 x3fc68000 1 0 1}}
+	 {{x43d8b348 xc0279e80 1 0 1}}}
+        {{{x421acf10 xc08769d5 1 0 1}}
+	 {{xbf5d2200 -}}}
+        {{{x42503780 x418acfab 1 0 1}}
+	 {{x40986080 x3fcb2b55 1 0 1}}}
+        {{{x449f4d50 x4201b995 1 0 1}}
+	 {{x43d4b818 xbf8924ab 1 0 1}}}
+        {{{xc2230cc0 xc1596655 1 0 1}}
+	 {{xc06ea480 xbf9f1855 1 0 1}}}}}     idem}
+     {t x4486aaab x43e1d555}
+     {a osw x41200000 osf 0 str 1 spx x44700000 spy x43c80000 sb 1 ltn x42b80000 ltm x42b80000 tt x40800000}}}}}}
+toolbox {selectAll {
+  { selectAll str 1 ssx 1 ssy 1 sf 1 }
+  { createBezier str 1 ssx 1 ssy 1 sf 1 sb 1 tt 4 }
+  { createBezierCusped str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { createBSpline str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { createEllipse str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { createRectangle str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { createRectangleCusped str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { brush str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { eraser src 2 str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { clone src 1 str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { reveal src 3 str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { dodge src 1 str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { burn src 1 str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { blur src 1 str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { sharpen src 1 str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { smear src 1 str 1 ssx 1 ssy 1 sf 1 sb 1 }
+} }
+toolbar_brush_hardness 0.200000003
+toolbar_source_transform_scale {1 1}
+toolbar_source_transform_center {960 400}
+colorOverlay {0 0 0 0}
+lifetime_type "all frames"
+lifetime_start 92
+lifetime_end 92
+motionblur_shutter_offset_type centred
+source_black_outside true
+name Roto3
+xpos -724
+ypos 256
+}
+Premult {
+name Premult3
+xpos -724
+ypos 294
+}
+CameraShake2 {
+name CameraShake2_1
+label "\[value amplitude] px at \[value frequency]"
+xpos -724
+ypos 418
+amplitude {{1000*laser_ctrl.positionrandom} {20*laser_ctrl.positionrandom}}
+seed 2627
+cs_center {{"\[value input.width 0]/2"} {"\[value input.height 0]/2"}}
+motionblur 0
+}
+Copy {
+inputs 2
+from0 rgba.alpha
+to0 forward.u
+name Copy2
+xpos -724
+ypos 472
+}
+IDistort {
+uv forward
+uv_scale 21
+name IDistort2
+xpos -724
+ypos 528
+}
+Remove {
+operation keep
+channels rgba
+name Remove1
+xpos -724
+ypos 566
+}
+Transform {
+translate {{laser_ctrl.offset} 0}
+scale {{laser_ctrl.length} 1}
+center {960 400}
+name Transform4
+xpos -724
+ypos 687
+}
+set N731a3000 [stack 0]
+Transform {
+translate {{laser_ctrl.rate*1000} 0}
+center {960 400}
+name Transform2
+xpos -645
+ypos 776
+}
+set C46cff000 [stack 0]
+TimeOffset {
+time_offset 10
+time ""
+name TimeOffset2
+xpos -645
+ypos 802
+}
+set N3912f200 [stack 0]
+clone $C46cff000 {
+xpos -535
+ypos 776
+selected false
+}
+TimeOffset {
+time_offset 10
+time ""
+name TimeOffset3
+xpos -535
+ypos 802
+}
+set N3912ed00 [stack 0]
+clone $C46cff000 {
+xpos -440
+ypos 776
+selected false
+}
+TimeOffset {
+time_offset 10
+time ""
+name TimeOffset4
+xpos -440
+ypos 802
+}
+set N3912e800 [stack 0]
+clone $C46cff000 {
+xpos -330
+ypos 776
+selected false
+}
+TimeOffset {
+time_offset 10
+time ""
+name TimeOffset5
+xpos -330
+ypos 802
+}
+set N3912e300 [stack 0]
+clone $C46cff000 {
+xpos -231
+ypos 776
+selected false
+}
+TimeOffset {
+time_offset 10
+time ""
+name TimeOffset6
+xpos -231
+ypos 802
+}
+set N3912de00 [stack 0]
+clone $C46cff000 {
+xpos -121
+ypos 776
+selected false
+}
+TimeOffset {
+time_offset 10
+time ""
+name TimeOffset7
+xpos -121
+ypos 802
+}
+set N3912c000 [stack 0]
+clone $C46cff000 {
+xpos -11
+ypos 776
+selected false
+}
+TimeOffset {
+time_offset 10
+time ""
+name TimeOffset8
+xpos -11
+ypos 802
+}
+set N658ba300 [stack 0]
+clone $C46cff000 {
+xpos 99
+ypos 776
+selected false
+}
+TimeOffset {
+time_offset 10
+time ""
+name TimeOffset9
+xpos 99
+ypos 802
+}
+push $N658ba300
+push $N3912c000
+push $N3912de00
+push $N3912e300
+push $N3912e800
+push $N3912ed00
+push 0
+push $N3912f200
+push $N731a3000
+Merge2 {
+inputs 9+1
+name Merge10
+xpos -724
+ypos 858
+}
+FrameHold {
+name FrameHold2
+xpos -724
+ypos 919
+}
+Transform {
+translate {{frame*laser_ctrl.speed*-100} 0}
+center {960 400}
+name Transform3
+xpos -724
+ypos 1024
+}
+TimeOffset {
+time_offset {{laser_ctrl.startframe}}
+time ""
+name TimeOffset1
+xpos -724
+ypos 1086
+}
+Output {
+name Output1
+xpos -724
+ypos 1186
+}
+NoOp {
+inputs 0
+name laser_ctrl
+selected true
+xpos -1094
+ypos 776
+addUserKnob {20 User}
+addUserKnob {18 color}
+color {0.9 3 0.75}
+addUserKnob {6 customimage l "custom image input" +STARTLINE}
+addUserKnob {26 "" +STARTLINE}
+addUserKnob {6 color_panelDropped l "panel dropped state" -STARTLINE +HIDDEN}
+color_panelDropped true
+addUserKnob {3 startframe}
+startframe 65
+addUserKnob {26 ""}
+addUserKnob {7 speed R 0 10}
+speed 3
+addUserKnob {7 rate R 0 10}
+rate 3.75
+addUserKnob {7 length R 0.1 1}
+length 0.335
+addUserKnob {26 ""}
+addUserKnob {7 offset R 0 10}
+addUserKnob {7 positionrandom l "position random" R 0 10}
+positionrandom 6.25
+}
+end_group
