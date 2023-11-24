@@ -1,0 +1,12 @@
+[Desktop Entry]
+Type=Application
+Terminal=false
+Name=Nuke13
+Comment=Nuke13.1
+#Exec=/core/Software/IT/Chetan_Scripts/Nuke13.1v1-linux-x86_64/Nuke13.1v1/Nuke13.1 -nukex
+Exec=/core/Software/IT/Chetan_Scripts/Nuke13.1v1-linux-x86_64/Nuke13.1v1/Nuke13.1
+Icon=/core/Software/logo/nuk12.jpg
+Comment[en_IN.UTF-8]=Nuke 13
+Name[en_IN]=Nuke13
+
+
