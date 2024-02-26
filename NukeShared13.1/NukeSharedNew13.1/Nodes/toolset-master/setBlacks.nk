@@ -1,0 +1,234 @@
+set cut_paste_input [stack 0]
+version 8.0 v5
+push $cut_paste_input
+Group {
+ name setBlacks
+ selected true
+ xpos 5536
+ ypos 3916
+ addUserKnob {20 User}
+ addUserKnob {41 source T Add1.source}
+ addUserKnob {41 destination T Add1.destination}
+ addUserKnob {18 rolloff l "roll off" R 0.8 1}
+ rolloff 0.9
+ addUserKnob {6 rolloff_panelDropped l "panel dropped state" -STARTLINE +HIDDEN}
+ addUserKnob {41 rollOffMax l INVISIBLE +DISABLED +INVISIBLE T Add1.rollOffMax}
+ addUserKnob {26 ""}
+ addUserKnob {41 sampleMinValue l " Sample Min Value This Frame " T CurveTool1.sampleMinValue}
+ addUserKnob {41 cropEdges l "ignore edge" T CurveTool1.cropEdges}
+ addUserKnob {41 minlumapixvalue l "sample value" t "This ignores blacks premult" T CurveTool1.minlumapixvalue}
+ addUserKnob {26 ""}
+ addUserKnob {26 Check l "Check min Value" t "show values below slider as red" -STARTLINE T ""}
+ addUserKnob {41 blackCheck l "" t "show values below slider as red" -STARTLINE T Clamp1.blackCheck}
+ addUserKnob {41 min_ l "" -STARTLINE T Clamp1.min_}
+ addUserKnob {26 ""}
+ addUserKnob {41 alpha l premult T Unpremult1.alpha}
+ addUserKnob {41 invert -STARTLINE T Unpremult1.invert}
+ addUserKnob {20 Info}
+ addUserKnob {22 documentation l " Documentation / Feedback " T "import webbrowser\nwebbrowser.open(\"http://opennuke.github.io/setBlacks_nk/\")" +STARTLINE}
+ addUserKnob {26 ""}
+ addUserKnob {26 version l version: T "0.2 Stable"}
+ addUserKnob {26 created l created: T "1/1/2015 by <a href=\\'http://movingimagearts.com'> Rafal Kaniewski</a>"}
+ addUserKnob {26 modified l "modified: " T " "}
+ addUserKnob {26 licence l licence: T "<a href=\"https://github.com/openNuke/toolset/blob/master/LICENCE\">READ ME</a>"}
+}
+ Input {
+  inputs 0
+  name Input1
+  xpos 684
+  ypos 354
+ }
+ Unpremult {
+  name Unpremult1
+  xpos 684
+  ypos 405
+ }
+ Dot {
+  name Dot11
+  xpos 718
+  ypos 459
+ }
+set Nebb5e40 [stack 0]
+ Dot {
+  name Dot8
+  xpos 506
+  ypos 459
+ }
+set Nebb61b0 [stack 0]
+ Dot {
+  name Dot6
+  xpos 363
+  ypos 459
+ }
+set Nebb6520 [stack 0]
+ Grade {
+  blackpoint {{Add1.rollOffMax} {Add1.rollOffMax} {Add1.rollOffMax} 0}
+  whitepoint {{Add1.source+Add1.rollOffMax-Add1.destination} {Add1.source+Add1.rollOffMax-Add1.destination} {Add1.source+Add1.rollOffMax-Add1.destination} 0}
+  white_clamp true
+  enable_mix_luminance false
+  mix_luminance 1
+  name makeMatte
+  xpos 329
+  ypos 594
+ }
+set Nebb6890 [stack 0]
+ Dot {
+  name Dot7
+  xpos 363
+  ypos 716
+ }
+push $Nebb61b0
+ Shuffle {
+  red black
+  green black
+  blue black
+  name Shuffle1
+  xpos 472
+  ypos 555
+ }
+ Add {
+  channels rgb
+  value {{destination-source} {destination-source} {destination-source} {destination-source}}
+  maskChannelMask rgba.red
+  invert_mask true
+  unpremult -rgba.alpha
+  name Add1
+  label "match blacks of plate"
+  xpos 472
+  ypos 579
+  addUserKnob {20 User}
+  addUserKnob {18 source R 0 20}
+  addUserKnob {6 source_panelDropped l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {18 destination R 0.006 15.203}
+  destination {0.000683 0.00097 0.0015}
+  addUserKnob {6 destination_panelDropped l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {18 rollOffMax +DISABLED R 0 0.1}
+  rollOffMax {{pow(Add1.destination,rolloff)} {pow(Add1.destination,rolloff)} {pow(Add1.destination,rolloff)}}
+  addUserKnob {6 rollOffMax_panelDropped l "panel dropped state" -STARTLINE +HIDDEN}
+ }
+ Merge2 {
+  inputs 2
+  operation multiply
+  name Merge12
+  xpos 472
+  ypos 711
+ }
+push $Nebb5e40
+ Merge2 {
+  inputs 2
+  operation plus
+  Achannels {rgba.red rgba.green rgba.blue -rgba.alpha}
+  Bchannels {rgba.red rgba.green rgba.blue -rgba.alpha}
+  output {rgba.red rgba.green rgba.blue -rgba.alpha}
+  name Merge13
+  xpos 684
+  ypos 711
+ }
+ Clamp {
+  channels rgb
+  minimum {{min_}}
+  maximum {1000000 1000000 1000000 0}
+  maximum_enable false
+  MinClampTo {1 0 0 0}
+  MinClampTo_enable true
+  name Clamp1
+  xpos 684
+  ypos 801
+  disable {{!blackCheck}}
+  addUserKnob {20 User}
+  addUserKnob {7 min_ R -0.01 0.01}
+  addUserKnob {6 blackCheck +STARTLINE}
+ }
+ Premult {
+  alpha {{{parent.Unpremult1.alpha}}}
+  name Premult1
+  xpos 676
+  ypos 893
+ }
+ Output {
+  name Output1
+  xpos 684
+  ypos 956
+ }
+push $Nebb6520
+ Crop {
+  box {0 0 {width} {height}}
+  name Crop1
+  xpos 161
+  ypos 456
+ }
+ Dot {
+  name Dot2
+  xpos 195
+  ypos 494
+ }
+set Nebb8af0 [stack 0]
+ Dot {
+  name Dot3
+  xpos 195
+  ypos 573
+ }
+push $Nebb8af0
+ Dot {
+  name Dot1
+  xpos 85
+  ypos 494
+ }
+set Nebb91d0 [stack 0]
+ Dot {
+  name Dot4
+  xpos -46
+  ypos 494
+ }
+ Dot {
+  name Dot5
+  xpos -46
+  ypos 573
+ }
+push $Nebb91d0
+ Add {
+  channels rgb
+  value 0.1
+  name Add2
+  xpos 51
+  ypos 523
+  disable {{!Unpremult1.alpha x105 1}}
+ }
+ Keymix {
+  inputs 3
+  channels rgb
+  maskChannel {{{parent.Unpremult1.unpremult}}}
+  name Keymix1
+  xpos 51
+  ypos 570
+ }
+ CurveTool {
+  operation "Max Luma Pixel"
+  ROI {{cropEdges} {cropEdges} {width-cropEdges} {height-cropEdges x135 1279.9}}
+  autocropdata {0 0 {cropEdges} {height}}
+  maxlumapixdata {{curve x1 960 x101 1595 x102 1150 1150 1113 1644 x135 1521} {curve x1 539 x101 251 x102 350 350 141 255 x135 1260}}
+  maxlumapixvalue {{curve x135 5.79296875} {curve x135 5.34765625} 5.34765625}
+  minlumapixdata {{curve x1 691 x101 1880 x102 621 622 621 835 x135 388} {curve x1 1006 x101 220 x102 926 928 927 301 x135 2}}
+  minlumapixvalue {0 0 0}
+  name CurveTool1
+  xpos 51
+  ypos 697
+  addUserKnob {20 User}
+  addUserKnob {7 cropEdges R 0 20}
+  cropEdges 2
+  addUserKnob {22 sampleMinValue l " Sample Min Value This Frame " T "n=nuke.thisNode()\nf=nuke.frame()\nnuke.execute( n, f, f )\nn\['minlumapixvalue'].clearAnimated()" +STARTLINE}
+ }
+push $Nebb6890
+ Invert {
+  name Invert1
+  xpos 347
+  ypos 651
+ }
+ Viewer {
+  input_process false
+  name Viewer1
+  selected true
+  xpos 398
+  ypos 780
+ }
+end_group
