@@ -12,6 +12,7 @@ except ImportError:
     from Qt import QtWidgets, QtCore
 
 
+
 class nukeShare(nukescripts.PythonPanel):
 
     def __init__(self):
@@ -160,7 +161,7 @@ class nukeShare(nukescripts.PythonPanel):
 def addPanel():
     return nukeShare().addToPane()
 
-menu = nuke.menu('Pane')
-menu.addCommand('fxt_shareNodes', addPanel)
+menu = nuke.menu('Nuke')
+menu.addCommand('ShareNodes', addPanel)
 nukescripts.registerPanel('com.fxt.fxT_shareNodes', addPanel)
 

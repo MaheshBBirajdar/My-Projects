@@ -1,0 +1,3 @@
+import nuke
+
+from AutoProjectSettings import SaveandClose
