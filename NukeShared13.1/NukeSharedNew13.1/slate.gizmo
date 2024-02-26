@@ -1,0 +1,1937 @@
+#! C:/Program Files/Nuke14.0v1/nuke-14.0.1.dll -nx
+version 14.0 v1
+Gizmo {
+ inputs 2
+ tile_color 0x545eff
+ label Mov_Slate
+ note_font_size 12
+ postage_stamp_frame 0
+ lifetimeEnd 170
+ addUserKnob {20 Slate}
+ addUserKnob {26 ""}
+ addUserKnob {1 Show l "Show :" t "enter project name here"}
+ Show ctrl
+ addUserKnob {1 Seq l "Sequence :"}
+ Seq R04
+ addUserKnob {1 shot_name l "shot_name :" t "enter shot name here"}
+ shot_name SH1140
+ addUserKnob {1 version l "version :" t "enter version here"}
+ version V001
+ addUserKnob {26 ""}
+ addUserKnob {1 department l "department :" t "enter department name here"}
+ department Source
+ addUserKnob {1 scope_of_work l "scope_of_work :" t "enter previous notes here"}
+ scope_of_work NIL
+ addUserKnob {1 Submitting_For l "Submitting_For :" t Slap/WIP/Final}
+ Submitting_For "Source plate"
+ addUserKnob {26 ""}
+ addUserKnob {1 Artist l "Artist :"}
+ Artist PCGI
+ addUserKnob {1 Submission_Note l "Submission Notes:"}
+ Submission_Note "Source plate"
+}
+ BackdropNode {
+  inputs 0
+  name BackdropNode3
+  tile_color 0x8e8e3800
+  label slate
+  note_font_size 42
+  xpos -1137
+  ypos -643
+  bdwidth 715
+  bdheight 1101
+ }
+ BackdropNode {
+  inputs 0
+  name BackdropNode4
+  tile_color 0x388e8e00
+  label "aspect ratio"
+  note_font_size 42
+  xpos -414
+  ypos -1061
+  bdwidth 389
+  bdheight 346
+ }
+ Input {
+  inputs 0
+  name Input1
+  label input
+  xpos -260
+  ypos -1410
+ }
+ Dot {
+  name input
+  label input
+  xpos -226
+  ypos -1230
+ }
+set Nd24d7000 [stack 0]
+ Reformat {
+  format "3840 2160 0 0 3840 2160 1 UHD_4K"
+  black_outside true
+  name Reformat4
+  xpos -260
+  ypos -1170
+ }
+ BlackOutside {
+  name BlackOutside1
+  xpos -260
+  ypos -1116
+ }
+ Dot {
+  name Dot2
+  xpos -226
+  ypos -942
+ }
+set Nd258e000 [stack 0]
+ Dot {
+  name Dot6
+  xpos -33
+  ypos -942
+ }
+ Reformat {
+  format "1920 1080 0 0 1920 1080 1 HD_1080"
+  black_outside true
+  name Reformat3
+  xpos -67
+  ypos 870
+  disable true
+ }
+ Shuffle2 {
+  fromInput1 {{0} B}
+  fromInput2 {{0} B}
+  mappings "4 rgba.red 0 0 rgba.red 0 0 rgba.green 0 1 rgba.green 0 1 rgba.blue 0 2 rgba.blue 0 2 white -1 -1 rgba.alpha 0 3"
+  name Shuffle2
+  xpos -67
+  ypos 972
+ }
+ Dot {
+  name Dot5
+  xpos -33
+  ypos 1023
+ }
+set Nd258f400 [stack 0]
+ Group {
+  name Netflix_MEI_Overlay_CompGraded2
+  help "Applies a text burn-in to the media.\n\nUp to 6 pieces of metadata can be added to the shot"
+  tile_color 0xac0000ff
+  xpos -67
+  ypos 1269
+  addUserKnob {20 burnIn_tab l BurnIn}
+  addUserKnob {19 burnIn_color l color t "The text color"}
+  burnIn_color 0.5
+  addUserKnob {6 burnIn_color_panelDropped l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 burnIn_color_panelDropped_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 burnIn_color_panelDropped_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 burnIn_color_panelDropped_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 burnIn_color_panelDropped_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 burnIn_color_panelDropped_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 burnIn_color_panelDropped_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 burnIn_color_panelDropped_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 burnIn_color_panelDropped_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 burnIn_color_panelDropped_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 burnIn_color_panelDropped_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 burnIn_color_panelDropped_1_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 burnIn_color_panelDropped_1_1_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 burnIn_color_panelDropped_1_1_1_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 burnIn_color_panelDropped_1_1_1_1_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 burnIn_color_panelDropped_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 burnIn_color_panelDropped_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 burnIn_color_panelDropped_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 burnIn_color_panelDropped_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 burnIn_color_panelDropped_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 burnIn_color_panelDropped_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 burnIn_color_panelDropped_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 burnIn_color_panelDropped_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 burnIn_color_panelDropped_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 burnIn_color_panelDropped_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 burnIn_color_panelDropped_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 burnIn_color_panelDropped_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 burnIn_color_panelDropped_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 burnIn_color_panelDropped_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 burnIn_color_panelDropped_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 burnIn_color_panelDropped_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 burnIn_color_panelDropped_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 burnIn_color_panelDropped_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 burnIn_color_panelDropped_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 burnIn_color_panelDropped_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 burnIn_color_panelDropped_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 burnIn_color_panelDropped_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 burnIn_color_panelDropped_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 burnIn_color_panelDropped_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 burnIn_color_panelDropped_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 burnIn_color_panelDropped_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 burnIn_color_panelDropped_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 burnIn_color_panelDropped_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 burnIn_color_panelDropped_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {7 burnIn_opacity l opacity t "The text opacity"}
+  burnIn_opacity 1
+  addUserKnob {7 burnIn_xPadding l x-padding t "The distance between the Burn-in text and the left and right image borders" R 10 100}
+  burnIn_xPadding 1
+  addUserKnob {7 burnIn_yPadding l y-padding t "The distance between the Burn-in text and the top and bottom image borders" R 10 100}
+  burnIn_yPadding 1
+  addUserKnob {84 burnIn_font l font}
+  burnIn_font {{ Malgun Gothic : Regular : malgun.ttf : 0 }}
+  addUserKnob {84 fixed_width_font l "frame counter fixed width font" t "Frame counters need fixed width fonts to prevent the text from \"wiggling.\"\n\nSet this to a valid ideally sans-serif fixed width font."}
+  fixed_width_font {{ Malgun Gothic : Regular : malgun.ttf : 0 }}
+  addUserKnob {7 burnIn_textScale l "text scale" R 0 2}
+  burnIn_textScale 0.76
+  addUserKnob {26 ""}
+  addUserKnob {1 topleft l Vendor}
+  topleft "philm cgi"
+  addUserKnob {1 topcenter l "Show Code"}
+  topcenter "\[knob Show]"
+  addUserKnob {1 topright l Date}
+  topright "\[date %Y-%m-%d]"
+  addUserKnob {1 bottomleft l "Version Name"}
+  bottomleft "\[knob Show]_\[knob Seq]_\[knob shot_name]_\[knob department]_PCGI_\[knob version]"
+  addUserKnob {1 bottomcenter l "bottom center" +INVISIBLE}
+  addUserKnob {1 bottomright l "Frame Counter"}
+  bottomright "\[value first_frame]-\[frame]-\[value last_frame]"
+  addUserKnob {20 Background}
+  addUserKnob {6 burnIn_backgroundEnable l enable t "Enable a background for the Burn-in text. A background will be applied to each Burn-in field" -STARTLINE}
+  burnIn_backgroundEnable true
+  addUserKnob {19 burnIn_backgroundColor l color t "The background color"}
+  burnIn_backgroundColor {0 0 0 1}
+  addUserKnob {6 burnIn_backgroundColor_panelDropped l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 burnIn_backgroundColor_panelDropped_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 burnIn_backgroundColor_panelDropped_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 burnIn_backgroundColor_panelDropped_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 burnIn_backgroundColor_panelDropped_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 burnIn_backgroundColor_panelDropped_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 burnIn_backgroundColor_panelDropped_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 burnIn_backgroundColor_panelDropped_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 burnIn_backgroundColor_panelDropped_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 burnIn_backgroundColor_panelDropped_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 burnIn_backgroundColor_panelDropped_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 burnIn_backgroundColor_panelDropped_1_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 burnIn_backgroundColor_panelDropped_1_1_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 burnIn_backgroundColor_panelDropped_1_1_1_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 burnIn_backgroundColor_panelDropped_1_1_1_1_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 burnIn_backgroundColor_panelDropped_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 burnIn_backgroundColor_panelDropped_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 burnIn_backgroundColor_panelDropped_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 burnIn_backgroundColor_panelDropped_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 burnIn_backgroundColor_panelDropped_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 burnIn_backgroundColor_panelDropped_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 burnIn_backgroundColor_panelDropped_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 burnIn_backgroundColor_panelDropped_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 burnIn_backgroundColor_panelDropped_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 burnIn_backgroundColor_panelDropped_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 burnIn_backgroundColor_panelDropped_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 burnIn_backgroundColor_panelDropped_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 burnIn_backgroundColor_panelDropped_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 burnIn_backgroundColor_panelDropped_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 burnIn_backgroundColor_panelDropped_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 burnIn_backgroundColor_panelDropped_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 burnIn_backgroundColor_panelDropped_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 burnIn_backgroundColor_panelDropped_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 burnIn_backgroundColor_panelDropped_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 burnIn_backgroundColor_panelDropped_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 burnIn_backgroundColor_panelDropped_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 burnIn_backgroundColor_panelDropped_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 burnIn_backgroundColor_panelDropped_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 burnIn_backgroundColor_panelDropped_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 burnIn_backgroundColor_panelDropped_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 burnIn_backgroundColor_panelDropped_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 burnIn_backgroundColor_panelDropped_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 burnIn_backgroundColor_panelDropped_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 burnIn_backgroundColor_panelDropped_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {7 burnIn_backgroundOpacity l opacity t "The background opacity"}
+  addUserKnob {7 burnIn_backgroundXBorder l x-border t "The distance between the background and the left and right edges of the text. This can be used to adjust the size of the background in the x-direction" R 0 50}
+  burnIn_backgroundXBorder 10
+  addUserKnob {7 burnIn_backgroundYBorder l y-border t "The distance between the background and the top and bottom edges of the text. This can be used to adjust the size of the background in the y-direction" R 0 50}
+  burnIn_backgroundYBorder 5
+  addUserKnob {41 message +INVISIBLE T Text_TM.message}
+ }
+  Input {
+   inputs 0
+   name Input1
+   xpos -703
+   ypos 22
+  }
+  Dot {
+   name Dot2
+   xpos -669
+   ypos 73
+  }
+  Text2 {
+   font_size_toolbar 100
+   font_width_toolbar 100
+   font_height_toolbar 100
+   opacity {{parent.burnIn_opacity}}
+   message "\[value parent.topleft]"
+   old_message {{112 104 105 108 109 32 99 103 105}
+     }
+   old_expression_markers {{0 8}
+     }
+   box {{parent.burnIn_xPadding} {parent.burnIn_yPadding} {"width - parent.burnIn_xPadding"} {"height - parent.burnIn_yPadding"}}
+   transforms {{0 2}
+     }
+   font {[value parent.burnIn_font]}
+   global_font_scale {{parent.burnIn_textScale}}
+   scale {1 1}
+   cursor_initialised true
+   autofit_bbox false
+   initial_cursor_position {{0 1556}
+     }
+   group_animations {{0} imported: 0 selected: items: "root transform/"}
+   animation_layers {{1 11 1024 778 0 0 1 1 0 0 0 0}
+     }
+   color {{parent.burnIn_color} {parent.burnIn_color} {parent.burnIn_color} {parent.burnIn_color}}
+   enable_background {{parent.burnIn_backgroundEnable}}
+   background_color {{parent.burnIn_backgroundColor} {parent.burnIn_backgroundColor} {parent.burnIn_backgroundColor} {parent.burnIn_backgroundColor}}
+   background_opacity {{burnIn_backgroundOpacity}}
+   background_border_x {{parent.burnIn_backgroundXBorder}}
+   background_border_y {{parent.burnIn_backgroundYBorder}}
+   name Text_TL
+   xpos -703
+   ypos 123
+  }
+  Text2 {
+   font_size_toolbar 100
+   font_width_toolbar 100
+   font_height_toolbar 100
+   opacity {{parent.burnIn_opacity}}
+   message "\[value parent.topcenter]"
+   old_message {{99 116 114 108}
+     }
+   old_expression_markers {{0 3}
+     }
+   box {{parent.burnIn_xPadding x1001 10 x1260 14.7} {parent.burnIn_yPadding x1001 -4 x1260 12.3} {"width - parent.burnIn_xPadding" x1001 1910 x1260 2057} {"height - parent.burnIn_yPadding" x1001 1072 x1260 1139.7}}
+   xjustify center
+   transforms {{0 2}
+     }
+   font {[value parent.burnIn_font]}
+   global_font_scale {{parent.burnIn_textScale}}
+   translate {12 0}
+   scale {1 1}
+   cursor_initialised true
+   autofit_bbox false
+   initial_cursor_position {{0 1556}
+     }
+   group_animations {{0} imported: 0 selected: items: "root transform/"}
+   animation_layers {{1 11 1024 778 0 0 1 1 0 0 0 0}
+     }
+   color {{parent.burnIn_color} {parent.burnIn_color} {parent.burnIn_color} {parent.burnIn_color}}
+   enable_background {{parent.burnIn_backgroundEnable}}
+   background_color {{parent.burnIn_backgroundColor} {parent.burnIn_backgroundColor} {parent.burnIn_backgroundColor} {parent.burnIn_backgroundColor}}
+   background_opacity {{burnIn_backgroundOpacity}}
+   background_border_x {{parent.burnIn_backgroundXBorder}}
+   background_border_y {{parent.burnIn_backgroundYBorder}}
+   name Text_TM
+   xpos -539
+   ypos 123
+  }
+  Text2 {
+   font_size_toolbar 100
+   font_width_toolbar 100
+   font_height_toolbar 100
+   opacity {{parent.burnIn_opacity}}
+   message "\[value parent.topright]"
+   old_message {{50 48 50 51 45 49 49 45 50 56}
+     }
+   old_expression_markers {{0 9}
+     }
+   box {{parent.burnIn_xPadding} {parent.burnIn_yPadding} {"width - parent.burnIn_xPadding"} {"height - parent.burnIn_yPadding"}}
+   xjustify right
+   transforms {{0 2}
+     }
+   cursor_position 23
+   font {[value parent.burnIn_font]}
+   global_font_scale {{parent.burnIn_textScale}}
+   scale {1 1}
+   cursor_initialised true
+   autofit_bbox false
+   initial_cursor_position {{0 1556}
+     }
+   group_animations {{0} imported: 0 selected: items: "root transform/"}
+   animation_layers {{1 11 1024 778 0 0 1 1 0 0 0 0}
+     }
+   color {{parent.burnIn_color} {parent.burnIn_color} {parent.burnIn_color} {parent.burnIn_color}}
+   enable_background {{parent.burnIn_backgroundEnable}}
+   background_color {{parent.burnIn_backgroundColor} {parent.burnIn_backgroundColor} {parent.burnIn_backgroundColor} {parent.burnIn_backgroundColor}}
+   background_opacity {{burnIn_backgroundOpacity}}
+   background_border_x {{parent.burnIn_backgroundXBorder}}
+   background_border_y {{parent.burnIn_backgroundYBorder}}
+   name Text_TR
+   xpos -364
+   ypos 123
+  }
+  Text2 {
+   font_size_toolbar 100
+   font_width_toolbar 100
+   font_height_toolbar 100
+   opacity {{parent.burnIn_opacity}}
+   message "\[value parent.bottomleft]"
+   old_message {{99 116 114 108 95 82 48 52 95 83 72 49 49 52 48 95 83 111 117 114 99 101 95 80 67 71 73 95 86 48 48 49}
+     }
+   old_expression_markers {{0 31}
+     }
+   box {{parent.burnIn_xPadding} {parent.burnIn_yPadding} {"width - parent.burnIn_xPadding"} {"height - parent.burnIn_yPadding"}}
+   yjustify bottom
+   transforms {{0 2}
+     }
+   cursor_position 25
+   font {[value parent.burnIn_font]}
+   global_font_scale {{parent.burnIn_textScale}}
+   scale {1 1}
+   cursor_initialised true
+   autofit_bbox false
+   initial_cursor_position {{0 1556}
+     }
+   group_animations {{0} imported: 0 selected: items: "root transform/"}
+   animation_layers {{1 11 1024 778 0 0 1 1 0 0 0 0}
+     }
+   color {{parent.burnIn_color} {parent.burnIn_color} {parent.burnIn_color} {parent.burnIn_color}}
+   enable_background {{parent.burnIn_backgroundEnable}}
+   background_color {{parent.burnIn_backgroundColor} {parent.burnIn_backgroundColor} {parent.burnIn_backgroundColor} {parent.burnIn_backgroundColor}}
+   background_opacity {{burnIn_backgroundOpacity}}
+   background_border_x {{parent.burnIn_backgroundXBorder}}
+   background_border_y {{parent.burnIn_backgroundYBorder}}
+   name Text_BL
+   xpos -705
+   ypos 219
+  }
+  Text2 {
+   font_size_toolbar 100
+   font_width_toolbar 100
+   font_height_toolbar 100
+   opacity {{parent.burnIn_opacity}}
+   message "\[value parent.bottomcenter]"
+   old_expression_markers {{0 -1}
+     }
+   box {{parent.burnIn_xPadding} {parent.burnIn_yPadding} {"width - parent.burnIn_xPadding"} {"height - parent.burnIn_yPadding"}}
+   xjustify center
+   yjustify bottom
+   transforms {{0 2}
+     }
+   cursor_position 27
+   font {[value parent.burnIn_font]}
+   global_font_scale {{parent.burnIn_textScale}}
+   scale {1 1}
+   cursor_initialised true
+   autofit_bbox false
+   initial_cursor_position {{0 1556}
+     }
+   group_animations {{0} imported: 0 selected: items: "root transform/"}
+   animation_layers {{1 11 1024 778 0 0 1 1 0 0 0 0}
+     }
+   color {{parent.burnIn_color} {parent.burnIn_color} {parent.burnIn_color} {parent.burnIn_color}}
+   enable_background {{parent.burnIn_backgroundEnable}}
+   background_color {{parent.burnIn_backgroundColor} {parent.burnIn_backgroundColor} {parent.burnIn_backgroundColor} {parent.burnIn_backgroundColor}}
+   background_opacity {{burnIn_backgroundOpacity}}
+   background_border_x {{parent.burnIn_backgroundXBorder}}
+   background_border_y {{parent.burnIn_backgroundYBorder}}
+   name Text_BM
+   xpos -542
+   ypos 219
+  }
+  Text2 {
+   font_size_toolbar 100
+   font_width_toolbar 100
+   font_height_toolbar 100
+   opacity {{parent.burnIn_opacity}}
+   message "\[value parent.bottomright]"
+   old_message {{49 45 49 48 48 49 45 51 51 53}
+     }
+   old_expression_markers {{0 9}
+     }
+   box {{parent.burnIn_xPadding} {parent.burnIn_yPadding} {"width - parent.burnIn_xPadding"} {"height - parent.burnIn_yPadding"}}
+   xjustify right
+   yjustify bottom
+   transforms {{0 2}
+     }
+   cursor_position 26
+   font {[value parent.fixed_width_font]}
+   global_font_scale {{parent.burnIn_textScale}}
+   scale {1 1}
+   cursor_initialised true
+   autofit_bbox false
+   initial_cursor_position {{0 1556}
+     }
+   group_animations {{0} imported: 0 selected: items: "root transform/"}
+   animation_layers {{1 11 1024 778 0 0 1 1 0 0 0 0}
+     }
+   color {{parent.burnIn_color} {parent.burnIn_color} {parent.burnIn_color} {parent.burnIn_color}}
+   enable_background {{parent.burnIn_backgroundEnable}}
+   background_color {{parent.burnIn_backgroundColor} {parent.burnIn_backgroundColor} {parent.burnIn_backgroundColor} {parent.burnIn_backgroundColor}}
+   background_opacity {{burnIn_backgroundOpacity}}
+   background_border_x {{parent.burnIn_backgroundXBorder}}
+   background_border_y {{parent.burnIn_backgroundYBorder}}
+   name Text_BR
+   xpos -358
+   ypos 219
+  }
+  Output {
+   name Output1
+   xpos -358
+   ypos 323
+  }
+ end_group
+ Roto {
+  inputs 0
+  output alpha
+  cliptype none
+  curves {{{v x3f99999a}
+  {f 0}
+  {n
+   {layer Root
+    {f 2097664}
+    {t x44800000 x44100000}
+    {a pt1x 0 pt1y 0 pt2x 0 pt2y 0 pt3x 0 pt3y 0 pt4x 0 pt4y 0 ptex00 0 ptex01 0 ptex02 0 ptex03 0 ptex10 0 ptex11 0 ptex12 0 ptex13 0 ptex20 0 ptex21 0 ptex22 0 ptex23 0 ptex30 0 ptex31 0 ptex32 0 ptex33 0 ptof1x 0 ptof1y 0 ptof2x 0 ptof2y 0 ptof3x 0 ptof3y 0 ptof4x 0 ptof4y 0 pterr 0 ptrefset 0 ptmot x40800000 ptref 0}
+    {curvegroup Rectangle1 512 bezier
+     {{cc
+       {f 8192}
+       {p
+        {{{x447a4000 0}}
+	 {{x447a4000 xc3099998}}}
+        {{{x447a0000 x4490fccd 0 1 x3dccc000 1}
+	  {x447a4000 x44910000 x3dccc000 1 0 1}}
+	 {{x447a0000 x4483d665 0 1 xbefff000 1}
+	  {x447a4000 x4483c666 xbefff000 1 0 1}}}
+        {{{x447a4000 x43746668}}
+	 {{x447a4000 0}}}
+        {{{x447a4000 xc3746668}}
+	 {{x447a4000 0}}}
+        {{{x447a0000 x44ece32f 0 1 xbff32400 1}
+	  {x447a4000 x44eca666 xbff32400 1 0 1}}
+	 {{x447a0000 x4483d665 0 1 xbefff000 1}
+	  {x447a4000 x4483c666 xbefff000 1 0 1}}}
+        {{{x447a4000 0}}
+	 {{x447a4000 xc3099998}}}
+        {{{x447a4000 0}}
+	 {{x447a4000 x43099998}}}
+        {{{x447a0000 x44ece32f 0 1 xbff32400 1}
+	  {x447a4000 x44eca666 xbff32400 1 0 1}}
+	 {{x447a0000 x44204cce 0 1 x3e4cc000 1}
+	  {x447a4000 x4420599a x3e4cc000 1 0 1}}}
+        {{{x447a4000 xc3746668}}
+	 {{x447a4000 0}}}
+        {{{x447a4000 x43746668}}
+	 {{x447a4000 0}}}
+        {{{x447a0000 x4490fccd 0 1 x3dccc000 1}
+	  {x447a4000 x44910000 x3dccc000 1 0 1}}
+	 {{x447a0000 x44204cce 0 1 x3e4cc000 1}
+	  {x447a4000 x4420599a x3e4cc000 1 0 1}}}
+        {{{x447a4000 0}}
+	 {{x447a4000 x43099998}}}}}
+      {cc
+       {f 8192}
+       {px x447a4000
+        {0 xc3099998}
+        {0 0}
+        {x43746668 0}
+        {xc3746668 0}
+        {0 0}
+        {0 xc3099998}
+        {0 x43099998}
+        {0 0}
+        {xc3746668 0}
+        {x43746668 0}
+        {0 0}
+        {0 x43099998}}}}
+     {tx x447a4000 x44bed333 x4453f332}
+     {a osw x41200000 osf 0 str 1 spx x44800000 spy x44100000 sb 1 ltn x447a4000 ltm x447a4000 tt x41000000}}}}}}
+  toolbox {selectAll {
+  { selectAll str 1 ssx 1 ssy 1 sf 1 }
+  { createBezier str 1 ssx 1 ssy 1 sf 1 sb 1 tt 4 }
+  { createBezierCusped str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { createBSpline str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { createEllipse str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { createRectangle str 1 ssx 1 ssy 1 sf 1 sb 1 tt 8 }
+  { createRectangleCusped str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { brush str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { eraser src 2 str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { clone src 1 str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { reveal src 3 str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { dodge src 1 str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { burn src 1 str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { blur src 1 str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { sharpen src 1 str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { smear src 1 str 1 ssx 1 ssy 1 sf 1 sb 1 }
+} }
+  toolbar_brush_hardness 0.200000003
+  toolbar_source_transform_scale {1 1}
+  toolbar_source_transform_center {1024 576}
+  colorOverlay {0 0 0 0}
+  lifetime_type "all frames"
+  lifetime_start 1001
+  lifetime_end 1001
+  motionblur_shutter_offset_type centred
+  source_black_outside true
+  name Roto1
+  xpos -1076
+  ypos -399
+ }
+ Invert {
+  name Invert1
+  xpos -1076
+  ypos -351
+ }
+ Roto {
+  inputs 0
+  output alpha
+  curves {{{v x3f99999a}
+  {f 0}
+  {n
+   {layer Root
+    {f 2097152}
+    {t x44700000 x44070000}
+    {a pt1x 0 pt1y 0 pt2x 0 pt2y 0 pt3x 0 pt3y 0 pt4x 0 pt4y 0 ptex00 0 ptex01 0 ptex02 0 ptex03 0 ptex10 0 ptex11 0 ptex12 0 ptex13 0 ptex20 0 ptex21 0 ptex22 0 ptex23 0 ptex30 0 ptex31 0 ptex32 0 ptex33 0 ptof1x 0 ptof1y 0 ptof2x 0 ptof2y 0 ptof3x 0 ptof3y 0 ptof4x 0 ptof4y 0 pterr 0 ptrefset 0 ptmot x40800000 ptref 0}
+    {curvegroup Rectangle1 512 bezier
+     {{cc
+       {f 8192}
+       {px x447a4000
+        {0 xc4924000}
+        {xc5cb7000 x41c80000}
+        {x4576e000 0}
+        {xc576e000 0}
+        {x45a6e000 x41c80000}
+        {0 xc4924000}
+        {0 x44924000}
+        {x45a6e000 xc559d000}
+        {xc576e000 0}
+        {x4576e000 0}
+        {xc5cb7000 xc559d000}
+        {0 x44924000}}}
+      {cc
+       {f 8192}
+       {p
+        {{{x447a4000 0}}
+      {{x447a4000 xc4924000}}}
+        {{{x447a4000 0}}
+      {{x447a4000 0}}}
+        {{{x447a4000 x4576e000}}
+      {{x447a4000 0}}}
+        {{{x447a4000 xc576e000}}
+      {{x447a4000 0}}}
+        {{{x447a4000 0}}
+      {{x447a4000 0}}}
+        {{{x447a4000 0}}
+      {{x447a4000 xc4924000}}}
+        {{{x447a4000 0}}
+      {{x447a4000 x44924000}}}
+        {{{x447a4000 0}}
+      {{x447a4000 0}}}
+        {{{x447a4000 xc576e000}}
+      {{x447a4000 0}}}
+        {{{x447a4000 x4576e000}}
+      {{x447a4000 0}}}
+        {{{x447a4000 0}}
+      {{x447a4000 0}}}
+        {{{x447a4000 0}}
+      {{x447a4000 x44924000}}}}}}
+     {tx x447a4000 xc4124000 xc4e56000}
+     {a osw x41200000 osf 0 str 1 spx x44700000 spy x44070000 sb 1 ltn x447a4000 ltm x447a4000 tt x41000000}}
+    {curvegroup RectangleCusped1 512 bezier
+     {{cc
+       {f 8192}
+       {px x447a4000
+        {0 0}
+        {xc5b9f000 x45231000}
+        {0 0}
+        {0 0}
+        {x45870000 x45231000}
+        {0 0}
+        {0 0}
+        {x45870000 x45029000}
+        {0 0}
+        {0 0}
+        {xc5b9f000 x45029000}
+        {0 0}}}
+      {cc
+       {f 8192}
+       {p
+        {{{x447a4000 0}}
+      {{x447a4000 0}}}
+        {{{x447a4000 0}}
+      {{x447a4000 0}}}
+        {{{x447a4000 0}}
+      {{x447a4000 0}}}
+        {{{x447a4000 0}}
+      {{x447a4000 0}}}
+        {{{x447a4000 0}}
+      {{x447a4000 0}}}
+        {{{x447a4000 0}}
+      {{x447a4000 0}}}
+        {{{x447a4000 0}}
+      {{x447a4000 0}}}
+        {{{x447a4000 0}}
+      {{x447a4000 0}}}
+        {{{x447a4000 0}}
+      {{x447a4000 0}}}
+        {{{x447a4000 0}}
+      {{x447a4000 0}}}
+        {{{x447a4000 0}}
+      {{x447a4000 0}}}
+        {{{x447a4000 0}}
+      {{x447a4000 0}}}}}}
+     {tx x447a4000 xc44bc000 x45124000}
+     {a osw x41200000 osf 0 str 1 spx x44700000 spy x44070000 sb 1 ltn x447a4000 ltm x447a4000 tt x41100000}}}}}}
+  toolbox {selectAll {
+  { selectAll str 1 ssx 1 ssy 1 sf 1 }
+  { createBezier str 1 ssx 1 ssy 1 sf 1 sb 1 tt 4 }
+  { createBezierCusped str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { createBSpline str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { createEllipse str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { createRectangle str 1 ssx 1 ssy 1 sf 1 sb 1 tt 8 }
+  { createRectangleCusped str 1 ssx 1 ssy 1 sf 1 sb 1 tt 9 }
+  { brush str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { eraser src 2 str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { clone src 1 str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { reveal src 3 str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { dodge src 1 str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { burn src 1 str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { blur src 1 str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { sharpen src 1 str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { smear src 1 str 1 ssx 1 ssy 1 sf 1 sb 1 }
+} }
+  toolbar_brush_hardness 0.200000003
+  toolbar_source_transform_scale {1 1}
+  toolbar_source_transform_center {960 540}
+  colorOverlay {0 0 0 0}
+  lifetime_type "all frames"
+  lifetime_start 1001
+  lifetime_end 1001
+  motionblur_shutter_offset_type centred
+  source_black_outside true
+  name Roto2
+  xpos -1077
+  ypos -543
+ }
+push $Nd24d7000
+ Shuffle2 {
+  fromInput1 {{0} B}
+  fromInput2 {{0} B}
+  mappings "4 rgba.red 0 0 rgba.red 0 0 rgba.green 0 1 rgba.green 0 1 rgba.blue 0 2 rgba.blue 0 2 white -1 -1 rgba.alpha 0 3"
+  name Shuffle4
+  xpos -924
+  ypos -844
+ }
+ Reformat {
+  format "1920 1080 0 0 1920 1080 1 HD_1080"
+  name Reformat6
+  xpos -924
+  ypos -790
+ }
+ BlackOutside {
+  name BlackOutside2
+  xpos -924
+  ypos -732
+ }
+ Dot {
+  name Dot3
+  xpos -890
+  ypos -606
+ }
+ Merge2 {
+  inputs 2
+  operation stencil
+  bbox B
+  name Merge5
+  xpos -924
+  ypos -537
+ }
+ FrameHold {
+  name FrameHold2
+  xpos -924
+  ypos -471
+ }
+ Transform {
+  translate {532 284}
+  scale 0.438
+  center {1024 576}
+  name Transform3
+  xpos -924
+  ypos -393
+ }
+ Merge2 {
+  inputs 2
+  operation stencil
+  bbox B
+  name Merge6
+  xpos -924
+  ypos -345
+ }
+ Text2 {
+  font_size_toolbar 30
+  font_width_toolbar 100
+  font_height_toolbar 100
+  message "\[knob Show]"
+  old_message {{99 116 114 108}
+    }
+  old_expression_markers {{0 3}
+    }
+  box {185.25 1001 388.75 1042}
+  transforms {{0 2}
+    }
+  font_size_values {{0 30 1 30 2 30 3 30 0 85}
+    }
+  font {{ Arial : Regular : arial.ttf : 0 }}
+  font_size 30
+  center {960 540}
+  cursor_initialised true
+  autofit_bbox false
+  initial_cursor_position {{148 1083.5}
+    }
+  group_animations {{0} imported: 0 selected: items: "root transform/"}
+  animation_layers {{1 11 960 540 0 0 1 1 0 0 0 0}
+    }
+  name Show4
+  tile_color 0xffffff
+  xpos -924
+  ypos -295
+ }
+ Text2 {
+  font_size_toolbar 100
+  font_width_toolbar 100
+  font_height_toolbar 100
+  message "\[date %Y]-\[date %m]-\[date %d]"
+  old_message {{50 48 50 51 45 49 49 45 50 57}
+    }
+  old_expression_markers {{0 3 5 6 8 9}
+    }
+  box {185.5 865.5 648.5 897.5}
+  transforms {{0 2}
+    }
+  cursor_position 20
+  font {{ Arial : Regular : arial.ttf : 0 }}
+  global_font_scale 0.3
+  center {1024 576}
+  cursor_initialised true
+  autofit_bbox false
+  initial_cursor_position {{185.5 903.5}
+    }
+  group_animations {{0} imported: 0 selected: items: "root transform/"}
+  animation_layers {{1 11 1024 576 0 0 1 1 0 0 0 0}
+    }
+  name Text29
+  tile_color 0xff00ff
+  label date
+  xpos -924
+  ypos -243
+ }
+ Text2 {
+  font_size_toolbar 100
+  font_width_toolbar 100
+  font_height_toolbar 100
+  message "\[value first_frame] - \[value last_frame]\n"
+  old_message {{49 48 48 49 32 45 32 49 48 51 48 10}
+    }
+  old_expression_markers {{0 3 7 10}
+    }
+  box {1572.199951 233.1000061 1807.400024 264.1000061}
+  xjustify right
+  transforms {{0 2}
+    }
+  cursor_position 20
+  font {{ Arial : Regular : arial.ttf : 0 }}
+  global_font_scale 0.3
+  center {1024 576}
+  cursor_initialised true
+  autofit_bbox false
+  initial_cursor_position {{1654.900024 264.1000061}
+    }
+  group_animations {{0} imported: 0 selected: items: "root transform/"}
+  animation_layers {{1 11 1024 576 0 0 1 1 0 0 0 0}
+    }
+  name Text30
+  tile_color 0xff00ff
+  label "start and end frame"
+  xpos -924
+  ypos -192
+ }
+ Text2 {
+  font_size_toolbar 100
+  font_width_toolbar 100
+  font_height_toolbar 100
+  message "\[knob Episode]"
+  old_message {{91 107 110 111 98 32 69 112 105 115 111 100 101 93}
+    }
+  box {1529.800049 509.5 1893.800049 550.5}
+  xjustify right
+  yjustify center
+  transforms {{0 2}
+    }
+  font {{ Arial : Regular : arial.ttf : 0 }}
+  global_font_scale 0.3
+  center {1024 576}
+  cursor_initialised true
+  autofit_bbox false
+  initial_cursor_position {{1651.5 504}
+    }
+  group_animations {{0} imported: 0 selected: items: "root transform/"}
+  animation_layers {{1 11 1024 576 0 0 1 1 0 0 0 0}
+    }
+  name Episode
+  tile_color 0xffffff
+  label "Episode name"
+  xpos -924
+  ypos -145
+  disable true
+ }
+ Text2 {
+  font_size_toolbar 100
+  font_width_toolbar 100
+  font_height_toolbar 100
+  message "\[knob Seq]"
+  old_message {{82 48 52}
+    }
+  old_expression_markers {{0 2}
+    }
+  box {1529.800049 469.5 1893.800049 508.5}
+  xjustify right
+  yjustify center
+  transforms {{0 2}
+    }
+  font {{ Arial : Regular : arial.ttf : 0 }}
+  global_font_scale 0.3
+  center {1024 576}
+  cursor_initialised true
+  autofit_bbox false
+  initial_cursor_position {{1651.5 504}
+    }
+  group_animations {{0} imported: 0 selected: items: "root transform/"}
+  animation_layers {{1 11 1024 576 0 0 1 1 0 0 0 0}
+    }
+  name Sequence
+  tile_color 0xffffff
+  label "Seq name"
+  xpos -924
+  ypos -94
+ }
+ Text2 {
+  font_size_toolbar 100
+  font_width_toolbar 100
+  font_height_toolbar 100
+  message "\[knob Show]_\[knob Seq]_\[knob shot_name]"
+  old_message {{99 116 114 108 95 82 48 52 95 83 72 49 49 52 48}
+    }
+  old_expression_markers {{0 3 5 7 9 14}
+    }
+  box {1249.5 432.8999939 1893.800049 463.8999939}
+  xjustify right
+  yjustify center
+  transforms {{0 2}
+    }
+  cursor_position 11
+  font {{ Arial : Regular : arial.ttf : 0 }}
+  global_font_scale 0.3
+  center {1024 576}
+  cursor_initialised true
+  autofit_bbox false
+  initial_cursor_position {{1776.5 545.5}
+    }
+  group_animations {{0} imported: 0 selected: items: "root transform/"}
+  animation_layers {{1 11 1024 576 0 0 1 1 0 0 0 0}
+    }
+  name Text35
+  tile_color 0xff0000ff
+  label "shot name "
+  xpos -924
+  ypos -42
+ }
+ Text2 {
+  font_size_toolbar 100
+  font_width_toolbar 100
+  font_height_toolbar 100
+  message "\[knob Show]_\[knob Seq]_\[knob shot_name]_\[knob department]_\[knob version]"
+  old_message {{99 116 114 108 95 82 48 52 95 83 72 49 49 52 48 95 83 111 117 114 99 101 95 86 48 48 49}
+    }
+  old_expression_markers {{0 3 5 7 9 14 16 21 23 26}
+    }
+  box {184 931 1133 963.5}
+  yjustify center
+  transforms {{0 2}
+    }
+  cursor_position 57
+  font {{ Arial : Regular : arial.ttf : 0 }}
+  global_font_scale 0.3
+  center {1024 576}
+  cursor_initialised true
+  autofit_bbox false
+  initial_cursor_position {{1776.5 545.5}
+    }
+  group_animations {{0} imported: 0 selected: items: "root transform/"}
+  animation_layers {{1 11 1024 576 0 0 1 1 0 0 0 0}
+    }
+  name Text4
+  tile_color 0xff0000ff
+  label "shot name "
+  xpos -924
+  ypos -4
+ }
+ Text2 {
+  font_size_toolbar 100
+  font_width_toolbar 100
+  font_height_toolbar 100
+  message "\[knob version]"
+  old_message {{86 48 48 49}
+    }
+  old_expression_markers {{0 3}
+    }
+  box {1586 394.5 1894 425.5}
+  xjustify right
+  yjustify center
+  transforms {{0 2}
+    }
+  font {{ Arial : Regular : arial.ttf : 0 }}
+  global_font_scale 0.3
+  center {1024 576}
+  cursor_initialised true
+  autofit_bbox false
+  initial_cursor_position {{1776.5 545.5}
+    }
+  group_animations {{0} imported: 0 selected: items: "root transform/"}
+  animation_layers {{1 11 1024 576 0 0 1 1 0 0 0 0}
+    }
+  name Text2
+  tile_color 0xff0000ff
+  label "Version "
+  selected true
+  xpos -924
+  ypos 54
+ }
+ Text2 {
+  font_size_toolbar 100
+  font_width_toolbar 100
+  font_height_toolbar 100
+  message "\[knob department]"
+  old_message {{83 111 117 114 99 101}
+    }
+  old_expression_markers {{0 5}
+    }
+  box {184.8999939 794.5 525 828.5}
+  transforms {{0 2}
+    }
+  font {{ Arial : Regular : arial.ttf : 0 }}
+  global_font_scale 0.3
+  center {1024 576}
+  cursor_initialised true
+  autofit_bbox false
+  initial_cursor_position {{184.8999939 833.5}
+    }
+  group_animations {{0} imported: 0 selected: items: "root transform/"}
+  animation_layers {{1 11 1024 576 0 0 1 1 0 0 0 0}
+    }
+  name Text1
+  tile_color 0xff0000ff
+  label "shot type"
+  xpos -924
+  ypos 125
+ }
+ Text2 {
+  font_size_toolbar 100
+  font_width_toolbar 100
+  font_height_toolbar 100
+  message "\[knob scope_of_work]"
+  old_message {{78 73 76}
+    }
+  old_expression_markers {{0 2}
+    }
+  box {193.3500061 489.6000061 1110 606.2000122}
+  transforms {{0 2}
+    }
+  cursor_position 20
+  font {{ Arial : Regular : arial.ttf : 0 }}
+  global_font_scale 0.3
+  center {1024 576}
+  cursor_initialised true
+  autofit_bbox false
+  initial_cursor_position {{185.7000122 602.5}
+    }
+  group_animations {{0} imported: 0 selected: items: "root transform/"}
+  animation_layers {{1 11 1024 576 0 0 1 1 0 0 0 0}
+    }
+  name Text33
+  tile_color 0xff0000ff
+  label "scope of work"
+  xpos -924
+  ypos 179
+ }
+ Text2 {
+  font_size_toolbar 100
+  font_width_toolbar 100
+  font_height_toolbar 100
+  message "\[knob Artist]"
+  old_message {{80 67 71 73}
+    }
+  old_expression_markers {{0 3}
+    }
+  box {1455.168751 311.1124878 1892.831249 348.4874878}
+  xjustify right
+  yjustify center
+  transforms {{0 2}
+    }
+  font {{ Arial : Regular : arial.ttf : 0 }}
+  global_font_scale 0.3
+  center {1024 576}
+  cursor_initialised true
+  autofit_bbox false
+  initial_cursor_position {{185.7000122 602.5}
+    }
+  group_animations {{0} imported: 0 selected: items: "root transform/"}
+  animation_layers {{1 11 1024 576 0 0 1 1 0 0 0 0}
+    }
+  name Artist
+  tile_color 0xff0000ff
+  label Artist
+  xpos -924
+  ypos 227
+ }
+ Text2 {
+  font_size_toolbar 100
+  font_width_toolbar 100
+  font_height_toolbar 100
+  message "\[knob Submission_Note]"
+  old_message {{83 111 117 114 99 101 32 112 108 97 116 101}
+    }
+  old_expression_markers {{0 11}
+    }
+  box {184 54 1118 462.2000122}
+  transforms {{0 2}
+    }
+  cursor_position 22
+  font {{ Arial : Regular : arial.ttf : 0 }}
+  global_font_scale 0.3
+  center {1024 576}
+  cursor_initialised true
+  autofit_bbox false
+  initial_cursor_position {{185.7000122 602.5}
+    }
+  group_animations {{0} imported: 0 selected: items: "root transform/"}
+  animation_layers {{1 11 1024 576 0 0 1 1 0 0 0 0}
+    }
+  name Submission_Notes
+  tile_color 0xff0000ff
+  label "Submission Notes"
+  xpos -924
+  ypos 285
+ }
+ Text2 {
+  font_size_toolbar 100
+  font_width_toolbar 100
+  font_height_toolbar 100
+  message "\[knob Submitting_For]"
+  old_message {{83 111 117 114 99 101 32 112 108 97 116 101}
+    }
+  old_expression_markers {{0 11}
+    }
+  box {927 1010.5 1150 1041.5}
+  transforms {{0 2}
+    }
+  cursor_position 17
+  font {{ Arial : Regular : arial.ttf : 0 }}
+  global_font_scale 0.3
+  center {960 540}
+  cursor_initialised true
+  autofit_bbox false
+  initial_cursor_position {{0 1080}
+    }
+  group_animations {{0} imported: 0 selected: items: "root transform/"}
+  animation_layers {{1 11 960 540 0 0 1 1 0 0 0 0}
+    }
+  name Submitting__For
+  tile_color 0xffffff
+  xpos -924
+  ypos 347
+ }
+ Text2 {
+  font_size_toolbar 100
+  font_width_toolbar 100
+  font_height_toolbar 100
+  message ACES(RAW)
+  old_message {{65 67 69 83 40 82 65 87 41}
+    }
+  box {1710.300018 174.1000061 1848.50003 205.1000061}
+  xjustify right
+  yjustify center
+  transforms {{0 2}
+    }
+  cursor_position 9
+  font {{ Arial : Regular : arial.ttf : 0 }}
+  global_font_scale 0.3
+  scale {1 1}
+  cursor_initialised true
+  autofit_bbox false
+  initial_cursor_position {{1818.199951 226.6999969}
+    }
+  group_animations {{0} imported: 0 selected: items: "root transform"}
+  animation_layers {{1 11 1024 576 0 0 1 1 0 0 0 0}
+    }
+  name Episode1
+  tile_color 0xff0000ff
+  label "Colorspace "
+  xpos -924
+  ypos 401
+  disable true
+ }
+ Text2 {
+  font_size_toolbar 100
+  font_width_toolbar 100
+  font_height_toolbar 100
+  message "(\[expr \[value Input1.last_frame]-\[value Input1.first_frame]+1])"
+  old_message {{40 51 48 41}
+    }
+  old_expression_markers {{1 2}
+    }
+  box {1797.200073 234.6999969 1885.599975 265.699997}
+  xjustify right
+  transforms {{0 2}
+    }
+  font {{ Arial : Regular : arial.ttf : 0 }}
+  global_font_scale 0.3
+  center {1024 576}
+  cursor_initialised true
+  autofit_bbox false
+  initial_cursor_position {{1823.300049 265.3000031}
+    }
+  group_animations {{0} imported: 0 selected: items: "root transform/"}
+  animation_layers {{1 11 1024 576 0 0 1 1 0 0 0 0}
+    }
+  name Text34
+  tile_color 0xff0000ff
+  label duration
+  xpos -924
+  ypos 476
+ }
+ Text2 {
+  font_size_toolbar 100
+  font_width_toolbar 100
+  font_height_toolbar 100
+  message "ACES (RAW)"
+  old_message {{65 67 69 83 32 40 82 65 87 41}
+    }
+  box {1658 194 1870 230}
+  xjustify right
+  yjustify center
+  transforms {{0 2}
+    }
+  cursor_position 1
+  font {{ Arial : Regular : arial.ttf : 0 }}
+  global_font_scale 0.35
+  center {320 240}
+  cursor_initialised true
+  initial_cursor_position {{1870 212}
+    }
+  group_animations {{0} imported: 0 selected: items: "root transform/"}
+  animation_layers {{1 11 320 240 0 0 1 1 0 0 0 0}
+    }
+  name color
+  xpos -924
+  ypos 528
+ }
+ Reformat {
+  format "3840 2160 0 0 3840 2160 1 UHD_4K"
+  black_outside true
+  name Reformat1
+  xpos -924
+  ypos 602
+ }
+ Dot {
+  name Dot7
+  xpos -890
+  ypos 689
+ }
+ Roto {
+  inputs 0
+  output alpha
+  curves {{{v x3f99999a}
+  {f 0}
+  {n
+   {layer Root
+    {f 2097152}
+    {t x44800000 x44428000}
+    {a pt1x 0 pt1y 0 pt2x 0 pt2y 0 pt3x 0 pt3y 0 pt4x 0 pt4y 0 ptex00 0 ptex01 0 ptex02 0 ptex03 0 ptex10 0 ptex11 0 ptex12 0 ptex13 0 ptex20 0 ptex21 0 ptex22 0 ptex23 0 ptex30 0 ptex31 0 ptex32 0 ptex33 0 ptof1x 0 ptof1y 0 ptof2x 0 ptof2y 0 ptof3x 0 ptof3y 0 ptof4x 0 ptof4y 0 pterr 0 ptrefset 0 ptmot x40800000 ptref 0}
+    {curvegroup Rectangle1 512 bezier
+     {{cc
+       {f 8192}
+       {px 1
+        {0 xc11ccce0}
+        {x4491a667 x43e8e7ef}
+        {x41c77780 0}
+        {xc1c77780 0}
+        {x449b0001 x43e8e7ef}
+        {0 xc11ccce0}
+        {0 x411ccce0}
+        {x449b0000 x43db6666}
+        {xc1c77780 0}
+        {x41c77780 0}
+        {x4491a666 x43db6666}
+        {0 x411ccce0}}}
+      {cc
+       {f 8192}
+       {p
+        {{{1 0}}
+      {{1 xc11ccce0}}}
+        {{{1 0}}
+      {{1 0}}}
+        {{{1 x41c77780}}
+      {{1 0}}}
+        {{{1 xc1c77780}}
+      {{1 0}}}
+        {{{1 0}}
+      {{1 0}}}
+        {{{1 0}}
+      {{1 xc11ccce0}}}
+        {{{1 0}}
+      {{1 x411ccce0}}}
+        {{{1 0}}
+      {{1 0}}}
+        {{{1 xc1c77780}}
+      {{1 0}}}
+        {{{1 x41c77780}}
+      {{1 0}}}
+        {{{1 0}}
+      {{1 0}}}
+        {{{1 0}}
+      {{1 x411ccce0}}}}}}
+     {tx 1 x44965333 x43e2c000}
+     {a osw x41200000 osf 0 str 1 spx x44800000 spy x44428000 sb 1 tt x41000000}}}}}}
+  toolbox {selectAll {
+  { selectAll str 1 ssx 1 ssy 1 sf 1 }
+  { createBezier str 1 ssx 1 ssy 1 sf 1 sb 1 tt 4 }
+  { createBezierCusped str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { createBSpline str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { createEllipse str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { createRectangle str 1 ssx 1 ssy 1 sf 1 sb 1 tt 8 }
+  { createRectangleCusped str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { brush str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { eraser src 2 str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { clone src 1 str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { reveal src 3 str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { dodge src 1 str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { burn src 1 str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { blur src 1 str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { sharpen src 1 str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { smear src 1 str 1 ssx 1 ssy 1 sf 1 sb 1 }
+} }
+  toolbar_brush_hardness 0.200000003
+  toolbar_source_transform_scale {1 1}
+  toolbar_source_transform_center {1024 778}
+  colorOverlay {0 0 0 0}
+  lifetime_type "all frames"
+  motionblur_shutter_offset_type centred
+  source_black_outside true
+  name Roto3
+  xpos -1819
+  ypos 241
+ }
+ Roto {
+  inputs 0
+  output alpha
+  curves {{{v x3f99999a}
+  {f 0}
+  {n
+   {layer Root
+    {f 2097152}
+    {t x44800000 x44428000}
+    {a pt1x 0 pt1y 0 pt2x 0 pt2y 0 pt3x 0 pt3y 0 pt4x 0 pt4y 0 ptex00 0 ptex01 0 ptex02 0 ptex03 0 ptex10 0 ptex11 0 ptex12 0 ptex13 0 ptex20 0 ptex21 0 ptex22 0 ptex23 0 ptex30 0 ptex31 0 ptex32 0 ptex33 0 ptof1x 0 ptof1y 0 ptof2x 0 ptof2y 0 ptof3x 0 ptof3y 0 ptof4x 0 ptof4y 0 pterr 0 ptrefset 0 ptmot x40800000 ptref 0}
+    {curvegroup Rectangle1 512 bezier
+     {{cc
+       {f 8192}
+       {px 1
+        {0 xc122aac0}
+        {x4491c000 x4408c000}
+        {x42195560 0}
+        {xc2195560 0}
+        {x44a02000 x4408c000}
+        {0 xc122aac0}
+        {0 x4122aac0}
+        {x44a02000 x44012000}
+        {xc2195560 0}
+        {x42195560 0}
+        {x4491c000 x44012000}
+        {0 x4122aac0}}}
+      {cc
+       {f 8192}
+       {p
+        {{{1 0}}
+      {{1 xc122aac0}}}
+        {{{1 0}}
+      {{1 0}}}
+        {{{1 x42195560}}
+      {{1 0}}}
+        {{{1 xc2195560}}
+      {{1 0}}}
+        {{{1 0}}
+      {{1 0}}}
+        {{{1 0}}
+      {{1 xc122aac0}}}
+        {{{1 0}}
+      {{1 x4122aac0}}}
+        {{{1 0}}
+      {{1 0}}}
+        {{{1 xc2195560}}
+      {{1 0}}}
+        {{{1 x42195560}}
+      {{1 0}}}
+        {{{1 0}}
+      {{1 0}}}
+        {{{1 0}}
+      {{1 x4122aac0}}}}}}
+     {tx 1 x4498f000 x4404f000}
+     {a osw x41200000 osf 0 str 1 spx x44800000 spy x44428000 sb 1 tt x41000000}}}}}}
+  toolbox {selectAll {
+  { selectAll str 1 ssx 1 ssy 1 sf 1 }
+  { createBezier str 1 ssx 1 ssy 1 sf 1 sb 1 tt 4 }
+  { createBezierCusped str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { createBSpline str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { createEllipse str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { createRectangle str 1 ssx 1 ssy 1 sf 1 sb 1 tt 8 }
+  { createRectangleCusped str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { brush str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { eraser src 2 str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { clone src 1 str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { reveal src 3 str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { dodge src 1 str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { burn src 1 str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { blur src 1 str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { sharpen src 1 str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { smear src 1 str 1 ssx 1 ssy 1 sf 1 sb 1 }
+} }
+  toolbar_brush_hardness 0.200000003
+  toolbar_source_transform_scale {1 1}
+  toolbar_source_transform_center {1024 778}
+  colorOverlay {0 0 0 0}
+  lifetime_type "all frames"
+  motionblur_shutter_offset_type centred
+  source_black_outside true
+  name Roto4
+  xpos -1826
+  ypos 157
+ }
+ Input {
+  inputs 0
+  name PCGI_mov_slate_sRGB_D60sim
+  label "\nsRGB(D60 sim)"
+  xpos -2009
+  ypos -311
+  number 1
+ }
+ Shuffle2 {
+  fromInput1 {{0} B}
+  fromInput2 {{0} B}
+  mappings "4 rgba.red 0 0 rgba.red 0 0 rgba.green 0 1 rgba.green 0 1 rgba.blue 0 2 rgba.blue 0 2 white -1 -1 rgba.alpha 0 3"
+  name Shuffle3
+  xpos -2009
+  ypos -197
+ }
+ Dot {
+  name Dot16
+  xpos -1975
+  ypos 15
+ }
+ TransformMasked {
+  inputs 1+1
+  translate {-120 0}
+  center {1024 778}
+  name Transform1
+  xpos -2009
+  ypos 157
+ }
+ TransformMasked {
+  inputs 1+1
+  translate {0 -4}
+  center {1024 778}
+  name Transform2
+  xpos -2009
+  ypos 241
+ }
+ Text2 {
+  font_size_toolbar 100
+  font_width_toolbar 100
+  font_height_toolbar 100
+  opacity 0.8
+  message Episode:
+  old_message {{69 112 105 115 111 100 101 58}
+    }
+  box {1169 519.5 1283 540.5}
+  yjustify center
+  transforms {{0 2}
+    }
+  cursor_position 4
+  font {{ Arial : Regular : arial.ttf : 0 }}
+  global_font_scale 0.2
+  center {2048 1716}
+  cursor_initialised true
+  autofit_bbox false
+  initial_cursor_position {{1168 530}
+    }
+  group_animations {{0} imported: 0 selected: items: "root transform/"}
+  animation_layers {{1 11 2048 1716 0 0 1 1 0 0 0 0}
+    }
+  color {0.5500000119 0.5699999928 0.5900000334 1}
+  name Text3
+  xpos -2009
+  ypos 336
+  disable true
+ }
+ Text2 {
+  font_size_toolbar 100
+  font_width_toolbar 100
+  font_height_toolbar 100
+  opacity 0.8
+  message Sequence:
+  old_message {{83 101 113 117 101 110 99 101 58}
+    }
+  box {1169 479.5 1283 500.5}
+  yjustify center
+  transforms {{0 2}
+    }
+  kern_values {{8 0 0 0}
+    }
+  tracking_values {{1 0 2 0 3 0 4 0 5 0 6 0 7 0 8 0}
+    }
+  baseline_values {{0 0 1 0 2 0 3 0 4 0 5 0 6 0 7 0 8 0}
+    }
+  font {{ Arial : Regular : arial.ttf : 0 }}
+  global_font_scale 0.2
+  scale {1 1}
+  center {2048 1716}
+  cursor_initialised true
+  autofit_bbox false
+  initial_cursor_position {{1168 530}
+    }
+  group_animations {{0} imported: 0 selected: items: "root transform/"}
+  animation_layers {{1 11 2048 1716 0 0 1 1 0 0 0 0}
+    }
+  color {0.5500000119 0.5699999928 0.5900000334 1}
+  name Text5
+  xpos -2009
+  ypos 389
+ }
+ Reformat {
+  format "3840 2160 0 0 3840 2160 1 UHD_4K"
+  black_outside true
+  name Reformat7
+  xpos -2009
+  ypos 458
+ }
+ Merge2 {
+  inputs 2
+  name Merge2
+  xpos -2009
+  ypos 685
+ }
+ Dot {
+  name Dot1
+  xpos -1975
+  ypos 800
+ }
+push $Nd258e000
+ Crop {
+  box {{curve} {"(height-((width*pixel_aspect)/(\[knob Aspect])))/2"} {width} {"height-((height-(width*pixel_aspect)/(\[knob Aspect]))/2)"}}
+  name HardMask
+  xpos -260
+  ypos -811
+ }
+ Shuffle2 {
+  fromInput1 {{0} B}
+  fromInput2 {{0} B}
+  mappings "4 rgba.red 0 0 rgba.red 0 0 rgba.green 0 1 rgba.green 0 1 rgba.blue 0 2 rgba.blue 0 2 white -1 -1 rgba.alpha 0 3"
+  name Shuffle1
+  xpos -260
+  ypos -666
+ }
+ Reformat {
+  format "3840 2160 0 0 3840 2160 1 UHD_4K"
+  filter Lanczos6
+  black_outside true
+  name Reformat5
+  xpos -260
+  ypos -616
+ }
+ Merge2 {
+  inputs 2
+  name Merge1
+  xpos -260
+  ypos 797
+ }
+ Dot {
+  name Dot4
+  xpos -226
+  ypos 1023
+ }
+ Switch {
+  inputs 2
+  which {{curve x1000 0 1}}
+  name Switch1
+  xpos -260
+  ypos 1269
+ }
+set Nd1d76000 [stack 0]
+ Output {
+  name Output1
+  xpos -260
+  ypos 1687
+ }
+push $Nd258f400
+ Group {
+  name Netflix_MEI_Overlay_CompGraded1
+  help "Applies a text burn-in to the media.\n\nUp to 6 pieces of metadata can be added to the shot"
+  tile_color 0xac0000ff
+  xpos 133
+  ypos 1184
+  addUserKnob {20 burnIn_tab l BurnIn}
+  addUserKnob {19 burnIn_color l color t "The text color"}
+  burnIn_color {1 0 0 1}
+  addUserKnob {6 burnIn_color_panelDropped l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 burnIn_color_panelDropped_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 burnIn_color_panelDropped_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 burnIn_color_panelDropped_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 burnIn_color_panelDropped_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 burnIn_color_panelDropped_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 burnIn_color_panelDropped_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 burnIn_color_panelDropped_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 burnIn_color_panelDropped_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 burnIn_color_panelDropped_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 burnIn_color_panelDropped_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 burnIn_color_panelDropped_1_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 burnIn_color_panelDropped_1_1_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 burnIn_color_panelDropped_1_1_1_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 burnIn_color_panelDropped_1_1_1_1_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 burnIn_color_panelDropped_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 burnIn_color_panelDropped_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 burnIn_color_panelDropped_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 burnIn_color_panelDropped_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 burnIn_color_panelDropped_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 burnIn_color_panelDropped_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 burnIn_color_panelDropped_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 burnIn_color_panelDropped_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 burnIn_color_panelDropped_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 burnIn_color_panelDropped_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 burnIn_color_panelDropped_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 burnIn_color_panelDropped_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 burnIn_color_panelDropped_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 burnIn_color_panelDropped_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 burnIn_color_panelDropped_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 burnIn_color_panelDropped_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 burnIn_color_panelDropped_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 burnIn_color_panelDropped_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 burnIn_color_panelDropped_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 burnIn_color_panelDropped_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 burnIn_color_panelDropped_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 burnIn_color_panelDropped_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 burnIn_color_panelDropped_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 burnIn_color_panelDropped_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 burnIn_color_panelDropped_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 burnIn_color_panelDropped_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 burnIn_color_panelDropped_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 burnIn_color_panelDropped_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 burnIn_color_panelDropped_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {7 burnIn_opacity l opacity t "The text opacity"}
+  burnIn_opacity 1
+  addUserKnob {7 burnIn_xPadding l x-padding t "The distance between the Burn-in text and the left and right image borders" R 10 100}
+  burnIn_xPadding 1
+  addUserKnob {7 burnIn_yPadding l y-padding t "The distance between the Burn-in text and the top and bottom image borders" R 10 100}
+  burnIn_yPadding 1
+  addUserKnob {84 burnIn_font l font}
+  burnIn_font {{ Malgun Gothic : Regular : malgun.ttf : 0 }}
+  addUserKnob {84 fixed_width_font l "frame counter fixed width font" t "Frame counters need fixed width fonts to prevent the text from \"wiggling.\"\n\nSet this to a valid ideally sans-serif fixed width font."}
+  fixed_width_font {{ Malgun Gothic : Regular : malgun.ttf : 0 }}
+  addUserKnob {7 burnIn_textScale l "text scale" R 0 2}
+  burnIn_textScale 0.76
+  addUserKnob {26 ""}
+  addUserKnob {1 topleft l Vendor}
+  topleft "philm cgi"
+  addUserKnob {1 topcenter l "Show Code"}
+  topcenter "\[knob Show]"
+  addUserKnob {1 topright l Date}
+  topright "\[date %Y-%m-%d]"
+  addUserKnob {1 bottomleft l "Version Name"}
+  bottomleft "\[knob Show]_\[knob Episode]_\[knob Seq]_\[knob shot_name]_\[knob department]_PCGI_v\[knob version]"
+  addUserKnob {1 bottomcenter l "bottom center" +INVISIBLE}
+  addUserKnob {1 bottomright l "Frame Counter"}
+  bottomright "\[value first_frame]-\[frame]-\[value last_frame]"
+  addUserKnob {20 Background}
+  addUserKnob {6 burnIn_backgroundEnable l enable t "Enable a background for the Burn-in text. A background will be applied to each Burn-in field" -STARTLINE}
+  burnIn_backgroundEnable true
+  addUserKnob {19 burnIn_backgroundColor l color t "The background color"}
+  burnIn_backgroundColor {0 0 0 1}
+  addUserKnob {6 burnIn_backgroundColor_panelDropped l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 burnIn_backgroundColor_panelDropped_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 burnIn_backgroundColor_panelDropped_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 burnIn_backgroundColor_panelDropped_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 burnIn_backgroundColor_panelDropped_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 burnIn_backgroundColor_panelDropped_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 burnIn_backgroundColor_panelDropped_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 burnIn_backgroundColor_panelDropped_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 burnIn_backgroundColor_panelDropped_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 burnIn_backgroundColor_panelDropped_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 burnIn_backgroundColor_panelDropped_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 burnIn_backgroundColor_panelDropped_1_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 burnIn_backgroundColor_panelDropped_1_1_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 burnIn_backgroundColor_panelDropped_1_1_1_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 burnIn_backgroundColor_panelDropped_1_1_1_1_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 burnIn_backgroundColor_panelDropped_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 burnIn_backgroundColor_panelDropped_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 burnIn_backgroundColor_panelDropped_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 burnIn_backgroundColor_panelDropped_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 burnIn_backgroundColor_panelDropped_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 burnIn_backgroundColor_panelDropped_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 burnIn_backgroundColor_panelDropped_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 burnIn_backgroundColor_panelDropped_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 burnIn_backgroundColor_panelDropped_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 burnIn_backgroundColor_panelDropped_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 burnIn_backgroundColor_panelDropped_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 burnIn_backgroundColor_panelDropped_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 burnIn_backgroundColor_panelDropped_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 burnIn_backgroundColor_panelDropped_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 burnIn_backgroundColor_panelDropped_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 burnIn_backgroundColor_panelDropped_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 burnIn_backgroundColor_panelDropped_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 burnIn_backgroundColor_panelDropped_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 burnIn_backgroundColor_panelDropped_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 burnIn_backgroundColor_panelDropped_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 burnIn_backgroundColor_panelDropped_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 burnIn_backgroundColor_panelDropped_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 burnIn_backgroundColor_panelDropped_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 burnIn_backgroundColor_panelDropped_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 burnIn_backgroundColor_panelDropped_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 burnIn_backgroundColor_panelDropped_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 burnIn_backgroundColor_panelDropped_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 burnIn_backgroundColor_panelDropped_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 burnIn_backgroundColor_panelDropped_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1_1 l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {7 burnIn_backgroundOpacity l opacity t "The background opacity"}
+  addUserKnob {7 burnIn_backgroundXBorder l x-border t "The distance between the background and the left and right edges of the text. This can be used to adjust the size of the background in the x-direction" R 0 50}
+  burnIn_backgroundXBorder 10
+  addUserKnob {7 burnIn_backgroundYBorder l y-border t "The distance between the background and the top and bottom edges of the text. This can be used to adjust the size of the background in the y-direction" R 0 50}
+  burnIn_backgroundYBorder 5
+  addUserKnob {41 message +INVISIBLE T Text_TM.message}
+ }
+  Input {
+   inputs 0
+   name Input1
+   xpos -703
+   ypos 22
+  }
+  Dot {
+   name Dot2
+   xpos -669
+   ypos 73
+  }
+  Text2 {
+   font_size_toolbar 100
+   font_width_toolbar 100
+   font_height_toolbar 100
+   opacity {{parent.burnIn_opacity}}
+   message "\[value parent.topleft]"
+   old_message {{112 104 105 108 109 32 99 103 105}
+     }
+   old_expression_markers {{0 8}
+     }
+   box {{parent.burnIn_xPadding} {parent.burnIn_yPadding} {"width - parent.burnIn_xPadding"} {"height - parent.burnIn_yPadding"}}
+   transforms {{0 2}
+     }
+   font {[value parent.burnIn_font]}
+   global_font_scale {{parent.burnIn_textScale}}
+   scale {1 1}
+   cursor_initialised true
+   autofit_bbox false
+   initial_cursor_position {{0 1556}
+     }
+   group_animations {{0} imported: 0 selected: items: "root transform/"}
+   animation_layers {{1 11 1024 778 0 0 1 1 0 0 0 0}
+     }
+   color {{parent.burnIn_color} {parent.burnIn_color} {parent.burnIn_color} {parent.burnIn_color}}
+   enable_background {{parent.burnIn_backgroundEnable}}
+   background_color {{parent.burnIn_backgroundColor} {parent.burnIn_backgroundColor} {parent.burnIn_backgroundColor} {parent.burnIn_backgroundColor}}
+   background_opacity {{burnIn_backgroundOpacity}}
+   background_border_x {{parent.burnIn_backgroundXBorder}}
+   background_border_y {{parent.burnIn_backgroundYBorder}}
+   name Text_TL
+   xpos -703
+   ypos 123
+  }
+  Text2 {
+   font_size_toolbar 100
+   font_width_toolbar 100
+   font_height_toolbar 100
+   opacity {{parent.burnIn_opacity}}
+   message "\[value parent.topcenter]"
+   old_message {{99 116 114 108}
+     }
+   old_expression_markers {{0 3}
+     }
+   box {{parent.burnIn_xPadding x1001 10 x1260 14.7} {parent.burnIn_yPadding x1001 -4 x1260 12.3} {"width - parent.burnIn_xPadding" x1001 1910 x1260 2057} {"height - parent.burnIn_yPadding" x1001 1072 x1260 1139.7}}
+   xjustify center
+   transforms {{0 2}
+     }
+   cursor_position 24
+   font {[value parent.burnIn_font]}
+   global_font_scale {{parent.burnIn_textScale}}
+   translate {12 0}
+   scale {1 1}
+   cursor_initialised true
+   autofit_bbox false
+   initial_cursor_position {{0 1556}
+     }
+   group_animations {{0} imported: 0 selected: items: "root transform/"}
+   animation_layers {{1 11 1024 778 0 0 1 1 0 0 0 0}
+     }
+   color {{parent.burnIn_color} {parent.burnIn_color} {parent.burnIn_color} {parent.burnIn_color}}
+   enable_background {{parent.burnIn_backgroundEnable}}
+   background_color {{parent.burnIn_backgroundColor} {parent.burnIn_backgroundColor} {parent.burnIn_backgroundColor} {parent.burnIn_backgroundColor}}
+   background_opacity {{burnIn_backgroundOpacity}}
+   background_border_x {{parent.burnIn_backgroundXBorder}}
+   background_border_y {{parent.burnIn_backgroundYBorder}}
+   name Text_TM
+   xpos -539
+   ypos 123
+  }
+  Text2 {
+   font_size_toolbar 100
+   font_width_toolbar 100
+   font_height_toolbar 100
+   opacity {{parent.burnIn_opacity}}
+   message "\[value parent.topright]"
+   old_message {{50 48 50 51 45 49 49 45 50 56}
+     }
+   old_expression_markers {{0 9}
+     }
+   box {{parent.burnIn_xPadding} {parent.burnIn_yPadding} {"width - parent.burnIn_xPadding"} {"height - parent.burnIn_yPadding"}}
+   xjustify right
+   transforms {{0 2}
+     }
+   cursor_position 23
+   font {[value parent.burnIn_font]}
+   global_font_scale {{parent.burnIn_textScale}}
+   scale {1 1}
+   cursor_initialised true
+   autofit_bbox false
+   initial_cursor_position {{0 1556}
+     }
+   group_animations {{0} imported: 0 selected: items: "root transform/"}
+   animation_layers {{1 11 1024 778 0 0 1 1 0 0 0 0}
+     }
+   color {{parent.burnIn_color} {parent.burnIn_color} {parent.burnIn_color} {parent.burnIn_color}}
+   enable_background {{parent.burnIn_backgroundEnable}}
+   background_color {{parent.burnIn_backgroundColor} {parent.burnIn_backgroundColor} {parent.burnIn_backgroundColor} {parent.burnIn_backgroundColor}}
+   background_opacity {{burnIn_backgroundOpacity}}
+   background_border_x {{parent.burnIn_backgroundXBorder}}
+   background_border_y {{parent.burnIn_backgroundYBorder}}
+   name Text_TR
+   xpos -364
+   ypos 123
+  }
+  Text2 {
+   font_size_toolbar 100
+   font_width_toolbar 100
+   font_height_toolbar 100
+   opacity {{parent.burnIn_opacity}}
+   message "\[value parent.bottomleft]"
+   old_message {{69 112 105 115 111 100 101 32 105 115 32 110 111 116 32 97 32 107 110 111 98}
+     }
+   old_expression_markers {{0 20}
+     }
+   box {{parent.burnIn_xPadding} {parent.burnIn_yPadding} {"width - parent.burnIn_xPadding"} {"height - parent.burnIn_yPadding"}}
+   yjustify bottom
+   transforms {{0 2}
+     }
+   cursor_position 25
+   font {[value parent.burnIn_font]}
+   global_font_scale {{parent.burnIn_textScale}}
+   scale {1 1}
+   cursor_initialised true
+   autofit_bbox false
+   initial_cursor_position {{0 1556}
+     }
+   group_animations {{0} imported: 0 selected: items: "root transform/"}
+   animation_layers {{1 11 1024 778 0 0 1 1 0 0 0 0}
+     }
+   color {{parent.burnIn_color} {parent.burnIn_color} {parent.burnIn_color} {parent.burnIn_color}}
+   enable_background {{parent.burnIn_backgroundEnable}}
+   background_color {{parent.burnIn_backgroundColor} {parent.burnIn_backgroundColor} {parent.burnIn_backgroundColor} {parent.burnIn_backgroundColor}}
+   background_opacity {{burnIn_backgroundOpacity}}
+   background_border_x {{parent.burnIn_backgroundXBorder}}
+   background_border_y {{parent.burnIn_backgroundYBorder}}
+   name Text_BL
+   xpos -705
+   ypos 219
+  }
+  Text2 {
+   font_size_toolbar 100
+   font_width_toolbar 100
+   font_height_toolbar 100
+   opacity {{parent.burnIn_opacity}}
+   message "\[value parent.bottomcenter]"
+   old_expression_markers {{0 -1}
+     }
+   box {{parent.burnIn_xPadding} {parent.burnIn_yPadding} {"width - parent.burnIn_xPadding"} {"height - parent.burnIn_yPadding"}}
+   xjustify center
+   yjustify bottom
+   transforms {{0 2}
+     }
+   cursor_position 27
+   font {[value parent.burnIn_font]}
+   global_font_scale {{parent.burnIn_textScale}}
+   scale {1 1}
+   cursor_initialised true
+   autofit_bbox false
+   initial_cursor_position {{0 1556}
+     }
+   group_animations {{0} imported: 0 selected: items: "root transform/"}
+   animation_layers {{1 11 1024 778 0 0 1 1 0 0 0 0}
+     }
+   color {{parent.burnIn_color} {parent.burnIn_color} {parent.burnIn_color} {parent.burnIn_color}}
+   enable_background {{parent.burnIn_backgroundEnable}}
+   background_color {{parent.burnIn_backgroundColor} {parent.burnIn_backgroundColor} {parent.burnIn_backgroundColor} {parent.burnIn_backgroundColor}}
+   background_opacity {{burnIn_backgroundOpacity}}
+   background_border_x {{parent.burnIn_backgroundXBorder}}
+   background_border_y {{parent.burnIn_backgroundYBorder}}
+   name Text_BM
+   xpos -542
+   ypos 219
+  }
+  Text2 {
+   font_size_toolbar 100
+   font_width_toolbar 100
+   font_height_toolbar 100
+   opacity {{parent.burnIn_opacity}}
+   message "\[value parent.bottomright]"
+   old_message {{49 48 48 49 45 49 51 53 45 49 51 54 51}
+     }
+   old_expression_markers {{0 12}
+     }
+   box {{parent.burnIn_xPadding} {parent.burnIn_yPadding} {"width - parent.burnIn_xPadding"} {"height - parent.burnIn_yPadding"}}
+   xjustify right
+   yjustify bottom
+   transforms {{0 2}
+     }
+   cursor_position 26
+   font {[value parent.fixed_width_font]}
+   global_font_scale {{parent.burnIn_textScale}}
+   scale {1 1}
+   cursor_initialised true
+   autofit_bbox false
+   initial_cursor_position {{0 1556}
+     }
+   group_animations {{0} imported: 0 selected: items: "root transform/"}
+   animation_layers {{1 11 1024 778 0 0 1 1 0 0 0 0}
+     }
+   color {{parent.burnIn_color} {parent.burnIn_color} {parent.burnIn_color} {parent.burnIn_color}}
+   enable_background {{parent.burnIn_backgroundEnable}}
+   background_color {{parent.burnIn_backgroundColor} {parent.burnIn_backgroundColor} {parent.burnIn_backgroundColor} {parent.burnIn_backgroundColor}}
+   background_opacity {{burnIn_backgroundOpacity}}
+   background_border_x {{parent.burnIn_backgroundXBorder}}
+   background_border_y {{parent.burnIn_backgroundYBorder}}
+   name Text_BR
+   xpos -358
+   ypos 219
+  }
+  Output {
+   name Output1
+   xpos -358
+   ypos 323
+  }
+ end_group
+push $Nd1d76000
+ Viewer {
+  frame_range 1-335
+  name Viewer1
+  xpos -2009
+  ypos 413
+ }
+end_group

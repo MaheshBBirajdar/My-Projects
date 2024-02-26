@@ -3,6 +3,45 @@ import pixelfudger
 import OSTools
 import dDot
 import DeadlineNukeClient
+import os
+import autosave
+from nodeauto import *
+from Send_to_Dailies import *
+
+
+nuke.menu("Nuke").addCommand("File/Automatic Save", "save_composite()", "ctrl+w")
+
+# Send to dailies
+menubar = nuke.menu('Nuke') 
+dailies_menubar = menubar.addMenu('Send To Dailies')
+dailies_menubar.addCommand('Send To Dailies', SendDailies )
+
+
+##currentframe FrameHold##
+nuke.addOnUserCreate(lambda:nuke.thisNode()['first_frame'].setValue(nuke.frame()), nodeClass='FrameHold')
+
+##auto operation in merge##
+mergeMenu = nuke.menu('Nodes').findItem("Merge/Merges")
+mergeMenu.addCommand('Stencil', 'nuke.createNode("Merge2", "operation stencil")', "alt+m", shortcutContext=2)
+mergeMenu.addCommand('Mask', 'nuke.createNode("Merge2", "operation mask")', "ctrl+m", shortcutContext=2)
+
+##value of shuffle in shuffle label##
+nuke.addOnUserCreate(lambda:nuke.thisNode()['label'].setValue("[value in1] > [value out1]"), nodeClass='Shuffle2')
+
+##value of setframe in tracker##
+nuke.addOnUserCreate(lambda:nuke.thisNode()['label'].setValue("[value transform]\n[value reference_frame]"), nodeClass='Tracker4')
+
+##motionblur centered##
+nuke.knobDefault ('shutteroffset',"centered")
+
+##read node alpha to 1##
+nuke.knobDefault ('Read.auto_alpha',"1")
+
+
+
+
+
+
 
 menubar = nuke.menu("Nuke")
 tbmenu = menubar.addMenu("&Deadline")
@@ -18,7 +57,7 @@ except:
 
 
 nuke.pluginAddPath('./Icons')
-gizmo_directory = '/core/SlateX/Reference/NukeGlobal/NukeSharedNew/OSTool'
+gizmo_directory = '/core/SlateX/Reference/NukeGlobal/NukeSharedNew/OSTools'
 
 toolbar = nuke.menu('Nodes')
 OSToolsToolbar = toolbar.addMenu('OSTools' , icon = 'os.png')
@@ -311,3 +350,31 @@ OSMenuToolbar.addCommand("dDot/dDotGrabParentName", "dDot.dDotGrabParentName()",
 #dDotSelectChildren
 OSMenuToolbar.addCommand("dDot/dDotSelectChildren", "dDot.dDotSelectChildren()")
 #OSMenuMenu.addCommand("dDot/dDotSelectChildren", "dDot.dDotSelectChildren()")
+
+
+
+
+custom_nodes_path = "/core/SlateX/Reference/NukeGlobal/NukeSharedNew/Nodes/toolset-master"
+
+if os.path.exists(custom_nodes_path):
+    custom_node_files = [f for f in os.listdir(custom_nodes_path) if f.endswith(".nk")]
+    custom_menu = nuke.menu("Nodes").addMenu("Toolset-Master")
+
+    for node_file in custom_node_files:
+        node_name = os.path.splitext(node_file)[0]
+        node_path = os.path.join(custom_nodes_path, node_file)
+        custom_menu.addCommand(node_name, 'nuke.createNode("{}")'.format(node_path))
+else:
+    print("Custom nodes path not found:", custom_nodes_path)
+
+
+
+
+
+
+
+
+
+
+
+
