@@ -22,3 +22,11 @@ nuke.pluginAddPath('/core/SlateX/Reference/NukeGlobal/NukeSharedNew/Baselight_fo
 #nuke.knobDefault ('filter','Lanczos6')
 nuke.knobDefault ('filter','cubic')
 
+
+
+username = os.getenv('USER')
+nuke_version = nuke.NUKE_VERSION_MAJOR
+message = "Hello {}, Welcome to Nuke {}\n".format(username, nuke_version)
+nuke.message(message)
+
+

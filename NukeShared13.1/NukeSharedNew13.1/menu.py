@@ -9,6 +9,16 @@ from nodeauto import *
 from Send_to_Dailies import *
 
 
+
+def welcome_message():
+    nuke_version = nuke.NUKE_VERSION_STRING
+    print("Welcome to Nuke!")
+    print("Current Nuke version:", nuke_version)
+nuke.addOnUserCreate(welcome_message)
+
+
+
+
 nuke.menu("Nuke").addCommand("File/Automatic Save", "save_composite()", "ctrl+w")
 
 # Send to dailies
